@@ -1,20 +1,17 @@
 :root {
   color-scheme: light;
-  --ink: #081322;
-  --text: #2b3548;
-  --muted: #768294;
-  --soft: #f4f7f9;
-  --line: #dfe6ee;
+  --ink: #0e1726;
+  --ink-2: #243049;
+  --mute: #9aa3bc;
+  --body: #f4f6f8;
+  --line: #e7eaf0;
   --card: #ffffff;
-  --mint: #11c9ad;
-  --mint-soft: #d8fbf2;
-  --violet: #7658f7;
-  --violet-soft: #eee9ff;
-  --gold: #ffb000;
-  --blue: #2f7bd9;
-  --danger: #ef4444;
-  --shadow: 0 34px 90px rgba(15, 23, 42, 0.16);
-  --stage-pad: clamp(0px, 2.4vmin, 32px);
+  --primary: #06c9a0;
+  --secondary: #7b61ff;
+  --warning: #f59e0b;
+  --danger: #e75d72;
+  --shadow: 0 30px 70px rgba(14, 23, 38, 0.12);
+  --stage-pad: clamp(10px, 3vmin, 38px);
 }
 
 * {
@@ -24,9 +21,11 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f7f8f6;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(123, 97, 255, 0.08), transparent 38%),
+    linear-gradient(135deg, #f8fbff 0%, #eef6ff 100%);
   color: var(--ink);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 button {
@@ -41,8 +40,8 @@ button {
   overflow: hidden;
   padding: clamp(20px, 4vmin, 48px);
   background:
-    radial-gradient(circle at 18% 20%, rgba(17, 201, 173, 0.22), transparent 28%),
-    radial-gradient(circle at 80% 24%, rgba(118, 88, 247, 0.22), transparent 26%),
+    radial-gradient(circle at 18% 20%, rgba(6, 201, 160, 0.22), transparent 28%),
+    radial-gradient(circle at 80% 24%, rgba(123, 97, 255, 0.22), transparent 26%),
     linear-gradient(135deg, #08111f 0%, #11172a 45%, #070b13 100%);
   color: white;
 }
@@ -68,8 +67,8 @@ button {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--mint);
-  box-shadow: 0 0 28px var(--mint);
+  background: var(--primary);
+  box-shadow: 0 0 28px var(--primary);
   animation: drift 8s ease-in-out infinite;
 }
 
@@ -95,15 +94,19 @@ button {
   text-align: right;
 }
 
+.data-counter span,
+.attention-kicker {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .data-counter span {
   display: block;
   margin-bottom: 4px;
   color: #ffaaa8;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: clamp(8px, 1.1vmin, 11px);
-  font-weight: 800;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
 }
 
 .data-counter strong {
@@ -120,11 +123,8 @@ button {
 
 .attention-kicker {
   color: #aeb8ce;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: clamp(10px, 1.25vmin, 13px);
-  font-weight: 800;
   letter-spacing: 0.22em;
-  text-transform: uppercase;
 }
 
 .attention-copy h1 {
@@ -151,12 +151,12 @@ button {
   border: 0;
   border-radius: 999px;
   padding: clamp(14px, 1.8vmin, 18px) clamp(26px, 3.6vmin, 38px);
-  background: linear-gradient(120deg, var(--mint), #8af0df);
+  background: linear-gradient(120deg, var(--primary), #8af0df);
   color: #06121d;
   font-size: clamp(15px, 1.7vmin, 18px);
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 18px 46px rgba(17, 201, 173, 0.34);
+  box-shadow: 0 18px 46px rgba(6, 201, 160, 0.34);
 }
 
 .start-button:hover,
@@ -173,266 +173,223 @@ button {
 }
 
 .app-shell {
-  --shell-pad: clamp(16px, 4cqw, 48px);
-  --topbar-h: clamp(128px, 24cqh, 205px);
-  --scorebar-h: clamp(58px, 13cqh, 140px);
-  position: relative;
-  container-type: size;
-  width: min(100%, 1440px);
-  height: calc(100dvh - (var(--stage-pad) * 2));
-  min-height: 0;
-  overflow: hidden;
+  width: min(100%, 760px, calc((100dvh - (var(--stage-pad) * 2)) * 0.783));
+  min-width: 300px;
+  aspect-ratio: 760 / 971;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  border-radius: clamp(0px, 2.6cqw, 32px);
-  background: var(--soft);
+  grid-template-rows: 150fr minmax(0, 731fr) 90fr;
+  overflow: hidden;
+  border-radius: clamp(18px, 3.4vw, 26px);
+  background: var(--card);
   box-shadow: var(--shadow);
 }
 
-.topbar {
-  position: relative;
-  min-height: var(--topbar-h);
-  padding: clamp(16px, 4cqh, 34px) var(--shell-pad) clamp(12px, 2.7cqh, 24px);
-  background:
-    radial-gradient(42% 100% at 8% 0%, var(--mint-soft) 0%, var(--mint-soft) 56%, transparent 57%),
-    radial-gradient(46% 130% at 100% 0%, var(--violet-soft) 0%, var(--violet-soft) 55%, transparent 56%),
-    #ffffff;
+.game-header {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px 30px 26px;
+  color: white;
+  background: linear-gradient(106deg, #06c9a0 0%, #3f93e0 70%, #7b61ff 100%);
 }
 
-.header-main {
+.header-row,
+.scene-row {
   display: flex;
   align-items: center;
-  gap: clamp(12px, 2cqw, 24px);
-  padding-right: clamp(190px, 27cqw, 330px);
+  justify-content: space-between;
+  gap: 14px;
 }
 
-.ai-mark {
-  position: relative;
-  flex: 0 0 auto;
-  width: clamp(44px, 6cqh, 62px);
-  height: clamp(44px, 6cqh, 62px);
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 25px;
+  white-space: nowrap;
+}
+
+.brand-mark {
+  width: 18px;
+  height: 22px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: var(--mint);
-  color: white;
-  font-size: clamp(15px, 2.1cqh, 20px);
+  border-radius: 9px 9px 12px 12px;
+  background: #ffffff;
+  color: var(--primary);
+  font-size: 12px;
   font-weight: 800;
 }
 
-.ai-mark i {
-  position: absolute;
-  right: 1px;
-  bottom: 3px;
-  width: clamp(10px, 1.5cqh, 14px);
-  height: clamp(10px, 1.5cqh, 14px);
-  border: clamp(3px, 0.45cqh, 4px) solid #ffffff;
-  border-radius: 50%;
-  background: var(--mint);
-}
-
-.topbar h1 {
-  margin: 0;
-  font-size: clamp(20px, min(3.2cqw, 4.2cqh), 38px);
-  line-height: 1.05;
-  letter-spacing: 0;
-}
-
-.topbar p {
-  margin: clamp(4px, 0.9cqh, 8px) 0 0;
-  color: var(--muted);
-  font-size: clamp(14px, min(1.7cqw, 2.3cqh), 20px);
-}
-
-.timer-card {
-  position: absolute;
-  top: clamp(14px, 3.2cqh, 30px);
-  right: var(--shell-pad);
-  width: clamp(172px, 20cqw, 230px);
-  height: clamp(62px, 8.5cqh, 86px);
+.level-badge {
+  min-width: 102px;
+  height: 28px;
   display: grid;
-  grid-template-columns: clamp(42px, 5.6cqh, 58px) 1fr;
-  grid-template-rows: 1fr 1fr;
-  align-items: center;
-  column-gap: clamp(9px, 1.2cqw, 14px);
-  padding: clamp(10px, 1.7cqh, 16px) clamp(16px, 2cqw, 24px);
+  place-items: center;
   border-radius: 999px;
-  background: #07101f;
-  color: white;
-}
-
-.timer-ring {
-  position: relative;
-  grid-row: 1 / 3;
-  width: clamp(36px, 5.1cqh, 48px);
-  height: clamp(36px, 5.1cqh, 48px);
-  border-radius: 50%;
-  background: conic-gradient(var(--mint) 0 78%, rgba(255, 255, 255, 0.16) 78% 100%);
-}
-
-.timer-ring::after {
-  content: "";
-  position: absolute;
-  inset: clamp(5px, 0.8cqh, 7px);
-  border-radius: 50%;
-  background: #07101f;
-}
-
-.timer-card strong {
-  align-self: end;
+  background: rgba(255, 255, 255, 0.18);
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: clamp(22px, min(2.7cqw, 3.7cqh), 30px);
-  line-height: 1;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
-
-.timer-card small {
-  align-self: start;
-  color: #b8c0cf;
-  font-size: clamp(11px, 1.45cqh, 14px);
-}
-
-.status-pills {
-  display: flex;
-  gap: clamp(8px, 1.7cqw, 20px);
-  flex-wrap: wrap;
-  margin: clamp(16px, 3.7cqh, 34px) 0 clamp(10px, 2.2cqh, 20px);
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(6px, 0.9cqw, 10px);
-  min-height: clamp(30px, 4.3cqh, 42px);
-  padding: 0 clamp(12px, 1.7cqw, 20px);
-  border-radius: 999px;
-  border: 1px solid currentColor;
-  background: rgba(255, 255, 255, 0.7);
-  font-size: clamp(12px, min(1.45cqw, 1.9cqh), 17px);
+  font-size: 11px;
   font-weight: 700;
+  line-height: 14px;
 }
-
-.pill::before {
-  content: "";
-  width: clamp(8px, 1.2cqh, 12px);
-  height: clamp(8px, 1.2cqh, 12px);
-  border-radius: 50%;
-  background: currentColor;
-}
-
-.pill.memory { color: #068d80; }
-.pill.context { color: #b67400; }
-.pill.model { color: var(--blue); background: #eff8ff; }
-.pill.model::before { display: none; }
-.pill b { font-size: clamp(18px, 2.7cqh, 28px); line-height: 0; }
 
 .progress-track {
-  height: clamp(5px, 1cqh, 9px);
-  border-radius: 999px;
-  background: #dfe7f0;
+  width: 100%;
+  height: 6px;
   overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .progress-fill {
-  width: 20%;
+  width: 18%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--mint) 0 78%, var(--violet) 78% 100%);
-  transition: width 240ms ease;
+  background: var(--warning);
+  transition: width 220ms ease;
+}
+
+.scene-row p,
+.scene-tools {
+  margin: 0;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.scene-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.close-button {
+  width: 18px;
+  height: 30px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  cursor: pointer;
 }
 
 .content {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  padding: clamp(12px, 5cqh, 46px) var(--shell-pad) 0;
+  gap: 26px;
+  overflow: hidden;
+  padding: 30px;
+  background: var(--body);
+}
+
+.content h1 {
+  margin: 0;
+  color: var(--ink);
+  font-family: Unbounded, Manrope, sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 44px;
+  letter-spacing: 0;
 }
 
 .chat {
-  display: grid;
-  gap: clamp(10px, 2.7cqh, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  gap: 13px;
+}
+
+.message-user {
+  justify-content: flex-end;
+}
+
+.message-ai {
+  justify-content: flex-start;
 }
 
 .bubble {
-  position: relative;
+  width: 560px;
+  min-height: 109px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 18px 22px;
   border: 1px solid var(--line);
-  border-radius: clamp(14px, 2.3cqw, 28px);
+  border-radius: 20px;
   background: var(--card);
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 2px 10px rgba(14, 23, 38, 0.04);
+}
+
+.user-bubble .stamp {
+  align-self: flex-end;
+}
+
+.stamp,
+.option-label,
+.divider-label,
+.scorebar span {
+  color: var(--mute);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.stamp {
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0.14em;
 }
 
 .bubble p {
   margin: 0;
-  color: var(--text);
-  font-size: clamp(14px, min(2.4cqw, 3.2cqh), 31px);
-  line-height: 1.28;
-}
-
-.user-bubble {
-  margin-left: clamp(38px, 12cqw, 150px);
-  margin-right: clamp(46px, 7cqw, 82px);
-  padding: clamp(34px, 6.5cqh, 62px) clamp(24px, 5.8cqw, 70px) clamp(16px, 3.1cqh, 30px) clamp(20px, 2.7cqw, 32px);
-}
-
-.ai-bubble {
-  margin-right: clamp(38px, 11cqw, 132px);
-  padding: clamp(34px, 6.5cqh, 62px) clamp(20px, 2.9cqw, 34px) clamp(16px, 3.1cqh, 30px);
-}
-
-.stamp {
-  position: absolute;
-  top: clamp(14px, 3cqh, 28px);
-  right: clamp(18px, 2.9cqw, 34px);
-  color: #9aa5b8;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: clamp(10px, min(1.35cqw, 1.8cqh), 16px);
-  font-weight: 800;
-  letter-spacing: 0.14em;
-}
-
-.ai-bubble .stamp {
-  left: clamp(18px, 2.9cqw, 34px);
-  right: auto;
+  color: var(--ink-2);
+  font-size: 18px;
+  line-height: 27px;
 }
 
 .avatar {
-  position: absolute;
+  width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
-  width: clamp(38px, 6cqh, 62px);
-  height: clamp(38px, 6cqh, 62px);
-  border-radius: 50%;
+  flex: 0 0 auto;
+  border-radius: 999px;
   color: white;
-  font-size: clamp(14px, 2.1cqh, 21px);
-  font-weight: 800;
-}
-
-.user-avatar {
-  right: calc(clamp(46px, 7cqw, 82px) * -1);
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--violet);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .ai-avatar {
-  left: calc(clamp(46px, 7cqw, 82px) * -1);
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--mint);
+  background: var(--primary);
+}
+
+.user-avatar {
+  background: var(--secondary);
 }
 
 .divider-label {
   display: flex;
   align-items: center;
-  gap: clamp(8px, 1.35cqw, 16px);
-  margin: clamp(10px, 3.8cqh, 36px) 0 clamp(10px, 2.9cqh, 28px);
-  color: #96a0b3;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: clamp(10px, min(1.5cqw, 2cqh), 18px);
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.06em;
 }
 
 .divider-label::after {
@@ -444,20 +401,23 @@ button {
 
 .options {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(10px, 2cqw, 24px);
-  flex: 1;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
   min-height: 0;
 }
 
 .option-card {
-  min-height: 0;
+  height: 300px;
   overflow: hidden;
-  padding: clamp(14px, 2.8cqh, 28px) clamp(14px, 2.2cqw, 26px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
   border: 2px solid var(--line);
-  border-radius: clamp(14px, 2cqw, 24px);
+  border-radius: 18px;
   background: var(--card);
-  color: var(--text);
+  color: var(--ink-2);
   text-align: left;
   cursor: pointer;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
@@ -466,55 +426,74 @@ button {
 .option-card:hover,
 .option-card:focus-visible {
   outline: 0;
-  transform: translateY(-4px);
-  border-color: #c3ccd8;
-  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.1);
+  transform: translateY(-3px);
+  border-color: #cbd2dd;
+  box-shadow: 0 16px 30px rgba(14, 23, 38, 0.1);
 }
 
 .option-card.correct {
-  border-color: var(--mint);
-  box-shadow: 0 0 0 4px rgba(17, 201, 173, 0.18);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(6, 201, 160, 0.16);
+}
+
+.option-card.partial {
+  border-color: var(--warning);
 }
 
 .option-card.wrong {
-  border-color: #f49aaa;
-  box-shadow: 0 0 0 4px rgba(244, 154, 170, 0.2);
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px rgba(231, 93, 114, 0.16);
 }
 
 .option-label {
-  display: block;
-  margin-bottom: clamp(10px, 2.7cqh, 26px);
-  color: #9aa5b8;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: clamp(10px, min(1.25cqw, 1.7cqh), 15px);
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0.14em;
 }
 
 .option-card p {
   margin: 0;
-  font-size: clamp(12px, min(1.95cqw, 2.7cqh), 25px);
-  line-height: 1.25;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .document-preview {
-  width: clamp(58px, min(11.5cqw, 17cqh), 136px);
-  height: clamp(70px, min(14.8cqw, 21cqh), 174px);
-  margin: 0 0 clamp(8px, 2.5cqh, 24px);
-  padding: clamp(10px, 2.3cqh, 22px) clamp(8px, 1.35cqw, 16px);
-  border: clamp(2px, 0.35cqh, 3px) solid #e7ebf0;
-  border-radius: clamp(8px, 1cqw, 12px);
+  position: relative;
+  width: 88px;
+  height: 112px;
+  flex: 0 0 auto;
+  padding: 18px 10px 10px;
+  border: 2px solid var(--line);
+  border-radius: 9px;
   background: #fbfcfe;
+}
+
+.doc-tag {
+  position: absolute;
+  top: 12px;
+  right: 9px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: var(--primary);
+  color: white;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 7px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.doc-tag.warn {
+  background: var(--warning);
 }
 
 .doc-line {
   display: block;
   width: 76%;
-  height: clamp(4px, 0.8cqh, 7px);
-  margin-bottom: clamp(6px, 1.35cqh, 13px);
-  border-radius: 999px;
-  background: #a7b0bf;
+  height: 4px;
+  margin-bottom: 8px;
+  border-radius: 99px;
+  background: #9aa5b8;
 }
 
 .doc-line.dark {
@@ -526,207 +505,218 @@ button {
   width: 62%;
 }
 
-.doc-tag {
-  float: right;
-  padding: clamp(3px, 0.55cqh, 5px) clamp(5px, 0.7cqw, 8px);
-  border-radius: clamp(5px, 0.75cqw, 8px);
-  background: var(--mint);
-  color: white;
-  font-size: clamp(7px, 1cqh, 10px);
-  font-weight: 800;
-}
-
-.doc-tag.warn {
-  background: var(--gold);
-  color: white;
+.doc-line.pale {
+  width: 52%;
+  background: #dbe1ea;
 }
 
 .scorebar {
-  min-height: var(--scorebar-h);
-  padding: clamp(8px, 2.7cqh, 26px) var(--shell-pad) clamp(10px, 3.5cqh, 34px);
   display: grid;
   place-items: center;
-  gap: clamp(2px, 0.8cqh, 8px);
+  gap: 2px;
   border-top: 1px solid var(--line);
-  background: #ffffff;
+  background: var(--card);
 }
 
 .scorebar span {
-  color: #96a0b3;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: clamp(9px, min(1.35cqw, 1.75cqh), 16px);
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 15px;
+  letter-spacing: 0.08em;
 }
 
 .scorebar strong {
   color: var(--ink);
-  font-size: clamp(30px, min(5.7cqw, 7.2cqh), 68px);
-  line-height: 0.92;
-  font-weight: 800;
+  font-family: Unbounded, Manrope, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 44px;
+  letter-spacing: 0;
 }
 
-@media (max-width: 900px) {
-  :root {
-    --stage-pad: clamp(0px, 1.8vmin, 16px);
-  }
+.result-card {
+  grid-column: 1 / -1;
+  width: min(420px, 100%);
+  justify-self: center;
+}
 
+@media (max-width: 760px), (max-height: 971px) {
   .app-shell {
-    --topbar-h: auto;
-    height: auto;
-    min-height: calc(100dvh - (var(--stage-pad) * 2));
-    overflow: visible;
-    display: grid;
-    border-radius: clamp(0px, 4vw, 22px);
+    font-size: clamp(0.48rem, min(2.1vw, 1.62vh), 1rem);
   }
 
-  .topbar {
-    min-height: 0;
+  .game-header {
+    gap: 1.125em;
+    padding: 1.5em 1.875em 1.625em;
   }
 
-  .header-main {
-    padding-right: 0;
+  .brand {
+    gap: 0.625em;
+    font-size: 1.25em;
+    line-height: 1.25;
   }
 
-  .timer-card {
-    position: static;
-    margin-top: clamp(14px, 2.5vmin, 22px);
+  .brand-mark {
+    width: 1.125em;
+    height: 1.375em;
+    font-size: 0.75em;
+  }
+
+  .level-badge {
+    min-width: 9.25em;
+    height: 2.55em;
+    font-size: 0.68em;
+  }
+
+  .scene-row p,
+  .scene-tools {
+    font-size: 0.75em;
+    line-height: 1.25;
   }
 
   .content {
-    height: auto;
-    padding-bottom: 20px;
+    gap: 1.625em;
+    padding: 1.875em;
   }
 
-  .user-bubble,
-  .ai-bubble {
-    margin-left: clamp(0px, 7vw, 46px);
-    margin-right: clamp(0px, 7vw, 46px);
+  .content h1 {
+    font-size: 2.375em;
+    line-height: 1.16;
   }
 
-  .user-avatar {
-    right: -46px;
+  .bubble {
+    width: 35em;
+    min-height: 6.8125em;
+    padding: 1.125em 1.375em;
+    border-radius: 1.25em;
   }
 
-  .ai-avatar {
-    left: -46px;
+  .bubble p {
+    font-size: 1.125em;
+    line-height: 1.5;
+  }
+
+  .stamp,
+  .option-label {
+    font-size: 0.625em;
+    line-height: 1.4;
+  }
+
+  .avatar {
+    width: 2.5em;
+    height: 2.5em;
+    font-size: 0.8125em;
+  }
+
+  .divider-label {
+    font-size: 0.8125em;
+    line-height: 1.38;
+  }
+
+  .options {
+    gap: 0.875em;
+  }
+
+  .option-card {
+    height: 18.75em;
+    gap: 0.875em;
+    padding: 1.125em;
+    border-radius: 1.125em;
+  }
+
+  .option-card p {
+    font-size: 0.875em;
+    line-height: 1.5;
+  }
+
+  .document-preview {
+    width: 5.5em;
+    height: 7em;
+    padding: 1.125em 0.625em 0.625em;
+  }
+
+  .doc-tag {
+    top: 1.7em;
+    right: 1.2em;
+    font-size: 0.44em;
+  }
+
+  .scorebar span {
+    font-size: 0.6875em;
+  }
+
+  .scorebar strong {
+    font-size: 2.5em;
+    line-height: 1.1;
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --stage-pad: 0px;
+  }
+
+  .stage {
+    align-items: start;
+  }
+
+  .app-shell {
+    width: 100%;
+    min-height: 100dvh;
+    aspect-ratio: auto;
+    grid-template-rows: auto 1fr auto;
+    border-radius: 0;
+  }
+
+  .game-header {
+    gap: 14px;
+    padding: 20px;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  .scene-row {
+    align-items: flex-start;
+  }
+
+  .scene-row p {
+    white-space: normal;
+  }
+
+  .content {
+    overflow: visible;
+    padding: 22px 20px;
+  }
+
+  .content h1 {
+    font-size: 30px;
+    line-height: 1.15;
+  }
+
+  .message,
+  .message-user,
+  .message-ai {
+    align-items: flex-start;
+  }
+
+  .bubble {
+    width: calc(100% - 54px);
+    min-height: 0;
+  }
+
+  .bubble p {
+    font-size: 16px;
+    line-height: 1.45;
   }
 
   .options {
     grid-template-columns: 1fr;
   }
-}
-
-@media (min-width: 901px) and (max-height: 800px) {
-  .app-shell {
-    --topbar-h: clamp(120px, 20cqh, 150px);
-    --scorebar-h: clamp(58px, 8cqh, 72px);
-  }
-
-  .topbar {
-    padding-block: clamp(12px, 2.4cqh, 18px) clamp(10px, 1.8cqh, 14px);
-  }
-
-  .header-main {
-    gap: clamp(10px, 1.6cqw, 18px);
-  }
-
-  .topbar h1 {
-    font-size: clamp(20px, min(2.7cqw, 3.5cqh), 30px);
-  }
-
-  .topbar p {
-    font-size: clamp(13px, min(1.5cqw, 2cqh), 17px);
-  }
-
-  .timer-card {
-    width: clamp(176px, 18cqw, 220px);
-    height: clamp(58px, 7.4cqh, 70px);
-  }
-
-  .status-pills {
-    margin-block: clamp(12px, 2.4cqh, 18px) clamp(8px, 1.5cqh, 12px);
-  }
-
-  .pill {
-    min-height: clamp(28px, 3.6cqh, 34px);
-    font-size: clamp(11px, min(1.25cqw, 1.65cqh), 14px);
-  }
-
-  .content {
-    padding-top: clamp(10px, 2.1cqh, 16px);
-  }
-
-  .chat {
-    gap: clamp(8px, 1.8cqh, 14px);
-  }
-
-  .bubble p {
-    font-size: clamp(14px, min(1.85cqw, 2.45cqh), 18px);
-    line-height: 1.22;
-  }
-
-  .user-bubble {
-    padding-top: clamp(28px, 4.8cqh, 36px);
-    padding-bottom: clamp(12px, 2.2cqh, 16px);
-  }
-
-  .ai-bubble {
-    padding-top: clamp(28px, 4.8cqh, 36px);
-    padding-bottom: clamp(12px, 2.2cqh, 16px);
-  }
-
-  .stamp {
-    top: clamp(11px, 2.1cqh, 15px);
-    font-size: clamp(9px, min(1.1cqw, 1.45cqh), 12px);
-  }
-
-  .divider-label {
-    margin-block: clamp(8px, 2cqh, 14px) clamp(8px, 1.8cqh, 12px);
-  }
 
   .option-card {
-    padding-block: clamp(14px, 2.2cqh, 20px);
-  }
-
-  .option-label {
-    margin-bottom: clamp(8px, 1.6cqh, 12px);
-  }
-
-  .option-card p {
-    font-size: clamp(12px, min(1.5cqw, 2cqh), 16px);
-    line-height: 1.2;
-  }
-
-  .document-preview {
-    width: clamp(54px, min(7cqw, 10cqh), 76px);
-    height: clamp(64px, min(8cqw, 12cqh), 88px);
-    margin-bottom: clamp(6px, 1.4cqh, 10px);
-  }
-
-  .scorebar {
-    padding-block: clamp(6px, 1.4cqh, 10px);
-  }
-
-  .scorebar strong {
-    font-size: clamp(28px, min(4.2cqw, 5.2cqh), 40px);
-  }
-}
-
-@media (max-width: 560px) {
-  .status-pills {
-    gap: 10px;
-  }
-
-  .user-bubble,
-  .ai-bubble {
-    margin: 0;
-    padding-inline: 20px;
-  }
-
-  .avatar {
-    display: none;
+    height: auto;
+    min-height: 190px;
   }
 
   .data-counter {
