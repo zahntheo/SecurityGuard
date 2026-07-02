@@ -6,7 +6,7 @@
     <title>PrivacyGuard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Manrope:wght@400;600;700;800&family=Unbounded:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -19,7 +19,7 @@
         <strong id="exposed-count">0</strong>
       </div>
       <div class="attention-copy">
-        <span class="attention-kicker">PrivacyGuard · AI privacy game</span>
+        <span class="attention-kicker">PrivacyGuard / AI privacy game</span>
         <h1 id="attention-title">Your data is <span>leaking.</span></h1>
         <p>Practice what to share with AI before the mistake happens for real.</p>
         <button class="start-button" id="start-game" type="button">Start Game</button>
@@ -28,56 +28,55 @@
 
     <main class="stage" id="game-stage" hidden>
       <section class="app-shell" aria-labelledby="screen-title">
-        <header class="topbar">
-          <div class="header-main">
-            <div class="ai-mark">
-              <span>AI</span>
-              <i></i>
+        <header class="game-header">
+          <div class="header-row">
+            <div class="brand">
+              <span class="brand-mark" aria-hidden="true">P</span>
+              <span>PrivacyGuard</span>
             </div>
-            <div>
-              <h1 id="screen-title">Write or Polish an Email to Your Supervisor</h1>
-              <p id="scene-subtitle">Scene 04 / CV review · live task chat</p>
-            </div>
-          </div>
-          <div class="timer-card" aria-live="polite">
-            <span class="timer-ring" aria-hidden="true"></span>
-            <strong id="timer">03:42</strong>
-            <small>time left</small>
-          </div>
-          <div class="status-pills">
-            <span class="pill memory">Memory: session</span>
-            <span class="pill context">Context: 42% used</span>
-            <span class="pill model">Opus 4.8 active <b>⌄</b></span>
+            <div class="level-badge" id="level-badge">Level 2 / 5</div>
           </div>
           <div class="progress-track" aria-hidden="true">
             <div class="progress-fill" id="progress-fill"></div>
           </div>
+          <div class="scene-row">
+            <p id="scene-subtitle">SCENE 01 / VERIFY YOUR PHONE CONTRACT</p>
+            <div class="scene-tools">
+              <span id="timer">22s</span>
+              <button class="close-button" type="button" aria-label="Close game">x</button>
+            </div>
+          </div>
         </header>
 
         <section class="content">
+          <h1 id="screen-title">Verify Your Phone Contract</h1>
+
           <div class="chat">
-            <article class="bubble user-bubble">
-              <span class="stamp">YOU · 09:42</span>
-              <p id="user-prompt">I need to write an email to my supervisor about a project delay. Can you help me make it clear and professional?</p>
+            <article class="message message-user">
+              <div class="bubble user-bubble">
+                <span class="stamp">YOU / 09:42</span>
+                <p id="user-prompt">Can you check whether this phone plan is a good deal before I renew it?</p>
+              </div>
               <span class="avatar user-avatar">U</span>
             </article>
 
-            <article class="bubble ai-bubble">
+            <article class="message message-ai">
               <span class="avatar ai-avatar">AI</span>
-              <span class="stamp">AI · 09:42</span>
-              <p>Yes. I only need the costs, contract length and included data or minutes. How would you like to share it?</p>
+              <div class="bubble ai-bubble">
+                <span class="stamp">AI / 09:42</span>
+                <p id="ai-prompt">Yes. I only need the costs, contract length and included data or minutes. How would you like to share it?</p>
+              </div>
             </article>
           </div>
 
           <div class="divider-label">CHOOSE HOW TO SHARE</div>
-
           <div class="options" id="options" aria-live="polite"></div>
-
-          <footer class="scorebar">
-            <span>Total score</span>
-            <strong id="score">0</strong>
-          </footer>
         </section>
+
+        <footer class="scorebar">
+          <span>Total score</span>
+          <strong id="score">0</strong>
+        </footer>
       </section>
     </main>
 
