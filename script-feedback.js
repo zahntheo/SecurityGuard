@@ -1,80 +1,9 @@
-const levels = [
-  {
-    title: "Verify Your Phone Contract",
-    scene: "SCENE 01 / VERIFY YOUR PHONE CONTRACT",
-    shortTitle: "Verify phone contract",
-    icon: "📨",
-    user: "Can you check whether this phone plan is a good deal before I renew it?",
-    prompt: "Yes. I only need the costs, contract length and included data or minutes. How would you like to share it?",
-    adviceTitle: "Never upload a full contract PDF.",
-    advice: "It contains your bank account, address, ID number and signature - everything an attacker needs.",
-    options: [
-      { label: "OPTION A", text: "The plan is EUR 24.99/month for 24 months, includes 30GB 5G data, EU roaming, and a EUR 39 activation fee. Renewal price after month 24 is EUR 34.99.", score: 20 },
-      { label: "OPTION B", text: "Here's the full contract PDF. Can you check every page?", document: "pdf", score: 0 },
-      { label: "OPTION C", text: "I redacted my address and IBAN and attached the contract pages about fees and term.", document: "part", score: 10 }
-    ]
-  },
-  {
-    title: "Evaluate your rental application",
-    scene: "SCENE 02 / EVALUATE YOUR RENTAL APPLICATION",
-    shortTitle: "Rental Application",
-    icon: "🔗",
-    user: "I want to apply for an apartment. Can you tell me if my application looks strong enough?",
-    prompt: "I can help you assess the application. What details would you like to share?",
-    adviceTitle: "Your rental application is a full identity package.",
-    advice: "Income, employer, credit score, and address - all in one file. Never upload it directly to AI.",
-    options: [
-      { label: "OPTION A", text: "The rent is EUR 980 cold / EUR 1,180 warm. My net income is about EUR 3,300, I have a permanent contract, can move in from September, and I want the message to sound reliable and concise.", score: 20 },
-      { label: "OPTION B", text: "Here's my full rental application package. Can you check if everything looks convincing?", document: "zip", score: 0 },
-      { label: "OPTION C", text: "I removed my ID number and bank account from the application package before uploading it.", document: "part", score: 10 }
-    ]
-  },
-  {
-    title: "Review Your Loan Offer",
-    scene: "SCENE 03 / FINANCE & BANKING",
-    shortTitle: "Bank Loan",
-    icon: "📄",
-    user: "I got a personal loan offer. Can you help me understand whether the terms are reasonable?",
-    prompt: "Sure. I can compare the key terms if you share the amount, APR, fees, term and monthly payment.",
-    adviceTitle: "Loan documents reveal your financial fingerprint.",
-    advice: "Credit tier, debt level, and income can all be inferred from a single offer. Summarize - never upload.",
-    options: [
-      { label: "OPTION A", text: "The loan amount is EUR 8,000 over 36 months, APR is 8.9%, monthly payment is EUR 254.10, origination fee is EUR 120, and early repayment is free after 12 months.", score: 20 },
-      { label: "OPTION B", text: "Here's the full loan offer, bank statement and credit check. Please review the offer.", document: "pdf", score: 0 },
-      { label: "OPTION C", text: "I hid my name, IBAN and signature on the loan offer before uploading it.", document: "part", score: 10 }
-    ]
-  },
-  {
-    title: "Optimize Your CV Content and Layout",
-    scene: "SCENE 04 / CAREER & EDUCATION",
-    shortTitle: "CV Optimization",
-    icon: "📄",
-    user: "I'm applying to a tech company. Can you help me improve the content and layout of my CV?",
-    prompt: "Of course. I can help with structure, wording and prioritization. How would you like to share your CV details?",
-    adviceTitle: "A CV is the most complete profile you can hand over.",
-    advice: "Name, phone, location, employer, and life history are all on one page. Describe it, do not upload it.",
-    options: [
-      { label: "OPTION A", text: "I have software development experience from university projects and a working-student role. My strongest areas are Java, backend development and some frontend work. I want the CV to feel clearer, more scannable and more relevant for a junior developer role.", score: 20 },
-      { label: "OPTION B", text: "Here's the full PDF. Can you optimize the content and layout?", document: "pdf", score: 0 },
-      { label: "OPTION C", text: "Here's the experience section with personal details hidden. Can you improve the layout and wording?", document: "part", score: 10 }
-    ]
-  },
-  {
-    title: "Draft a Work Email",
-    scene: "SCENE 05 / WORKPLACE CONTEXT",
-    shortTitle: "Work Email",
-    icon: "📨",
-    user: "Can you help me write a clearer response to a coworker about this project decision?",
-    prompt: "Yes. Share the goal, audience and tone. Avoid names or internal details unless they are necessary.",
-    adviceTitle: "Work emails contain context AI should not have.",
-    advice: "Project names, internal decisions, and real people's roles can leak professional data. Ask for templates instead.",
-    options: [
-      { label: "OPTION A", text: "Please draft a polite update that says we need one more review round before committing to the timeline. Keep it concise and collaborative.", score: 20 },
-      { label: "OPTION B", text: "Here is the full email thread with names, internal project details and the decision history. Can you rewrite my reply?", document: "mail", score: 0 },
-      { label: "OPTION C", text: "I removed names and project codes from the thread before sharing the parts about tone and next steps.", document: "part", score: 10 }
-    ]
-  }
-];
+let gameConfig = {
+  assistantTitle: "PrivacyGuard AI",
+  model: "PG.5.6",
+  levels: []
+};
+let levels = [];
 
 const attentionEl = document.getElementById("attention");
 const startGameEl = document.getElementById("start-game");
@@ -83,7 +12,7 @@ const appShellEl = document.querySelector(".app-shell");
 const exposedCountEl = document.getElementById("exposed-count");
 const optionsEl = document.getElementById("options");
 const screenTitleEl = document.getElementById("screen-title");
-const sceneSubtitleEl = document.getElementById("scene-subtitle");
+const modelNameEl = document.getElementById("model-name");
 const levelBadgeEl = document.getElementById("level-badge");
 const progressFillEl = document.getElementById("progress-fill");
 const scoreEl = document.getElementById("score");
@@ -99,8 +28,13 @@ let exposed = 0;
 let sceneResults = [];
 let currentLesson = null;
 
-function escapeHtml(value) {
-  return value.replace(/[&<>"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
+function escapeHtml(value = "") {
+  return String(value).replace(/[&<>"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
+}
+
+function iconFor(name) {
+  const icons = { document: "📄", link: "🔗", mail: "📨" };
+  return icons[name] || name || "📄";
 }
 
 function documentPreview(kind) {
@@ -126,52 +60,6 @@ function resultStatus(points) {
   return { key: "risky", label: "Risky" };
 }
 
-function feedbackFor(level, option, optionIndex) {
-  const optionLetter = String.fromCharCode(65 + optionIndex);
-  if (option.score === 20) {
-    return {
-      key: "safe",
-      label: "✓ SAFE",
-      summary: "Nice - you shared the details needed to solve the task without exposing unnecessary personal data.",
-      modalTitle: `${level.shortTitle} can work from key terms.`,
-      lessonLabel: `PRIVACY LESSON · OPTION ${optionLetter}`,
-      points: [
-        { type: "good", mark: "✓", title: "Decision fields only", text: "You provided the facts needed for useful AI help without uploading a full identity package." },
-        { type: "good", mark: "✓", title: "No hidden metadata", text: "Typed summaries do not carry PDF metadata, signatures, account numbers or original file history." }
-      ],
-      remember: "Share the task facts, not the whole document."
-    };
-  }
-  if (option.score === 10) {
-    return {
-      key: "caution",
-      label: "! ALMOST",
-      summary: `Better - direct identifiers are hidden. But ${level.shortTitle.toLowerCase()} files can still reveal metadata and sensitive context.`,
-      modalTitle: `Redacted ${level.shortTitle.toLowerCase()} files can still expose context.`,
-      lessonLabel: `PRIVACY LESSON · OPTION ${optionLetter}`,
-      points: [
-        { type: "good", mark: "✓", title: "Direct identifiers masked", text: "Removing names, account numbers and signatures is a useful first step." },
-        { type: "risk", mark: "!", title: "Metadata remains", text: "Document IDs, timestamps, file names and hidden structure can still identify you or your situation." },
-        { type: "risk", mark: "!", title: "Context is sensitive", text: "Financial, housing, career and workplace details can be personal even without a name." }
-      ],
-      remember: "If you can type the relevant details, do that instead of uploading a redacted file."
-    };
-  }
-  return {
-    key: "risky",
-    label: "✕ NOT SAFE",
-    summary: "The full package can leak account details, identity data, metadata and private context far beyond this request.",
-    modalTitle: `Full ${level.shortTitle.toLowerCase()} packages reveal more than the AI needs.`,
-    lessonLabel: `PRIVACY LESSON · OPTION ${optionLetter}`,
-    points: [
-      { type: "risk", mark: "!", title: "Account and identity data", text: "Full files often include names, IDs, addresses, signatures, account numbers or contact details." },
-      { type: "risk", mark: "!", title: "Private context", text: "The AI may receive income, employer, credit, housing, workplace or transaction context that was not needed." },
-      { type: "risk", mark: "!", title: "Metadata trail", text: "File metadata, document IDs and timestamps can reveal where the document came from and who handled it." }
-    ],
-    remember: level.adviceTitle
-  };
-}
-
 function attachmentName(kind, level) {
   const base = level.shortTitle.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
   if (kind === "part") return `${base}_redacted.pdf · selected pages`;
@@ -193,6 +81,11 @@ function selectedResponse(level, option) {
   `;
 }
 
+function syncAssistantChrome() {
+  screenTitleEl.textContent = gameConfig.assistantTitle;
+  modelNameEl.textContent = `model:${gameConfig.model}`;
+}
+
 function removeFeedback() {
   document.querySelector(".feedback-panel")?.remove();
   document.querySelector(".lesson-overlay")?.remove();
@@ -201,9 +94,9 @@ function removeFeedback() {
 
 function render() {
   const level = levels[levelIndex];
+  if (!level) return;
   removeFeedback();
-  screenTitleEl.textContent = level.title;
-  sceneSubtitleEl.textContent = level.scene;
+  syncAssistantChrome();
   levelBadgeEl.textContent = `Level ${levelIndex + 1} / ${levels.length}`;
   userPromptEl.textContent = level.user;
   aiPromptEl.textContent = level.prompt;
@@ -211,7 +104,7 @@ function render() {
   progressFillEl.style.width = `${Math.round(((levelIndex + 1) / levels.length) * 70)}%`;
   optionsEl.innerHTML = level.options.map((option, index) => `
     <button class="option-card" type="button" data-index="${index}">
-      <span class="option-label">${option.label}</span>
+      <span class="option-label">${escapeHtml(option.label)}</span>
       ${documentPreview(option.document)}
       <p>${escapeHtml(option.text)}</p>
     </button>
@@ -234,7 +127,7 @@ function choose(index) {
   const level = levels[levelIndex];
   const option = level.options[index];
   const cards = [...document.querySelectorAll(".option-card")];
-  const feedback = feedbackFor(level, option, index);
+  const feedback = option.feedback;
   clearInterval(timerId);
 
   cards.forEach((card, cardIndex) => {
@@ -247,7 +140,14 @@ function choose(index) {
 
   score += option.score;
   scoreEl.textContent = score;
-  sceneResults.push({ index: levelIndex + 1, title: level.shortTitle, icon: level.icon, score: option.score, adviceTitle: level.adviceTitle, advice: level.advice });
+  sceneResults.push({
+    index: levelIndex + 1,
+    title: level.shortTitle,
+    icon: iconFor(level.icon),
+    score: option.score,
+    adviceTitle: level.adviceTitle,
+    advice: level.advice
+  });
   currentLesson = { level, option, feedback };
   renderFeedback(level, option, feedback);
 }
@@ -268,7 +168,7 @@ function renderFeedback(level, option, feedback) {
       <span class="avatar user-avatar">U</span>
     </article>
     <article class="feedback-card ${feedback.key}">
-      <p class="feedback-label">${feedback.label}</p>
+      <p class="feedback-label">${escapeHtml(feedback.label)}</p>
       <div class="feedback-content">
         <p>${escapeHtml(feedback.summary)}</p>
         <button class="view-more-button" type="button" data-view-more>view more ›</button>
@@ -304,7 +204,7 @@ function renderLessonModal() {
           <div class="lesson-points">
             ${feedback.points.map((point) => `
               <div class="lesson-point">
-                <span class="point-dot ${point.type}">${point.mark}</span>
+                <span class="point-dot ${point.type}">${escapeHtml(point.mark)}</span>
                 <div class="point-copy">
                   <strong>${escapeHtml(point.title)}</strong>
                   <p>${escapeHtml(point.text)}</p>
@@ -402,6 +302,7 @@ function finish() {
 }
 
 function startGame() {
+  if (!levels.length) return;
   attentionEl.hidden = true;
   gameStageEl.hidden = false;
   levelIndex = 0;
@@ -413,6 +314,23 @@ function startGame() {
 function tickExposure() {
   exposed += Math.floor(17 + Math.random() * 43);
   exposedCountEl.textContent = exposed.toLocaleString("en-US");
+}
+
+async function loadScenarios() {
+  startGameEl.disabled = true;
+  startGameEl.textContent = "Loading...";
+  try {
+    const response = await fetch("scenarios.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`Could not load scenarios.json (${response.status})`);
+    gameConfig = await response.json();
+    levels = gameConfig.levels || [];
+    syncAssistantChrome();
+    startGameEl.disabled = false;
+    startGameEl.textContent = "Start Game";
+  } catch (error) {
+    console.error(error);
+    startGameEl.textContent = "Scenario data missing";
+  }
 }
 
 startGameEl.addEventListener("click", startGame);
@@ -443,5 +361,7 @@ optionsEl.addEventListener("click", (event) => {
   choose(Number(button.dataset.index));
 });
 
+syncAssistantChrome();
+loadScenarios();
 tickExposure();
 setInterval(tickExposure, 1200);
