@@ -1,4 +1,5 @@
 const chatEl = document.querySelector(".chat");
+const contentEl = document.querySelector(".content");
 const dividerLabelEl = document.querySelector(".divider-label");
 let pendingOptionIndex = null;
 
@@ -16,6 +17,7 @@ function setComposerReady(isReady) {
 
 function resetPendingReply() {
   pendingOptionIndex = null;
+  contentEl?.classList.remove("reply-sent");
   document.querySelectorAll(".option-card").forEach((card) => {
     card.classList.remove("draft-selected", "draft-muted");
   });
@@ -77,6 +79,7 @@ function selectDraftReply(button) {
 }
 
 function hideReplyPicker() {
+  contentEl?.classList.add("reply-sent");
   dividerLabelEl?.setAttribute("hidden", "");
   optionsEl?.setAttribute("hidden", "");
   document.querySelector(".composer-shell")?.setAttribute("hidden", "");
