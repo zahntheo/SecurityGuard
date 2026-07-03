@@ -1,0 +1,34 @@
+.content:has(.feedback-panel) {
+  gap: clamp(16px, 1.8vmin, 68px);
+}
+
+.options:has(.option-card:disabled) {
+  flex: 0 0 auto;
+  align-items: start;
+}
+
+.options:has(.option-card:disabled) .option-card {
+  min-height: auto;
+}
+
+.options:has(.option-card:disabled) .option-card:not(.selected) {
+  opacity: 0.62;
+}
+
+.options:has(.option-card:disabled) .option-card.selected {
+  transform: none;
+}
+
+.feedback-panel {
+  flex: 0 0 auto;
+}
+
+@media (min-width: 1600px) and (min-height: 2400px) {
+  .options:has(.option-card:disabled) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .options:has(.option-card:disabled) .option-card {
+    min-height: auto;
+  }
+}
