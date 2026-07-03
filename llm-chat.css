@@ -71,7 +71,7 @@
 
 .typing-bubble {
   width: fit-content;
-  min-width: clamp(180px, 22vmin, 620px);
+  min-width: 0;
   min-height: 0;
 }
 
