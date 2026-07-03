@@ -1,0 +1,132 @@
+.chat-shell-cue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 1.2vmin, 44px);
+  margin-bottom: clamp(-10px, -0.6vmin, -4px);
+  color: var(--mute);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(10px, 0.9vmin, 30px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chat-shell-cue span:last-child {
+  color: var(--primary);
+}
+
+.composer-shell {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1vmin, 34px);
+  padding: clamp(10px, 1vmin, 36px) clamp(12px, 1.25vmin, 46px);
+  border: 1.5px solid var(--line);
+  border-radius: clamp(18px, 1.6vmin, 58px);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 26px rgba(14, 23, 38, 0.06);
+}
+
+.composer-attach,
+.composer-send {
+  flex: 0 0 auto;
+  border: 0;
+  display: grid;
+  place-items: center;
+  cursor: default;
+}
+
+.composer-attach {
+  width: clamp(32px, 3vmin, 104px);
+  height: clamp(32px, 3vmin, 104px);
+  border-radius: 999px;
+  background: #f4f6f8;
+  color: var(--ink-2);
+  font-size: clamp(15px, 1.35vmin, 46px);
+}
+
+.composer-input {
+  min-width: 0;
+  flex: 1;
+  color: #7b849c;
+  font-size: clamp(15px, 1.35vmin, 46px);
+  line-height: 1.4;
+}
+
+.composer-send {
+  width: clamp(36px, 3.4vmin, 118px);
+  height: clamp(36px, 3.4vmin, 118px);
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), #8af0df);
+  color: #06121d;
+  font-size: clamp(16px, 1.45vmin, 50px);
+  font-weight: 900;
+}
+
+.typing-message {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(13px, 1.2vmin, 44px);
+}
+
+.typing-bubble {
+  width: fit-content;
+  min-width: clamp(180px, 22vmin, 620px);
+  min-height: 0;
+}
+
+.typing-copy {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1vmin, 34px);
+  color: var(--ink-2);
+}
+
+.typing-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.typing-dots span {
+  width: clamp(6px, 0.55vmin, 18px);
+  height: clamp(6px, 0.55vmin, 18px);
+  border-radius: 999px;
+  background: var(--primary);
+  animation: typingPulse 900ms ease-in-out infinite;
+}
+
+.typing-dots span:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.typing-dots span:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.option-card::after {
+  content: "send";
+  margin-top: auto;
+  color: var(--primary);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(10px, 0.9vmin, 30px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.option-card:disabled::after {
+  content: "sent";
+  color: var(--mute);
+}
+
+@keyframes typingPulse {
+  0%, 70%, 100% { transform: translateY(0); opacity: 0.35; }
+  35% { transform: translateY(-4px); opacity: 1; }
+}
+
+@media (max-width: 760px) {
+  .chat-shell-cue {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
