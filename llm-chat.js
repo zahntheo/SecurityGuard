@@ -1,10 +1,15 @@
 const chatEl = document.querySelector(".chat");
 const contentEl = document.querySelector(".content");
 const dividerLabelEl = document.querySelector(".divider-label");
+const sceneSubtitleEl = document.getElementById("scene-subtitle");
 let pendingOptionIndex = null;
 
 function sendButton() {
   return document.querySelector(".composer-send");
+}
+
+function syncHeaderChrome() {
+  if (sceneSubtitleEl) sceneSubtitleEl.textContent = "PrivacyGuard AI";
 }
 
 function setComposerReady(isReady) {
@@ -25,10 +30,12 @@ function resetPendingReply() {
 }
 
 function installChatCues() {
+  syncHeaderChrome();
+
   if (chatEl && !document.querySelector(".chat-shell-cue")) {
     const cue = document.createElement("div");
     cue.className = "chat-shell-cue";
-    cue.innerHTML = "<span>PrivacyGuard AI</span><span>secure chat</span>";
+    cue.innerHTML = "<span>model: PG.6.7</span>";
     chatEl.insertAdjacentElement("beforebegin", cue);
   }
 
