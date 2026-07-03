@@ -27,7 +27,7 @@
         <span class="attention-kicker">PrivacyGuard / AI privacy game</span>
         <h1 id="attention-title">Your data is <span>leaking.</span></h1>
         <p>Practice what to share with AI before the mistake happens for real.</p>
-        <button class="start-button" id="start-game" type="button">Start Game</button>
+        <button class="start-button" id="start-game" type="button" disabled>Loading...</button>
       </div>
     </section>
 
@@ -39,21 +39,21 @@
               <span class="brand-mark" aria-hidden="true">P</span>
               <span>PrivacyGuard</span>
             </div>
-            <div class="level-badge" id="level-badge">Level 1 / 5</div>
+            <div class="header-status">
+              <div class="level-badge" id="level-badge">Level 1 / 5</div>
+              <span id="timer">22s</span>
+            </div>
           </div>
           <div class="progress-track" aria-hidden="true">
             <div class="progress-fill" id="progress-fill"></div>
           </div>
-          <div class="scene-row">
-            <p id="scene-subtitle">PrivacyGuard AI</p>
-            <div class="scene-tools">
-              <span id="timer">22s</span>
-            </div>
-          </div>
         </header>
 
         <section class="content">
-          <h1 id="screen-title">Verify Your Phone Contract</h1>
+          <div class="scenario-title-block">
+            <h1 id="screen-title">PrivacyGuard AI</h1>
+            <p class="model-name" id="model-name">model:PG.5.6</p>
+          </div>
 
           <div class="chat">
             <article class="message message-user">

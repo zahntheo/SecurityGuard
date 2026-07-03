@@ -1,23 +1,53 @@
-.chat-shell-cue {
+.app-shell {
+  grid-template-rows: 118fr minmax(0, 763fr) 90fr;
+}
+
+.game-header {
+  gap: clamp(10px, 1vmin, 28px);
+  padding: clamp(16px, 1.6vmin, 42px) clamp(24px, 2.2vmin, 58px) clamp(16px, 1.6vmin, 42px);
+}
+
+.header-row {
+  align-items: center;
+}
+
+.header-status {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: clamp(12px, 1.2vmin, 44px);
-  margin-bottom: clamp(-10px, -0.6vmin, -4px);
-  color: var(--mute);
+  gap: clamp(10px, 1vmin, 32px);
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: clamp(10px, 0.9vmin, 30px);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: none;
 }
 
-.chat-shell-cue span:last-child {
-  color: var(--primary);
+.header-status #timer {
+  min-width: clamp(38px, 3.8vmin, 124px);
+  text-align: right;
 }
 
-#scene-subtitle {
-  text-transform: none;
+.level-badge {
+  min-width: clamp(86px, 8.2vmin, 260px);
+  height: clamp(24px, 2.2vmin, 70px);
+  font-size: clamp(10px, 0.85vmin, 28px);
+}
+
+.progress-track {
+  height: clamp(4px, 0.55vmin, 16px);
+}
+
+.scenario-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, 0.55vmin, 18px);
+}
+
+.model-name {
+  margin: 0;
+  color: var(--mute);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(11px, 1vmin, 32px);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .composer-shell {
@@ -149,8 +179,7 @@
 }
 
 @media (max-width: 760px) {
-  .chat-shell-cue {
-    align-items: flex-start;
-    flex-direction: column;
+  .header-status {
+    gap: 8px;
   }
 }
