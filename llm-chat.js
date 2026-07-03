@@ -13,7 +13,7 @@ function installChatCues() {
     dividerLabelEl.firstChild.nodeValue = "SUGGESTED REPLIES ";
   }
 
-  if (optionsEl && !document.querySelector(".composer-shell")) {
+  if (dividerLabelEl && !document.querySelector(".composer-shell")) {
     const composer = document.createElement("div");
     composer.className = "composer-shell";
     composer.setAttribute("aria-label", "Message composer preview");
@@ -22,7 +22,7 @@ function installChatCues() {
       <div class="composer-input">Message PrivacyGuard AI...</div>
       <button class="composer-send" type="button" tabindex="-1" aria-label="Send message">↑</button>
     `;
-    optionsEl.insertAdjacentElement("afterend", composer);
+    dividerLabelEl.insertAdjacentElement("beforebegin", composer);
   }
 }
 
@@ -35,7 +35,6 @@ function showAssistantTyping() {
     <div class="bubble ai-bubble typing-bubble">
       <span class="stamp">PrivacyGuard AI · typing</span>
       <div class="typing-copy">
-        <span>Checking privacy risk</span>
         <span class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>
       </div>
     </div>
