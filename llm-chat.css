@@ -82,6 +82,12 @@
   transform: translateY(-1px);
 }
 
+.content.reply-sent .composer-shell,
+.content.reply-sent .divider-label,
+.content.reply-sent .options {
+  display: none !important;
+}
+
 .typing-message {
   display: flex;
   align-items: flex-end;
