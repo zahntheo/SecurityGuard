@@ -1,0 +1,62 @@
+name: Code check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  static-checks:
+    name: Static checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check script-feedback.js
+          node --check llm-chat.js
+
+      - name: Validate HTML
+        run: npx --yes html-validate index.html
+
+      - name: Check CSS structure
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+
+          const files = fs.readdirSync(process.cwd()).filter((file) => file.endsWith('.css'));
+          let hasError = false;
+
+          for (const file of files) {
+            const text = fs.readFileSync(file, 'utf8');
+            const pairs = [
+              ['{', '}'],
+              ['(', ')'],
+              ['[', ']']
+            ];
+
+            for (const [open, close] of pairs) {
+              const opens = [...text].filter((char) => char === open).length;
+              const closes = [...text].filter((char) => char === close).length;
+              if (opens !== closes) {
+                console.error(`${file}: expected balanced ${open}${close}, found ${opens} opening and ${closes} closing characters.`);
+                hasError = true;
+              }
+            }
+          }
+
+          if (hasError) process.exit(1);
+          console.log(`Checked ${files.length} CSS files.`);
+          NODE
