@@ -1,0 +1,360 @@
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background: var(--body);
+}
+
+.stage {
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  display: block;
+  padding: 0;
+  background: var(--body);
+}
+
+.app-shell,
+.app-shell.complete-mode {
+  width: 100%;
+  height: 100dvh;
+  min-width: 0;
+  min-height: 100dvh;
+  aspect-ratio: auto;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.app-shell {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.game-header {
+  gap: clamp(14px, 1.25vmin, 42px);
+  padding: clamp(20px, 3vmin, 116px) clamp(20px, 4.4vmin, 144px);
+}
+
+.brand {
+  gap: clamp(10px, 0.9vmin, 28px);
+  font-size: clamp(18px, 1.8vmin, 62px);
+  line-height: 1.25;
+}
+
+.brand-mark {
+  width: clamp(18px, 1.65vmin, 56px);
+  height: clamp(22px, 2vmin, 70px);
+  font-size: clamp(12px, 1.05vmin, 34px);
+}
+
+.level-badge {
+  min-width: clamp(102px, 9.5vmin, 320px);
+  height: clamp(28px, 2.6vmin, 88px);
+  font-size: clamp(11px, 1vmin, 34px);
+}
+
+.progress-track {
+  height: clamp(6px, 0.55vmin, 20px);
+}
+
+.scene-row p,
+.scene-tools {
+  font-size: clamp(12px, 1.05vmin, 36px);
+  line-height: 1.25;
+}
+
+.close-button {
+  width: clamp(24px, 2vmin, 68px);
+  height: clamp(32px, 2.6vmin, 88px);
+  font-size: clamp(24px, 2.1vmin, 72px);
+}
+
+.content {
+  min-height: 0;
+  overflow: auto;
+  gap: clamp(22px, 2.25vmin, 86px);
+  padding: clamp(22px, 4.2vmin, 152px) clamp(20px, 5vmin, 180px);
+}
+
+.content h1 {
+  font-size: clamp(30px, 4.1vmin, 138px);
+  line-height: 1.14;
+}
+
+.chat {
+  gap: clamp(16px, 1.45vmin, 54px);
+}
+
+.message {
+  gap: clamp(13px, 1.2vmin, 44px);
+}
+
+.bubble {
+  width: min(78ch, calc(100% - clamp(54px, 8vmin, 260px)));
+  min-height: 0;
+  gap: clamp(5px, 0.6vmin, 22px);
+  padding: clamp(18px, 1.9vmin, 68px) clamp(22px, 2.3vmin, 82px);
+  border-radius: clamp(20px, 1.8vmin, 64px);
+}
+
+.stamp,
+.option-label,
+.divider-label,
+.scorebar span {
+  font-size: clamp(10px, 0.9vmin, 30px);
+}
+
+.bubble p {
+  font-size: clamp(16px, 1.55vmin, 54px);
+  line-height: 1.5;
+}
+
+.avatar {
+  width: clamp(40px, 3.8vmin, 132px);
+  height: clamp(40px, 3.8vmin, 132px);
+  font-size: clamp(13px, 1.25vmin, 42px);
+}
+
+.divider-label {
+  gap: clamp(10px, 1vmin, 34px);
+  line-height: 1.38;
+}
+
+.options {
+  flex: 1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.5vmin, 56px);
+  align-items: stretch;
+}
+
+.option-card {
+  height: auto;
+  min-height: clamp(220px, 28dvh, 980px);
+  gap: clamp(14px, 1.45vmin, 54px);
+  padding: clamp(18px, 2vmin, 72px);
+  border-radius: clamp(18px, 1.7vmin, 60px);
+}
+
+.option-card p {
+  font-size: clamp(14px, 1.35vmin, 46px);
+  line-height: 1.5;
+}
+
+.document-preview {
+  width: clamp(88px, 8.2vmin, 280px);
+  height: clamp(112px, 10.5vmin, 360px);
+  padding: clamp(18px, 1.7vmin, 62px) clamp(10px, 0.95vmin, 34px) clamp(10px, 0.95vmin, 34px);
+  border-radius: clamp(9px, 0.85vmin, 30px);
+}
+
+.doc-tag {
+  top: clamp(12px, 1.1vmin, 40px);
+  right: clamp(9px, 0.85vmin, 30px);
+  padding: clamp(3px, 0.3vmin, 12px) clamp(6px, 0.55vmin, 20px);
+  border-radius: clamp(6px, 0.55vmin, 20px);
+  font-size: clamp(7px, 0.65vmin, 22px);
+}
+
+.doc-line {
+  height: clamp(4px, 0.38vmin, 14px);
+  margin-bottom: clamp(8px, 0.78vmin, 28px);
+}
+
+.scorebar {
+  min-height: clamp(90px, 9dvh, 260px);
+}
+
+.scorebar strong {
+  font-size: clamp(40px, 3.7vmin, 128px);
+  line-height: 1.1;
+}
+
+.app-shell.complete-mode {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.complete-header {
+  gap: clamp(6px, 0.8vmin, 28px);
+  padding: clamp(24px, 3.2vmin, 124px) clamp(24px, 4.4vmin, 160px);
+}
+
+.complete-kicker,
+.complete-eyebrow,
+.log-kicker,
+.score-label {
+  font-size: clamp(10px, 0.9vmin, 32px);
+}
+
+.complete-close {
+  font-size: clamp(18px, 1.6vmin, 58px);
+}
+
+.complete-title {
+  font-size: clamp(26px, 3.8vmin, 136px);
+  line-height: 1.2;
+}
+
+.complete-meta {
+  font-size: clamp(13px, 1.3vmin, 46px);
+}
+
+.complete-body {
+  padding: clamp(22px, 4.2vmin, 152px) clamp(20px, 5vmin, 180px);
+}
+
+.complete-heading {
+  margin: clamp(12px, 1.1vmin, 42px) 0 clamp(14px, 1.35vmin, 52px);
+  font-size: clamp(24px, 3.2vmin, 112px);
+  line-height: 1.25;
+}
+
+.result-score-card {
+  gap: clamp(20px, 2vmin, 76px);
+  margin-bottom: clamp(36px, 3.4vmin, 132px);
+  padding: clamp(18px, 2.2vmin, 84px);
+  border-radius: clamp(14px, 1.4vmin, 52px);
+}
+
+.score-ring {
+  width: clamp(155px, 15vmin, 520px);
+  height: clamp(155px, 15vmin, 520px);
+}
+
+.score-ring::after {
+  inset: clamp(18px, 1.8vmin, 64px);
+}
+
+.score-ring strong {
+  font-size: clamp(36px, 4vmin, 140px);
+}
+
+.score-ring span {
+  margin-top: clamp(42px, 4.1vmin, 148px);
+  font-size: clamp(14px, 1.35vmin, 48px);
+}
+
+.grade-pill {
+  padding: clamp(6px, 0.6vmin, 22px) clamp(12px, 1.1vmin, 42px);
+  font-size: clamp(13px, 1.25vmin, 44px);
+}
+
+.score-copy,
+.advice-card strong,
+.log-title {
+  font-size: clamp(14px, 1.35vmin, 48px);
+}
+
+.score-copy {
+  line-height: 1.58;
+}
+
+.result-section-title {
+  margin-bottom: clamp(10px, 1vmin, 38px);
+  font-size: clamp(15px, 1.7vmin, 60px);
+}
+
+.scenario-log {
+  margin-bottom: clamp(36px, 3.4vmin, 132px);
+}
+
+.log-list {
+  gap: clamp(8px, 1vmin, 38px);
+}
+
+.log-card {
+  width: clamp(192px, 18vmin, 640px);
+  min-height: clamp(142px, 14vmin, 500px);
+  flex-basis: clamp(192px, 18vmin, 640px);
+  gap: clamp(12px, 1.25vmin, 48px);
+  padding: clamp(12px, 1.4vmin, 54px);
+  border-radius: clamp(12px, 1.2vmin, 44px);
+}
+
+.log-icon {
+  width: clamp(34px, 3.4vmin, 120px);
+  height: clamp(34px, 3.4vmin, 120px);
+  border-radius: clamp(9px, 0.9vmin, 32px);
+  font-size: clamp(16px, 1.5vmin, 54px);
+}
+
+.status-pill {
+  padding: clamp(5px, 0.5vmin, 20px) clamp(12px, 1vmin, 40px);
+  font-size: clamp(12px, 1.05vmin, 38px);
+}
+
+.advice-list {
+  gap: clamp(10px, 1vmin, 38px);
+}
+
+.advice-card {
+  gap: clamp(12px, 1.2vmin, 44px);
+  padding: clamp(14px, 1.5vmin, 56px) clamp(16px, 1.7vmin, 64px);
+  border-radius: clamp(12px, 1.2vmin, 44px);
+}
+
+.advice-number {
+  width: clamp(30px, 3vmin, 108px);
+  height: clamp(30px, 3vmin, 108px);
+  border-radius: clamp(8px, 0.8vmin, 30px);
+  font-size: clamp(12px, 1.1vmin, 40px);
+}
+
+.advice-card p {
+  font-size: clamp(13px, 1.25vmin, 44px);
+  line-height: 1.46;
+}
+
+.complete-actions {
+  min-height: clamp(84px, 9dvh, 260px);
+}
+
+.exit-game-button {
+  width: min(52vw, 720px);
+  padding: clamp(14px, 1.35vmin, 52px) clamp(22px, 2vmin, 76px);
+  border-radius: clamp(10px, 0.95vmin, 36px);
+  font-size: clamp(14px, 1.25vmin, 44px);
+}
+
+@media (min-width: 1600px) and (min-height: 2400px) {
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .option-card {
+    min-height: clamp(360px, 18dvh, 760px);
+  }
+
+  .message-user,
+  .message-ai {
+    align-items: flex-start;
+  }
+
+  .bubble {
+    width: calc(100% - clamp(100px, 10vmin, 340px));
+  }
+
+  .result-score-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow: auto;
+  }
+
+  .stage,
+  .app-shell,
+  .app-shell.complete-mode {
+    min-height: 100dvh;
+    height: auto;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+  }
+}
