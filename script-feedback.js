@@ -316,18 +316,27 @@ function tickExposure() {
   exposedCountEl.textContent = exposed.toLocaleString("en-US");
 }
 
+function applyScenarioConfig(config) {
+  gameConfig = config || gameConfig;
+  levels = gameConfig.levels || [];
+  syncAssistantChrome();
+  startGameEl.disabled = levels.length === 0;
+  startGameEl.textContent = levels.length ? "Start Game" : "Scenario data missing";
+}
+
 async function loadScenarios() {
   startGameEl.disabled = true;
   startGameEl.textContent = "Loading...";
   try {
     const response = await fetch("scenarios.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`Could not load scenarios.json (${response.status})`);
-    gameConfig = await response.json();
-    levels = gameConfig.levels || [];
-    syncAssistantChrome();
-    startGameEl.disabled = false;
-    startGameEl.textContent = "Start Game";
+    applyScenarioConfig(await response.json());
   } catch (error) {
+    console.warn("Falling back to bundled scenario data.", error);
+    if (window.PRIVACYGUARD_SCENARIOS) {
+      applyScenarioConfig(window.PRIVACYGUARD_SCENARIOS);
+      return;
+    }
     console.error(error);
     startGameEl.textContent = "Scenario data missing";
   }
