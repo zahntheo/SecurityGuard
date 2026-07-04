@@ -25,6 +25,8 @@ jobs:
 
       - name: Check JavaScript syntax
         run: |
+          node --check game-config.js
+          node --check scenarios.js
           node --check script-feedback.js
           node --check llm-chat.js
 

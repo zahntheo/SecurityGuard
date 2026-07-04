@@ -102,10 +102,14 @@
   width: 155px;
   height: 155px;
   flex: 0 0 auto;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   border-radius: 50%;
   background: conic-gradient(#10b981 calc(var(--score) * 1%), #c9f5e8 0);
+  text-align: center;
 }
 
 .score-ring::after {
@@ -131,10 +135,11 @@
 }
 
 .score-ring span {
-  margin-top: 42px;
+  margin: 0;
   color: #8b95b7;
   font-size: 14px;
   font-weight: 700;
+  line-height: 1.1;
 }
 
 .score-summary {
