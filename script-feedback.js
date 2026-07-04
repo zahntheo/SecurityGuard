@@ -1,6 +1,8 @@
+const DISPLAY_MODEL = "GPT-5.5";
+
 let gameConfig = {
   assistantTitle: "PrivacyGuard AI",
-  model: "PG.5.6",
+  model: DISPLAY_MODEL,
   levels: []
 };
 let levels = [];
@@ -83,7 +85,7 @@ function selectedResponse(level, option) {
 
 function syncAssistantChrome() {
   screenTitleEl.textContent = gameConfig.assistantTitle;
-  modelNameEl.textContent = `model:${gameConfig.model}`;
+  modelNameEl.textContent = `model: ${DISPLAY_MODEL}`;
 }
 
 function removeFeedback() {
@@ -317,7 +319,7 @@ function tickExposure() {
 }
 
 function applyScenarioConfig(config) {
-  gameConfig = config || gameConfig;
+  gameConfig = { ...(config || gameConfig), model: DISPLAY_MODEL };
   levels = gameConfig.levels || [];
   syncAssistantChrome();
   startGameEl.disabled = levels.length === 0;
