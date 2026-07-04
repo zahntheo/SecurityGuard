@@ -1,0 +1,8 @@
+window.PRIVACYGUARD_GAME_CONFIG = {
+  scenarioSeconds: 22,
+  optionPoints: {
+    safe: 20,
+    caution: 10,
+    risky: 0
+  }
+};

@@ -211,3 +211,17 @@
     min-width: 64px;
   }
 }
+
+.score-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 0.45vmin, 16px);
+  text-align: center;
+}
+
+.score-ring span {
+  margin-top: 0;
+  line-height: 1.1;
+}

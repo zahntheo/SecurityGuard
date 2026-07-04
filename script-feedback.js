@@ -1,5 +1,14 @@
 const DISPLAY_MODEL = "GPT-5.5";
+const DEFAULT_GAME_SETTINGS = {
+  scenarioSeconds: 22,
+  optionPoints: {
+    safe: 20,
+    caution: 10,
+    risky: 0
+  }
+};
 
+let gameSettings = { ...DEFAULT_GAME_SETTINGS, optionPoints: { ...DEFAULT_GAME_SETTINGS.optionPoints } };
 let gameConfig = {
   assistantTitle: "PrivacyGuard AI",
   model: DISPLAY_MODEL,
@@ -24,7 +33,7 @@ const aiPromptEl = document.getElementById("ai-prompt");
 
 let levelIndex = 0;
 let score = 0;
-let seconds = 22;
+let seconds = DEFAULT_GAME_SETTINGS.scenarioSeconds;
 let timerId = null;
 let exposed = 0;
 let sceneResults = [];
@@ -56,10 +65,13 @@ function documentPreview(kind) {
   `;
 }
 
-function resultStatus(points) {
-  if (points === 20) return { key: "safe", label: "Safe" };
-  if (points === 10) return { key: "caution", label: "Caution" };
-  return { key: "risky", label: "Risky" };
+function resultStatus(key = "risky") {
+  const labels = {
+    safe: "Safe",
+    caution: "Caution",
+    risky: "Risky"
+  };
+  return { key, label: labels[key] || "Risky" };
 }
 
 function attachmentName(kind, level) {
@@ -81,6 +93,44 @@ function selectedResponse(level, option) {
       </div>
     </div>
   `;
+}
+
+function normalizeSettings(config = {}) {
+  const scenarioSeconds = Number(config.scenarioSeconds);
+  return {
+    scenarioSeconds: Number.isFinite(scenarioSeconds) && scenarioSeconds > 0
+      ? Math.round(scenarioSeconds)
+      : DEFAULT_GAME_SETTINGS.scenarioSeconds,
+    optionPoints: {
+      ...DEFAULT_GAME_SETTINGS.optionPoints,
+      ...(config.optionPoints || {})
+    }
+  };
+}
+
+function getOptionStatus(option) {
+  return option.feedback?.key || "risky";
+}
+
+function getOptionScore(option) {
+  const configuredScore = Number(gameSettings.optionPoints[getOptionStatus(option)]);
+  if (Number.isFinite(configuredScore)) return configuredScore;
+  const legacyScore = Number(option.score);
+  return Number.isFinite(legacyScore) ? legacyScore : 0;
+}
+
+function maxOptionScore() {
+  const scores = Object.values(gameSettings.optionPoints).map(Number).filter(Number.isFinite);
+  return Math.max(0, ...scores);
+}
+
+function maxScore() {
+  return levels.length * maxOptionScore();
+}
+
+function scorePercent(total = score) {
+  const max = maxScore();
+  return max > 0 ? Math.round((total / max) * 100) : 0;
 }
 
 function syncAssistantChrome() {
@@ -116,7 +166,7 @@ function render() {
 
 function resetTimer() {
   clearInterval(timerId);
-  seconds = 22;
+  seconds = gameSettings.scenarioSeconds;
   timerEl.textContent = `${seconds}s`;
   timerId = setInterval(() => {
     seconds = Math.max(0, seconds - 1);
@@ -128,25 +178,29 @@ function resetTimer() {
 function choose(index) {
   const level = levels[levelIndex];
   const option = level.options[index];
+  const optionScore = getOptionScore(option);
+  const optionStatus = getOptionStatus(option);
   const cards = [...document.querySelectorAll(".option-card")];
   const feedback = option.feedback;
   clearInterval(timerId);
 
   cards.forEach((card, cardIndex) => {
+    const cardStatus = getOptionStatus(level.options[cardIndex]);
     card.disabled = true;
-    if (cardIndex === index) card.classList.add("selected", feedback.key);
-    if (level.options[cardIndex].score === 20) card.classList.add("correct");
-    if (level.options[cardIndex].score === 10) card.classList.add("partial");
+    if (cardIndex === index) card.classList.add("selected", optionStatus);
+    if (cardStatus === "safe") card.classList.add("correct");
+    if (cardStatus === "caution") card.classList.add("partial");
   });
-  if (option.score === 0) cards[index].classList.add("wrong");
+  if (optionStatus === "risky") cards[index].classList.add("wrong");
 
-  score += option.score;
+  score += optionScore;
   scoreEl.textContent = score;
   sceneResults.push({
     index: levelIndex + 1,
     title: level.shortTitle,
     icon: iconFor(level.icon),
-    score: option.score,
+    score: optionScore,
+    status: optionStatus,
     adviceTitle: level.adviceTitle,
     advice: level.advice
   });
@@ -236,18 +290,21 @@ function goNext() {
 }
 
 function gradeForScore(total) {
-  if (total >= 90) return { grade: "A - SAFE", copy: "Excellent result. You shared useful context while keeping personal and professional data out of the prompt." };
-  if (total >= 60) return { grade: "B - CAUTIOUS", copy: "You spotted most risks, but some choices exposed more than necessary. Remember - summaries work just as well as full documents." };
-  if (total >= 40) return { grade: "C - REVIEW", copy: "You caught several risks, but full documents still leaked too much personal context. Share only the exact facts the task needs." };
+  const percent = scorePercent(total);
+  if (percent >= 90) return { grade: "A - SAFE", copy: "Excellent result. You shared useful context while keeping personal and professional data out of the prompt." };
+  if (percent >= 60) return { grade: "B - CAUTIOUS", copy: "You spotted most risks, but some choices exposed more than necessary. Remember - summaries work just as well as full documents." };
+  if (percent >= 40) return { grade: "C - REVIEW", copy: "You caught several risks, but full documents still leaked too much personal context. Share only the exact facts the task needs." };
   return { grade: "D - RISKY", copy: "Too many uploads exposed sensitive details. Before using AI, strip identifiers and summarize the request in your own words." };
 }
 
 function finish() {
   clearInterval(timerId);
   const grade = gradeForScore(score);
-  const riskyMoves = sceneResults.filter((result) => result.score === 0).length;
+  const totalMaxScore = maxScore();
+  const scoreProgress = scorePercent(score);
+  const riskyMoves = sceneResults.filter((result) => result.status === "risky").length;
   const logs = sceneResults.map((result) => {
-    const status = resultStatus(result.score);
+    const status = resultStatus(result.status);
     return `
       <article class="log-card ${status.key}">
         <span class="log-icon" aria-hidden="true">${result.icon}</span>
@@ -284,7 +341,7 @@ function finish() {
       <p class="complete-eyebrow">Scenario · Daily life</p>
       <h2 class="complete-heading">Your safety score</h2>
       <section class="result-score-card" aria-label="Privacy grade">
-        <div class="score-ring" style="--score: ${score}"><strong>${score}</strong><span>/ 100</span></div>
+        <div class="score-ring" style="--score: ${scoreProgress}"><strong>${score}</strong><span>/ ${totalMaxScore}</span></div>
         <div class="score-summary">
           <div class="score-grade-row"><span class="score-label">Privacy grade</span><span class="grade-pill">${grade.grade}</span></div>
           <p class="score-copy">${grade.copy}</p>
@@ -318,6 +375,12 @@ function tickExposure() {
   exposedCountEl.textContent = exposed.toLocaleString("en-US");
 }
 
+function applyGameSettings(config) {
+  gameSettings = normalizeSettings(config);
+  seconds = gameSettings.scenarioSeconds;
+  timerEl.textContent = `${seconds}s`;
+}
+
 function applyScenarioConfig(config) {
   gameConfig = { ...(config || gameConfig), model: DISPLAY_MODEL };
   levels = gameConfig.levels || [];
@@ -326,22 +389,30 @@ function applyScenarioConfig(config) {
   startGameEl.textContent = levels.length ? "Start Game" : "Scenario data missing";
 }
 
-async function loadScenarios() {
+async function loadJson(path, fallbackValue) {
+  try {
+    const response = await fetch(path, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Could not load ${path} (${response.status})`);
+    return await response.json();
+  } catch (error) {
+    console.warn(`Falling back from ${path}.`, error);
+    return fallbackValue;
+  }
+}
+
+async function loadGameData() {
   startGameEl.disabled = true;
   startGameEl.textContent = "Loading...";
-  try {
-    const response = await fetch("scenarios.json", { cache: "no-store" });
-    if (!response.ok) throw new Error(`Could not load scenarios.json (${response.status})`);
-    applyScenarioConfig(await response.json());
-  } catch (error) {
-    console.warn("Falling back to bundled scenario data.", error);
-    if (window.PRIVACYGUARD_SCENARIOS) {
-      applyScenarioConfig(window.PRIVACYGUARD_SCENARIOS);
-      return;
-    }
-    console.error(error);
-    startGameEl.textContent = "Scenario data missing";
+
+  applyGameSettings(await loadJson("game-config.json", window.PRIVACYGUARD_GAME_CONFIG));
+  const scenarioConfig = await loadJson("scenarios.json", window.PRIVACYGUARD_SCENARIOS);
+
+  if (scenarioConfig) {
+    applyScenarioConfig(scenarioConfig);
+    return;
   }
+
+  startGameEl.textContent = "Scenario data missing";
 }
 
 startGameEl.addEventListener("click", startGame);
@@ -373,6 +444,7 @@ optionsEl.addEventListener("click", (event) => {
 });
 
 syncAssistantChrome();
-loadScenarios();
+applyGameSettings(window.PRIVACYGUARD_GAME_CONFIG);
+loadGameData();
 tickExposure();
 setInterval(tickExposure, 1200);
