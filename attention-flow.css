@@ -1,0 +1,61 @@
+.attention-screen[hidden] {
+  display: none;
+}
+
+.attention-guide {
+  width: min(820px, 100%);
+}
+
+.attention-guide h1 {
+  font-size: clamp(38px, 7vw, 86px);
+}
+
+.guide-list {
+  width: min(680px, 100%);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 1.4vmin, 14px);
+  margin: 0 auto clamp(24px, 4vmin, 38px);
+}
+
+.guide-list article {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: clamp(12px, 1.6vmin, 18px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.guide-list strong {
+  color: #ffffff;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(11px, 1.25vmin, 14px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.guide-list span {
+  color: #c8cfdd;
+  font-size: clamp(13px, 1.5vmin, 16px);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+@media (max-width: 760px) {
+  .guide-list {
+    grid-template-columns: 1fr;
+    width: min(420px, 100%);
+  }
+
+  .guide-list article {
+    min-height: 0;
+    text-align: left;
+  }
+}
