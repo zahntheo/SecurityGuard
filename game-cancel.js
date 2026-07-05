@@ -1,56 +1,27 @@
 (() => {
-  const cancelButton = document.querySelector("[data-game-cancel]");
+  const {
+    $,
+    returnToStartScreen,
+    showConfirmationDialog
+  } = window.PrivacyGuard;
 
-  function returnToStartScreen() {
-    window.location.reload();
-  }
+  const cancelButton = $("[data-game-cancel]");
 
-  function closeCancelDialog() {
-    document.querySelector(".game-cancel-overlay")?.remove();
-    cancelButton?.focus();
-  }
-
-  function showCancelDialog() {
-    document.querySelector(".game-cancel-overlay")?.remove();
-
-    const overlay = document.createElement("div");
-    overlay.className = "game-cancel-overlay";
-    overlay.setAttribute("role", "dialog");
-    overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-labelledby", "game-cancel-title");
-    overlay.innerHTML = `
-      <article class="game-cancel-dialog">
-        <p class="game-cancel-kicker">Stop game</p>
-        <h2 id="game-cancel-title">Are you sure you want to stop the game?</h2>
-        <div class="game-cancel-actions">
-          <button class="game-cancel-yes" type="button" data-game-cancel-yes>Yes</button>
-          <button class="game-cancel-no" type="button" data-game-cancel-no>No</button>
-        </div>
-      </article>
-    `;
-
-    overlay.addEventListener("click", (event) => {
-      if (event.target.closest("[data-game-cancel-yes]")) {
-        returnToStartScreen();
-        return;
-      }
-
-      if (event.target.closest("[data-game-cancel-no]") || event.target === overlay) {
-        closeCancelDialog();
-      }
+  cancelButton?.addEventListener("click", () => {
+    showConfirmationDialog({
+      overlayClass: "game-cancel-overlay",
+      dialogClass: "game-cancel-dialog",
+      kickerClass: "game-cancel-kicker",
+      actionsClass: "game-cancel-actions",
+      titleId: "game-cancel-title",
+      kicker: "Stop game",
+      title: "Are you sure you want to stop the game?",
+      confirmText: "Yes",
+      cancelText: "No",
+      confirmClass: "game-cancel-yes",
+      cancelClass: "game-cancel-no",
+      onConfirm: returnToStartScreen,
+      onCancel: () => cancelButton.focus()
     });
-
-    document.body.appendChild(overlay);
-    overlay.querySelector("[data-game-cancel-no]")?.focus();
-  }
-
-  cancelButton?.addEventListener("click", showCancelDialog);
-
-  document.addEventListener("keydown", (event) => {
-    if (!document.querySelector(".game-cancel-overlay")) return;
-
-    if (event.key === "Escape") {
-      closeCancelDialog();
-    }
   });
 })();
