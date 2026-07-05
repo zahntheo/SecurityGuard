@@ -1,6 +1,6 @@
 window.PRIVACYGUARD_GAME_CONFIG = {
-  scenarioSeconds: 22,
-  idleWarningSeconds: 30,
+  scenarioSeconds: 10,
+  idleWarningSeconds: 20,
   idleResetSeconds: 120,
   optionPoints: {
     safe: 20,
