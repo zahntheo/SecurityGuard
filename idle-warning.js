@@ -1,4 +1,15 @@
 (() => {
+  const {
+    $,
+    byId,
+    createElement,
+    gameIsActive,
+    hide,
+    positiveNumber,
+    returnToStartScreen,
+    show
+  } = window.PrivacyGuard;
+
   const DEFAULT_IDLE_SETTINGS = {
     idleWarningSeconds: 30,
     idleResetSeconds: 120
@@ -10,19 +21,13 @@
   let isWarningVisible = false;
 
   function configuredSeconds(key) {
-    const value = Number(window.PRIVACYGUARD_GAME_CONFIG?.[key]);
-    return Number.isFinite(value) && value > 0 ? value : DEFAULT_IDLE_SETTINGS[key];
+    return positiveNumber(window.PRIVACYGUARD_GAME_CONFIG?.[key], DEFAULT_IDLE_SETTINGS[key]);
   }
 
   function idleSettings() {
     const warningSeconds = configuredSeconds("idleWarningSeconds");
     const resetSeconds = Math.max(warningSeconds, configuredSeconds("idleResetSeconds"));
     return { warningSeconds, resetSeconds };
-  }
-
-  function gameIsActive() {
-    const stage = document.getElementById("game-stage");
-    return Boolean(stage && !stage.hidden);
   }
 
   function clearIdleTimers() {
@@ -32,28 +37,34 @@
     resetTimerId = null;
   }
 
-  function getOverlay() {
-    let overlay = document.querySelector(".idle-overlay");
-    if (overlay) return overlay;
+  function createWarningOverlay() {
+    const continueButton = createElement("button", {
+      className: "idle-continue",
+      text: "Continue",
+      attributes: { type: "button", "data-idle-continue": "" }
+    });
+    const cancelButton = createElement("button", {
+      className: "idle-cancel",
+      text: "Cancel",
+      attributes: { type: "button", "data-idle-cancel": "" }
+    });
+    const overlay = createElement("div", {
+      className: "idle-overlay",
+      attributes: {
+        role: "dialog",
+        "aria-modal": "true",
+        "aria-labelledby": "idle-warning-title"
+      }
+    }, [
+      createElement("article", { className: "idle-warning" }, [
+        createElement("p", { className: "idle-kicker", text: "Session paused" }),
+        createElement("h2", { text: "Are you there?", attributes: { id: "idle-warning-title" } }),
+        createElement("p", { text: "Your game will return to the start screen if there is no activity." }),
+        createElement("div", { className: "idle-actions" }, [continueButton, cancelButton])
+      ])
+    ]);
 
-    overlay = document.createElement("div");
-    overlay.className = "idle-overlay";
     overlay.hidden = true;
-    overlay.setAttribute("role", "dialog");
-    overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-labelledby", "idle-warning-title");
-    overlay.innerHTML = `
-      <article class="idle-warning">
-        <p class="idle-kicker">Session paused</p>
-        <h2 id="idle-warning-title">Are you there?</h2>
-        <p>Your game will return to the start screen if there is no activity.</p>
-        <div class="idle-actions">
-          <button class="idle-continue" type="button" data-idle-continue>Continue</button>
-          <button class="idle-cancel" type="button" data-idle-cancel>Cancel</button>
-        </div>
-      </article>
-    `;
-
     overlay.addEventListener("click", (event) => {
       if (event.target.closest("[data-idle-continue]")) {
         hideWarning();
@@ -70,26 +81,25 @@
     return overlay;
   }
 
+  function getWarningOverlay() {
+    return $(".idle-overlay") || createWarningOverlay();
+  }
+
   function showWarning() {
     if (!gameIsActive()) {
       clearIdleTimers();
       return;
     }
 
-    const overlay = getOverlay();
-    overlay.hidden = false;
+    const overlay = getWarningOverlay();
+    show(overlay);
     isWarningVisible = true;
-    overlay.querySelector("[data-idle-continue]")?.focus();
+    $("[data-idle-continue]", overlay)?.focus();
   }
 
   function hideWarning() {
-    const overlay = document.querySelector(".idle-overlay");
-    if (overlay) overlay.hidden = true;
+    hide($(".idle-overlay"));
     isWarningVisible = false;
-  }
-
-  function returnToStartScreen() {
-    window.location.reload();
   }
 
   function scheduleIdleTimers() {
@@ -125,7 +135,7 @@
     document.addEventListener(eventName, handleActivity, { capture: true, passive: true });
   });
 
-  document.getElementById("start-game")?.addEventListener("click", () => {
+  byId("start-game")?.addEventListener("click", () => {
     window.setTimeout(scheduleIdleTimers, 0);
   });
 
