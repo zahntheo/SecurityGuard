@@ -1,0 +1,117 @@
+.game-cancel-button {
+  min-width: clamp(62px, 5.4vmin, 176px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 999px;
+  padding: clamp(5px, 0.46vmin, 16px) clamp(10px, 0.9vmin, 30px);
+  background: rgba(231, 93, 114, 0.24);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(10px, 0.82vmin, 28px);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.game-cancel-button:hover,
+.game-cancel-button:focus-visible {
+  outline: 0;
+  background: rgba(231, 93, 114, 0.38);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.24);
+}
+
+.game-cancel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 4vmin, 72px);
+  background: rgba(14, 23, 38, 0.62);
+  backdrop-filter: blur(8px);
+}
+
+.game-cancel-dialog {
+  width: min(100%, 430px);
+  padding: clamp(24px, 3vmin, 38px);
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 18px;
+  background: #ffffff;
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 0 30px 70px rgba(14, 23, 38, 0.3);
+}
+
+.game-cancel-kicker {
+  margin: 0 0 10px;
+  color: var(--danger);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.game-cancel-dialog h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: Unbounded, Manrope, sans-serif;
+  font-size: clamp(24px, 3.4vmin, 34px);
+  line-height: 1.22;
+}
+
+.game-cancel-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.game-cancel-actions button {
+  min-width: 112px;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.game-cancel-yes {
+  background: var(--danger);
+  color: #ffffff;
+}
+
+.game-cancel-no {
+  background: linear-gradient(120deg, var(--primary), #8af0df);
+  color: #06121d;
+}
+
+.game-cancel-actions button:focus-visible {
+  outline: 3px solid rgba(123, 97, 255, 0.42);
+  outline-offset: 3px;
+}
+
+@media (max-width: 620px) {
+  .header-status {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .game-cancel-button {
+    min-width: 58px;
+  }
+}
+
+@media (max-width: 420px) {
+  .game-cancel-actions {
+    flex-direction: column;
+  }
+
+  .game-cancel-actions button {
+    width: 100%;
+  }
+}
