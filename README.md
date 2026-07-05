@@ -2,7 +2,7 @@
 
 PrivacyGuard is a static browser game for the USEC Project SS26. It teaches safer AI prompting by asking players how they would share sensitive real-world information with an LLM, then gives immediate feedback on the privacy risk of each choice.
 
-The current implementation is based on the Figma `ss2026` prototype and is designed as a full-screen, responsive chat-like experience.
+The current implementation is based on the Figma `ss2026` prototype and is designed as a full-screen, responsive chat-like experience that can run without a build step.
 
 ## What The Game Teaches
 
@@ -25,10 +25,13 @@ After the player sends a reply, the game shows a scored result, short feedback, 
 ## Features
 
 - Full-screen responsive game layout
-- Intro attention screen before the game starts
+- Two-step attention screen before the game starts
 - LLM-style chat presentation
 - Suggested reply selection and send flow
 - Per-option feedback with detailed privacy lessons
+- Configurable scenario timer and scoring
+- Configurable idle warning and automatic reset
+- In-game cancel confirmation
 - Score tracking across all scenarios
 - Final result screen with scenario summary
 - Static deployment with no build step
@@ -38,14 +41,43 @@ After the player sends a reply, the game shows a scored result, short feedback, 
 | File | Purpose |
 | --- | --- |
 | `index.html` | Main HTML shell and script/style loading order |
+| `game-config.js` / `game-config.json` | Runtime settings for timers, idle behavior, and scoring |
+| `scenarios.js` / `scenarios.json` | Scenario content, options, feedback, and lessons |
+| `script-feedback.js` | Core game state, scoring, feedback, lessons, and result rendering |
+| `llm-chat.js` | Chat-style reply picker behavior and send flow |
+| `app-utils.js` | Shared DOM, dialog, config, and navigation helpers used by feature modules |
+| `attention-flow.js` | Two-step intro screen navigation |
+| `game-cancel.js` | In-game cancel confirmation behavior |
+| `idle-warning.js` | Idle warning and automatic reset behavior |
 | `styles.css` | Core game layout, intro screen, option cards, and result screen styling |
 | `fullscreen.css` | Full-screen scaling and large-display layout support |
 | `feedback.css` | Feedback cards, lesson overlay, and result states |
 | `feedback-layout-fix.css` | Layout fixes for feedback positioning under selected options |
 | `llm-chat.css` | LLM chat cues, composer, typing indicator, and reply selection states |
-| `script-feedback.js` | Current game logic, scenarios, scoring, feedback, and result rendering |
-| `llm-chat.js` | Chat-style reply picker behavior and send flow |
+| `attention-flow.css` | Second attention screen layout |
+| `game-cancel.css` | Cancel button and confirmation dialog styling |
+| `idle-warning.css` | Idle warning dialog styling |
 | `result.css` | Final result screen refinements |
+
+## Configuration
+
+Timing and scoring live in `game-config.json` and are mirrored in `game-config.js` as the static fallback:
+
+- `scenarioSeconds`: countdown per scenario
+- `idleWarningSeconds`: inactivity time before the warning dialog appears
+- `idleResetSeconds`: inactivity time before the app returns to the start screen
+- `optionPoints`: score values for safe, caution, and risky choices
+
+Scenario text, answer options, scoring feedback, and lesson details live in `scenarios.json` and are mirrored in `scenarios.js` as the static fallback.
+
+## Code Organization
+
+The project intentionally stays framework-free. Keep reusable behavior in small feature modules instead of adding one large script:
+
+- Put shared DOM helpers, reusable dialogs, and app-level navigation in `app-utils.js`.
+- Keep game state and scenario rendering in `script-feedback.js`.
+- Keep independent UI features in their own files, such as `attention-flow.js`, `game-cancel.js`, and `idle-warning.js`.
+- Keep text and game data in JSON whenever possible so content can change without touching rendering logic.
 
 ## Run Locally
 
