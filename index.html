@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="feedback.css">
     <link rel="stylesheet" href="feedback-layout-fix.css">
     <link rel="stylesheet" href="llm-chat.css">
+    <link rel="stylesheet" href="attention-flow.css">
     <link rel="stylesheet" href="idle-warning.css">
   </head>
   <body>
@@ -24,10 +25,24 @@
         <span>Data exposed</span>
         <strong id="exposed-count">0</strong>
       </div>
-      <div class="attention-copy">
+      <div class="attention-copy attention-screen" id="attention-leak-screen">
         <span class="attention-kicker">PrivacyGuard / AI privacy game</span>
         <h1 id="attention-title">Your data is <span>leaking.</span></h1>
         <p>Practice what to share with AI before the mistake happens for real.</p>
+        <button class="start-button" id="attention-next" type="button">Next</button>
+      </div>
+
+      <div class="attention-copy attention-screen attention-guide" id="attention-guide-screen" hidden aria-labelledby="guide-title">
+        <span class="attention-kicker">Before you start</span>
+        <h1 id="guide-title">Think before you share.</h1>
+        <p>Chat with the AI, choose one of three replies, and keep private data out of your prompt.</p>
+        <div class="guide-list" aria-label="How the game works">
+          <article><strong>AI chat</strong><span>Read what the assistant asks for.</span></article>
+          <article><strong>Options</strong><span>Pick the safest reply.</span></article>
+          <article><strong>Your data</strong><span>Share only what is needed.</span></article>
+          <article><strong>Timer</strong><span>Decide before time runs out.</span></article>
+          <article><strong>Score</strong><span>See your privacy result at the end.</span></article>
+        </div>
         <button class="start-button" id="start-game" type="button" disabled>Loading...</button>
       </div>
     </section>
@@ -89,6 +104,7 @@
     <script src="scenarios.js"></script>
     <script src="script-feedback.js"></script>
     <script src="llm-chat.js"></script>
+    <script src="attention-flow.js"></script>
     <script src="idle-warning.js"></script>
   </body>
 </html>
