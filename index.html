@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="feedback-layout-fix.css">
     <link rel="stylesheet" href="llm-chat.css">
     <link rel="stylesheet" href="attention-flow.css">
+    <link rel="stylesheet" href="game-cancel.css">
     <link rel="stylesheet" href="idle-warning.css">
   </head>
   <body>
@@ -58,6 +59,7 @@
             <div class="header-status">
               <div class="level-badge" id="level-badge">Level 1 / 5</div>
               <span id="timer">22s</span>
+              <button class="game-cancel-button" type="button" data-game-cancel aria-label="Cancel game">Cancel</button>
             </div>
           </div>
           <div class="progress-track" aria-hidden="true">
@@ -105,6 +107,7 @@
     <script src="script-feedback.js"></script>
     <script src="llm-chat.js"></script>
     <script src="attention-flow.js"></script>
+    <script src="game-cancel.js"></script>
     <script src="idle-warning.js"></script>
   </body>
 </html>
