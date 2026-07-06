@@ -5,28 +5,30 @@ const levels = [
     shortTitle: "Verify phone contract",
     icon: "📨",
     user: "Can you check whether this phone plan is a good deal before I renew it?",
-    prompt: "Yes. I only need the costs, contract length and included data or minutes. How would you like to share it?",
+    prompt:
+      "Yes. I only need the costs, contract length and included data or minutes. How would you like to share it?",
     adviceTitle: "Never upload a full contract PDF.",
-    advice: "It contains your bank account, address, ID number and signature - everything an attacker needs.",
+    advice:
+      "It contains your bank account, address, ID number and signature - everything an attacker needs.",
     options: [
       {
         label: "OPTION A",
         text: "The plan is EUR 24.99/month for 24 months, includes 30GB 5G data, EU roaming, and a EUR 39 activation fee. Renewal price after month 24 is EUR 34.99.",
-        score: 20
+        score: 20,
       },
       {
         label: "OPTION B",
         text: "Here's the full contract PDF. Can you check every page?",
         document: "pdf",
-        score: 0
+        score: 0,
       },
       {
         label: "OPTION C",
         text: "I redacted my address and IBAN and attached the contract pages about fees and term.",
         document: "part",
-        score: 10
-      }
-    ]
+        score: 10,
+      },
+    ],
   },
   {
     title: "Evaluate your rental application",
@@ -34,28 +36,30 @@ const levels = [
     shortTitle: "Rental Application",
     icon: "🔗",
     user: "I want to apply for an apartment. Can you tell me if my application looks strong enough?",
-    prompt: "I can help you assess the application. What details would you like to share?",
+    prompt:
+      "I can help you assess the application. What details would you like to share?",
     adviceTitle: "Your rental application is a full identity package.",
-    advice: "Income, employer, credit score, and address - all in one file. Never upload it directly to AI.",
+    advice:
+      "Income, employer, credit score, and address - all in one file. Never upload it directly to AI.",
     options: [
       {
         label: "OPTION A",
         text: "The rent is EUR 980 cold / EUR 1,180 warm. My net income is about EUR 3,300, I have a permanent contract, can move in from September, and I want the message to sound reliable and concise.",
-        score: 20
+        score: 20,
       },
       {
         label: "OPTION B",
         text: "Here's my full rental application package. Can you check if everything looks convincing?",
         document: "zip",
-        score: 0
+        score: 0,
       },
       {
         label: "OPTION C",
         text: "I removed my ID number and bank account from the application package before uploading it.",
         document: "part",
-        score: 10
-      }
-    ]
+        score: 10,
+      },
+    ],
   },
   {
     title: "Review Your Loan Offer",
@@ -63,28 +67,30 @@ const levels = [
     shortTitle: "Bank Loan",
     icon: "📄",
     user: "I got a personal loan offer. Can you help me understand whether the terms are reasonable?",
-    prompt: "Sure. I can compare the key terms if you share the amount, APR, fees, term and monthly payment.",
+    prompt:
+      "Sure. I can compare the key terms if you share the amount, APR, fees, term and monthly payment.",
     adviceTitle: "Loan documents reveal your financial fingerprint.",
-    advice: "Credit tier, debt level, and income can all be inferred from a single offer. Summarize - never upload.",
+    advice:
+      "Credit tier, debt level, and income can all be inferred from a single offer. Summarize - never upload.",
     options: [
       {
         label: "OPTION A",
         text: "The loan amount is EUR 8,000 over 36 months, APR is 8.9%, monthly payment is EUR 254.10, origination fee is EUR 120, and early repayment is free after 12 months.",
-        score: 20
+        score: 20,
       },
       {
         label: "OPTION B",
         text: "Here's the full loan offer, bank statement and credit check. Please review the offer.",
         document: "pdf",
-        score: 0
+        score: 0,
       },
       {
         label: "OPTION C",
         text: "I hid my name, IBAN and signature on the loan offer before uploading it.",
         document: "part",
-        score: 10
-      }
-    ]
+        score: 10,
+      },
+    ],
   },
   {
     title: "Optimize Your CV Content and Layout",
@@ -92,28 +98,30 @@ const levels = [
     shortTitle: "CV Optimization",
     icon: "📄",
     user: "I'm applying to a tech company. Can you help me improve the content and layout of my CV?",
-    prompt: "Of course. I can help with structure, wording and prioritization. How would you like to share your CV details?",
+    prompt:
+      "Of course. I can help with structure, wording and prioritization. How would you like to share your CV details?",
     adviceTitle: "A CV is the most complete profile you can hand over.",
-    advice: "Name, phone, location, employer, and life history are all on one page. Describe it, do not upload it.",
+    advice:
+      "Name, phone, location, employer, and life history are all on one page. Describe it, do not upload it.",
     options: [
       {
         label: "OPTION A",
         text: "I have software development experience from university projects and a working-student role. My strongest areas are Java, backend development and some frontend work. I want the CV to feel clearer, more scannable and more relevant for a junior developer role.",
-        score: 20
+        score: 20,
       },
       {
         label: "OPTION B",
         text: "Here's the full PDF. Can you optimize the content and layout?",
         document: "pdf",
-        score: 0
+        score: 0,
       },
       {
         label: "OPTION C",
         text: "Here's the experience section with personal details hidden. Can you improve the layout and wording?",
         document: "part",
-        score: 10
-      }
-    ]
+        score: 10,
+      },
+    ],
   },
   {
     title: "Draft a Work Email",
@@ -121,29 +129,31 @@ const levels = [
     shortTitle: "Work Email",
     icon: "📨",
     user: "Can you help me write a clearer response to a coworker about this project decision?",
-    prompt: "Yes. Share the goal, audience and tone. Avoid names or internal details unless they are necessary.",
+    prompt:
+      "Yes. Share the goal, audience and tone. Avoid names or internal details unless they are necessary.",
     adviceTitle: "Work emails contain context AI should not have.",
-    advice: "Project names, internal decisions, and real people's roles can leak professional data. Ask for templates instead.",
+    advice:
+      "Project names, internal decisions, and real people's roles can leak professional data. Ask for templates instead.",
     options: [
       {
         label: "OPTION A",
         text: "Please draft a polite update that says we need one more review round before committing to the timeline. Keep it concise and collaborative.",
-        score: 20
+        score: 20,
       },
       {
         label: "OPTION B",
         text: "Here is the full email thread with names, internal project details and the decision history. Can you rewrite my reply?",
         document: "mail",
-        score: 0
+        score: 0,
       },
       {
         label: "OPTION C",
         text: "I removed names and project codes from the thread before sharing the parts about tone and next steps.",
         document: "part",
-        score: 10
-      }
-    ]
-  }
+        score: 10,
+      },
+    ],
+  },
 ];
 
 const attentionEl = document.getElementById("attention");
@@ -168,12 +178,16 @@ let exposed = 0;
 let sceneResults = [];
 
 function escapeHtml(value) {
-  return value.replace(/[&<>"]/g, (char) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;"
-  }[char]));
+  return value.replace(
+    /[&<>"]/g,
+    (char) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+      })[char],
+  );
 }
 
 function documentPreview(kind) {
@@ -207,13 +221,17 @@ function render() {
   aiPromptEl.textContent = level.prompt;
   scoreEl.textContent = score;
   progressFillEl.style.width = `${Math.round(((levelIndex + 1) / levels.length) * 70)}%`;
-  optionsEl.innerHTML = level.options.map((option, index) => `
+  optionsEl.innerHTML = level.options
+    .map(
+      (option, index) => `
     <button class="option-card" type="button" data-index="${index}">
       <span class="option-label">${option.label}</span>
       ${documentPreview(option.document)}
       <p>${escapeHtml(option.text)}</p>
     </button>
-  `).join("");
+  `,
+    )
+    .join("");
   resetTimer();
 }
 
@@ -248,7 +266,7 @@ function choose(index) {
     icon: level.icon,
     score: option.score,
     adviceTitle: level.adviceTitle,
-    advice: level.advice
+    advice: level.advice,
   });
 
   setTimeout(() => {
@@ -262,19 +280,35 @@ function choose(index) {
 }
 
 function gradeForScore(total) {
-  if (total >= 90) return { grade: "A - SAFE", copy: "Excellent result. You shared useful context while keeping personal and professional data out of the prompt." };
-  if (total >= 60) return { grade: "B - CAUTIOUS", copy: "You spotted most risks, but some choices exposed more than necessary. Remember - summaries work just as well as full documents." };
-  if (total >= 40) return { grade: "C - REVIEW", copy: "You caught several risks, but full documents still leaked too much personal context. Share only the exact facts the task needs." };
-  return { grade: "D - RISKY", copy: "Too many uploads exposed sensitive details. Before using AI, strip identifiers and summarize the request in your own words." };
+  if (total >= 90)
+    return {
+      grade: "A - SAFE",
+      copy: "Excellent result. You shared useful context while keeping personal and professional data out of the prompt.",
+    };
+  if (total >= 60)
+    return {
+      grade: "B - CAUTIOUS",
+      copy: "You spotted most risks, but some choices exposed more than necessary. Remember - summaries work just as well as full documents.",
+    };
+  if (total >= 40)
+    return {
+      grade: "C - REVIEW",
+      copy: "You caught several risks, but full documents still leaked too much personal context. Share only the exact facts the task needs.",
+    };
+  return {
+    grade: "D - RISKY",
+    copy: "Too many uploads exposed sensitive details. Before using AI, strip identifiers and summarize the request in your own words.",
+  };
 }
 
 function finish() {
   clearInterval(timerId);
   const grade = gradeForScore(score);
   const riskyMoves = sceneResults.filter((result) => result.score === 0).length;
-  const logs = sceneResults.map((result) => {
-    const status = resultStatus(result.score);
-    return `
+  const logs = sceneResults
+    .map((result) => {
+      const status = resultStatus(result.score);
+      return `
       <article class="log-card ${status.key}">
         <span class="log-icon" aria-hidden="true">${result.icon}</span>
         <div>
@@ -284,8 +318,11 @@ function finish() {
         <span class="status-pill ${status.key}">${status.label}</span>
       </article>
     `;
-  }).join("");
-  const advice = sceneResults.map((result) => `
+    })
+    .join("");
+  const advice = sceneResults
+    .map(
+      (result) => `
     <article class="advice-card">
       <span class="advice-number">${String(result.index).padStart(2, "0")}</span>
       <div>
@@ -293,7 +330,9 @@ function finish() {
         <p>${escapeHtml(result.advice)}</p>
       </div>
     </article>
-  `).join("");
+  `,
+    )
+    .join("");
 
   appShellEl.classList.add("complete-mode");
   appShellEl.setAttribute("aria-labelledby", "complete-title");
