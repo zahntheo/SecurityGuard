@@ -3,8 +3,11 @@
   --portrait-header-height: clamp(72px, 8vmin, 120px);
   --portrait-header-padding-y: 5px;
   --portrait-header-gap: 4px;
-  --portrait-chat-gap: clamp(24px, 2.5vmin, 56px);
-  --portrait-option-height: clamp(300px, 26vmin, 400px);
+  --portrait-content-gap: clamp(34px, 3.2vmin, 76px);
+  --portrait-content-padding-y: clamp(42px, 5vmin, 140px);
+  --portrait-content-padding-x: clamp(40px, 6vmin, 200px);
+  --portrait-chat-gap: clamp(34px, 3vmin, 72px);
+  --portrait-option-height: clamp(360px, 30vmin, 480px);
 }
 
 html,
@@ -376,17 +379,87 @@ body {
     margin-inline: auto;
   }
 
+  .content {
+    gap: var(--portrait-content-gap);
+    padding: var(--portrait-content-padding-y) var(--portrait-content-padding-x);
+  }
+
+  .content h1 {
+    font-size: clamp(46px, 5vmin, 150px);
+  }
+
+  .content .model-name {
+    padding: clamp(5px, 0.55vmin, 16px) clamp(10px, 0.95vmin, 30px);
+    font-size: clamp(14px, 1.25vmin, 38px);
+  }
+
   .chat {
     gap: var(--portrait-chat-gap);
   }
 
+  .message {
+    gap: clamp(16px, 1.5vmin, 48px);
+  }
+
+  .bubble {
+    padding: clamp(24px, 2.4vmin, 76px) clamp(28px, 2.8vmin, 90px);
+  }
+
+  .stamp,
+  .option-label,
+  .divider-label,
+  .scorebar span {
+    font-size: clamp(12px, 1.1vmin, 34px);
+  }
+
+  .bubble p {
+    font-size: clamp(20px, 1.9vmin, 60px);
+  }
+
+  .avatar {
+    width: clamp(48px, 4.5vmin, 140px);
+    height: clamp(48px, 4.5vmin, 140px);
+    font-size: clamp(15px, 1.45vmin, 46px);
+  }
+
+  .content .composer-shell {
+    gap: clamp(14px, 1.35vmin, 42px);
+    padding: clamp(16px, 1.5vmin, 44px) clamp(18px, 1.8vmin, 54px);
+  }
+
+  .content .composer-input {
+    font-size: clamp(18px, 1.65vmin, 50px);
+  }
+
+  .content .composer-attach,
+  .content .composer-send {
+    width: clamp(44px, 4vmin, 124px);
+    height: clamp(44px, 4vmin, 124px);
+  }
+
+  .divider-label {
+    font-size: clamp(15px, 1.3vmin, 40px);
+  }
+
   .options {
     align-items: start;
+    gap: clamp(18px, 1.8vmin, 60px);
   }
 
   .option-card {
     height: var(--portrait-option-height);
     min-height: var(--portrait-option-height);
+    gap: clamp(18px, 1.8vmin, 58px);
+    padding: clamp(24px, 2.4vmin, 76px);
+  }
+
+  .option-card p {
+    font-size: clamp(18px, 1.65vmin, 52px);
+  }
+
+  .document-preview {
+    width: clamp(104px, 9.5vmin, 300px);
+    height: clamp(132px, 12vmin, 380px);
   }
 }
 
