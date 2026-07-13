@@ -26,6 +26,33 @@
       <div class="data-counter">
         <span>Data exposed</span>
         <strong id="exposed-count">0</strong>
+        <button class="data-counter-more" id="exposure-info-open" type="button" aria-haspopup="dialog">
+          See why
+        </button>
+      </div>
+
+      <div class="exposure-dialog-backdrop" id="exposure-info-backdrop" hidden>
+        <section class="exposure-dialog" role="dialog" aria-modal="true" aria-labelledby="exposure-info-title" aria-describedby="exposure-info-summary">
+          <button class="exposure-dialog-close" id="exposure-info-close" type="button" aria-label="Close explanation">×</button>
+          <span class="exposure-dialog-kicker">Why this matters</span>
+          <h2 id="exposure-info-title">Privacy problems can become security incidents.</h2>
+          <p id="exposure-info-summary">
+            Security and privacy are deeply <strong>interconnected</strong>. Security incidents can
+            <strong>originate from privacy issues</strong> when too much personal information is exposed.
+          </p>
+          <div class="exposure-path" aria-label="How exposed data can cause harm">
+            <span>Privacy issue</span><b aria-hidden="true">→</b><span>Data exposure</span><b aria-hidden="true">→</b><span>Security harm</span>
+          </div>
+          <blockquote>
+            “In the process, sensitive customer data may fall into the hands of cybercriminals,
+            potentially leading to significant subsequent harm for those affected.”
+            <cite>Translated from BSI, 2025</cite>
+          </blockquote>
+          <div class="exposure-takeaway">
+            <strong>Address the root cause: privacy.</strong>
+            <p>Different pieces of exposed information can be combined to create more convincing spam or phishing attempts.</p>
+          </div>
+        </section>
       </div>
       <div class="attention-copy attention-screen" id="attention-leak-screen">
         <span class="attention-kicker">PrivacyGuard / AI privacy game</span>
