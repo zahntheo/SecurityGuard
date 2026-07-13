@@ -74,6 +74,7 @@ function resultStatus(key = "risky") {
 
 function attachmentName(kind, level) {
   const base = level.shortTitle.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+  if (kind === "redacted") return `${base}_redacted.pdf · reviewed copy`;
   if (kind === "part") return `${base}_redacted.pdf · selected pages`;
   if (kind === "mail") return `${base}_thread.eml · full thread`;
   if (kind === "zip") return `${base}_package.zip · full package`;
@@ -135,6 +136,8 @@ function syncAssistantChrome() {
 function removeFeedback() {
   document.querySelector(".feedback-panel")?.remove();
   document.querySelector(".lesson-overlay")?.remove();
+  document.querySelector(".contract-redaction-overlay")?.remove();
+  document.body.classList.remove("redaction-open");
   currentLesson = null;
 }
 
@@ -219,21 +222,23 @@ function render() {
   optionsEl.innerHTML = level.options.map((option, index) => `
     <button class="option-card" type="button" data-index="${index}">
       <span class="option-label">${escapeHtml(option.label)}</span>
+      ${option.interaction === "redact-contract" ? '<span class="option-interactive">Open & redact</span>' : ""}
       ${documentPreview(option.document)}
       <p>${escapeHtml(option.text)}</p>
     </button>
   `).join("");
 }
 
-function choose(index) {
+function choose(index, optionOverride = null) {
   const level = levels[levelIndex];
-  const option = level.options[index];
+  const option = optionOverride || level.options[index];
   const optionScore = getOptionScore(option);
   const optionStatus = getOptionStatus(option);
   const cards = [...document.querySelectorAll(".option-card")];
   const feedback = option.feedback;
   cards.forEach((card, cardIndex) => {
-    const cardStatus = getOptionStatus(level.options[cardIndex]);
+    const cardOption = cardIndex === index ? option : level.options[cardIndex];
+    const cardStatus = getOptionStatus(cardOption);
     card.disabled = true;
     if (cardIndex === index) card.classList.add("selected", optionStatus);
     if (cardStatus === "safe") card.classList.add("correct");
