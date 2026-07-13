@@ -280,66 +280,37 @@ body.redaction-open {
 
 .option-card-interactive {
   position: relative;
-  cursor: default;
+  padding-top: clamp(54px, 5.2vmin, 180px);
 }
 
-.option-card-choice {
-  width: 100%;
-  min-height: 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: inherit;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  text-align: left;
-}
-
-.option-card-choice .option-label {
-  padding-right: clamp(118px, 10vmin, 340px);
-}
-
-.option-card-choice:focus-visible {
-  outline: 3px solid rgba(6, 201, 160, 0.48);
-  outline-offset: 5px;
-  border-radius: clamp(8px, 0.8vmin, 28px);
-}
-
-.option-open-contract {
+.option-interactive {
   position: absolute;
   top: clamp(16px, 1.8vmin, 64px);
   right: clamp(16px, 1.8vmin, 64px);
-  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
   border: 1.5px solid rgba(6, 169, 133, 0.42);
   border-radius: 999px;
   padding: clamp(7px, 0.7vmin, 24px) clamp(11px, 1.1vmin, 38px);
   background: #e7fbf5;
   color: #047b63;
-  cursor: pointer;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: clamp(10px, 0.85vmin, 30px);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   box-shadow: 0 8px 20px rgba(6, 169, 133, 0.12);
-  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  pointer-events: none;
 }
 
-.option-open-contract::before {
-  content: "✦ ";
+.option-interactive::before {
+  content: "✦";
 }
 
-.option-open-contract:hover,
-.option-open-contract:focus-visible {
-  outline: 0;
+.option-card-interactive:hover .option-interactive,
+.option-card-interactive:focus-visible .option-interactive {
   background: #c9f6e9;
-  transform: translateY(-1px);
-  box-shadow: 0 11px 24px rgba(6, 169, 133, 0.18);
 }
 
 @keyframes contractOverlayIn {
