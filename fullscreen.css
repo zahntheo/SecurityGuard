@@ -2,8 +2,7 @@
   /* Manual tuning for tall portrait displays. */
   --portrait-header-padding-y: 5px;
   --portrait-header-gap: 4px;
-  --portrait-chat-height: clamp(320px, 24dvh, 760px);
-  --portrait-chat-gap: clamp(40px, 5dvh, 150px);
+  --portrait-chat-gap: clamp(24px, 2.5vmin, 56px);
   --portrait-option-height: clamp(300px, 26vmin, 400px);
 }
 
@@ -363,8 +362,6 @@ body {
   }
 
   .chat {
-    min-height: var(--portrait-chat-height);
-    justify-content: space-between;
     gap: var(--portrait-chat-gap);
   }
 
