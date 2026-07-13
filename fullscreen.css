@@ -42,7 +42,7 @@ body {
 }
 
 .app-shell {
-  grid-template-rows: max-content minmax(0, 1fr) max-content;
+  grid-template-rows: max-content minmax(0, 1fr);
 }
 
 .game-header {
@@ -61,16 +61,6 @@ body {
   width: clamp(18px, 1.65vmin, 56px);
   height: clamp(22px, 2vmin, 70px);
   font-size: clamp(12px, 1.05vmin, 34px);
-}
-
-.level-badge {
-  min-width: clamp(102px, 9.5vmin, 320px);
-  height: clamp(28px, 2.6vmin, 88px);
-  font-size: clamp(11px, 1vmin, 34px);
-}
-
-.progress-track {
-  height: clamp(6px, 0.55vmin, 20px);
 }
 
 .scene-row p,
@@ -115,8 +105,7 @@ body {
 
 .stamp,
 .option-label,
-.divider-label,
-.scorebar span {
+.divider-label {
   font-size: clamp(10px, 0.9vmin, 30px);
 }
 
@@ -174,16 +163,6 @@ body {
 .doc-line {
   height: clamp(4px, 0.38vmin, 14px);
   margin-bottom: clamp(8px, 0.78vmin, 28px);
-}
-
-.scorebar {
-  min-height: clamp(90px, 9dvh, 260px);
-  background: var(--body);
-}
-
-.scorebar strong {
-  font-size: clamp(40px, 3.7vmin, 128px);
-  line-height: 1.1;
 }
 
 .app-shell.complete-mode {
@@ -363,7 +342,7 @@ body {
 
 @media (orientation: portrait) and (min-height: 1200px) {
   .app-shell {
-    grid-template-rows: var(--portrait-header-height) minmax(0, 1fr) max-content;
+    grid-template-rows: var(--portrait-header-height) minmax(0, 1fr);
   }
 
   .game-header {
@@ -373,8 +352,7 @@ body {
     padding: var(--portrait-header-padding-y) clamp(20px, 5vmin, 180px);
   }
 
-  .header-row,
-  .progress-track {
+  .header-row {
     width: 100%;
     margin-inline: auto;
   }
@@ -407,8 +385,7 @@ body {
 
   .stamp,
   .option-label,
-  .divider-label,
-  .scorebar span {
+  .divider-label {
     font-size: clamp(12px, 1.1vmin, 34px);
   }
 
