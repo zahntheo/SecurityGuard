@@ -335,10 +335,10 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  height: clamp(330px, 15dvh, 600px);
+  height: auto;
   box-sizing: border-box;
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
   gap: clamp(14px, 1.4vmin, 50px);
   overflow: visible;
   padding: clamp(20px, 2.1vmin, 78px) clamp(22px, 2.4vmin, 88px);
@@ -412,118 +412,12 @@
   animation: progressShine 1.25s 120ms ease-out both;
 }
 
-.progress-message {
-  position: relative;
-  min-height: clamp(118px, 6.2dvh, 238px);
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: clamp(14px, 1.5vmin, 54px);
-  padding: clamp(18px, 1.8vmin, 66px) clamp(20px, 2vmin, 74px);
-  border: 1.5px solid currentColor;
-  border-radius: clamp(17px, 1.6vmin, 58px);
-  transform-origin: center bottom;
-  will-change: opacity, transform;
-}
-
-.progress-message.is-empty {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.progress-message.safe {
-  background: linear-gradient(135deg, #e7fbf4, #f5fffb);
-  color: #057a5b;
-}
-
-.progress-message.caution {
-  background: linear-gradient(135deg, #fff4dc, #fffaf0);
-  color: #9a6200;
-}
-
-.progress-message.risky {
-  background: linear-gradient(135deg, #fff0ef, #fff8f7);
-  color: #b33b32;
-}
-
-.reward-symbol {
-  width: clamp(46px, 4.4vmin, 152px);
-  height: clamp(46px, 4.4vmin, 152px);
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  background: currentColor;
-  color: #ffffff;
-  font-size: clamp(21px, 2vmin, 70px);
-  font-weight: 800;
-  box-shadow: 0 10px 24px rgba(14, 23, 38, 0.13);
-}
-
-.reward-copy {
-  min-width: 0;
-}
-
-.reward-kicker,
-.reward-level {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: clamp(11px, 0.95vmin, 34px);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.reward-copy strong {
-  display: block;
-  margin-top: clamp(3px, 0.3vmin, 10px);
-  color: var(--ink);
-  font-family: Unbounded, Manrope, sans-serif;
-  font-size: clamp(18px, 1.65vmin, 58px);
-  line-height: 1.3;
-}
-
-.reward-copy p {
-  margin: clamp(5px, 0.55vmin, 18px) 0 0;
-  color: #4c5670;
-  font-size: clamp(14px, 1.25vmin, 44px);
-  line-height: 1.5;
-}
-
-.reward-level {
-  align-self: start;
-  padding: clamp(7px, 0.7vmin, 24px) clamp(10px, 1vmin, 36px);
-  border-radius: 999px;
-  background: currentColor;
-  color: #ffffff;
-  white-space: nowrap;
-}
-
-.reward-in {
-  animation: rewardMessageIn 760ms cubic-bezier(0.2, 0.9, 0.25, 1.2) both;
-}
-
-.reward-in .reward-symbol {
-  animation: rewardSymbolPop 920ms 100ms cubic-bezier(0.2, 0.9, 0.25, 1.35) both;
-}
-
 .score-bump {
   animation: scoreBump 820ms cubic-bezier(0.2, 0.9, 0.25, 1.3);
 }
 
 .level-bump {
   animation: levelBump 900ms ease;
-}
-
-@keyframes rewardMessageIn {
-  from { opacity: 0; transform: translateY(16px) scale(0.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes rewardSymbolPop {
-  0% { opacity: 0; transform: scale(0.45) rotate(-18deg); }
-  65% { opacity: 1; transform: scale(1.14) rotate(5deg); }
-  100% { opacity: 1; transform: scale(1) rotate(0); }
 }
 
 @keyframes scoreBump {
@@ -559,23 +453,12 @@
     font-size: clamp(36px, 3.4vmin, 104px);
   }
 
-  .progress-message {
-    padding: clamp(24px, 2.4vmin, 76px);
-  }
-
-  .reward-copy strong {
-    font-size: clamp(22px, 2vmin, 64px);
-  }
-
-  .reward-copy p {
-    font-size: clamp(17px, 1.55vmin, 48px);
-  }
 }
 
 @media (max-width: 760px) {
   .game-progress {
     height: auto;
-    min-height: 330px;
+    min-height: 0;
   }
 }
 
