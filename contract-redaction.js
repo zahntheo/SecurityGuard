@@ -4,7 +4,7 @@ const documentRedactionProfiles = {
     "title": "Mobile service contract",
     "reference": "Contract · MC-2026-0815",
     "instruction": "Tap every detail that is not needed to compare the phone plan. Tap a blacked-out field again to restore it.",
-    "usefulSummary": activeRedactionProfile.usefulSummary,
+    "usefulSummary": "The AI can still see the price, term, data allowance, roaming and fees.",
     "fields": [
       {
         "id": "customer-name",
