@@ -22,7 +22,6 @@ const appShellEl = document.querySelector(".app-shell");
 const exposedCountEl = document.getElementById("exposed-count");
 const optionsEl = document.getElementById("options");
 const gameProgressEl = document.getElementById("game-progress");
-const progressMessageEl = document.getElementById("progress-message");
 const screenTitleEl = document.getElementById("screen-title");
 const modelNameEl = document.getElementById("model-name");
 const levelBadgeEl = document.getElementById("level-badge");
@@ -148,34 +147,9 @@ function updateProgress(levelNumber = levelIndex + 1) {
 }
 
 function resetProgressReward() {
-  progressMessageEl.className = "progress-message is-empty";
-  progressMessageEl.setAttribute("aria-hidden", "true");
-  progressMessageEl.innerHTML = "";
   scoreEl.classList.remove("score-bump");
   levelBadgeEl.classList.remove("level-bump");
   progressFillEl.classList.remove("progress-advance");
-}
-
-function progressionCopy(points, status) {
-  if (status === "safe") {
-    return {
-      kicker: `+${points} points`,
-      title: "Nice work — keep going!",
-      text: "You shared only what was needed and protected the details that should stay private."
-    };
-  }
-  if (status === "caution") {
-    return {
-      kicker: `+${points} points`,
-      title: "Good step — you’re getting sharper!",
-      text: "You spotted part of the risk. Sharing a little less would make this answer even safer."
-    };
-  }
-  return {
-    kicker: "0 points",
-    title: "No worries — mistakes are human.",
-    text: "Pause and think about which personal details could be exposed before you share next time."
-  };
 }
 
 function restartProgressAnimation(element, className) {
@@ -184,26 +158,12 @@ function restartProgressAnimation(element, className) {
   element.classList.add(className);
 }
 
-function showProgressReward(points, status) {
+function showProgressReward() {
   const isLast = levelIndex === levels.length - 1;
   const visibleLevel = isLast ? levels.length : levelIndex + 2;
-  const copy = progressionCopy(points, status);
-  const levelText = isLast ? "All levels complete" : `Level ${visibleLevel} unlocked`;
 
   scoreEl.textContent = score;
   updateProgress(visibleLevel);
-  progressMessageEl.className = `progress-message ${status}`;
-  progressMessageEl.innerHTML = `
-    <span class="reward-symbol" aria-hidden="true">${status === "safe" ? "★" : status === "caution" ? "↑" : "↻"}</span>
-    <div class="reward-copy">
-      <span class="reward-kicker">${escapeHtml(copy.kicker)}</span>
-      <strong>${escapeHtml(copy.title)}</strong>
-      <p>${escapeHtml(copy.text)}</p>
-    </div>
-    <span class="reward-level">${escapeHtml(levelText)}</span>
-  `;
-  progressMessageEl.removeAttribute("aria-hidden");
-  restartProgressAnimation(progressMessageEl, "reward-in");
   restartProgressAnimation(scoreEl, "score-bump");
   restartProgressAnimation(levelBadgeEl, "level-bump");
   restartProgressAnimation(progressFillEl, "progress-advance");
