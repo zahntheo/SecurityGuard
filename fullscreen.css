@@ -347,6 +347,21 @@ body {
   }
 }
 
+@media (orientation: portrait) and (min-height: 1200px) {
+  .game-header {
+    gap: clamp(8px, 0.7vmin, 20px);
+    padding: clamp(12px, 1.35vmin, 44px) clamp(20px, 4.4vmin, 144px);
+  }
+
+  .options {
+    align-items: start;
+  }
+
+  .option-card {
+    min-height: clamp(240px, 22vmin, 380px);
+  }
+}
+
 @media (max-width: 760px) {
   body {
     overflow: auto;
