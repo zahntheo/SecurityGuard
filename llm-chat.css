@@ -11,40 +11,6 @@
   font-weight: 700;
 }
 
-.header-status #timer {
-  min-width: clamp(70px, 5.8vmin, 190px);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(4px, 0.45vmin, 14px);
-  padding: clamp(5px, 0.46vmin, 16px) clamp(9px, 0.85vmin, 28px);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
-  background: rgba(14, 23, 38, 0.28);
-  color: #ffffff;
-  font-size: clamp(12px, 1.05vmin, 36px);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-  text-align: center;
-  box-shadow: 0 8px 22px rgba(14, 23, 38, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
-}
-
-.header-status #timer::before {
-  content: "TIME";
-  color: #ffe2a8;
-  font-size: 0.68em;
-}
-
-.level-badge {
-  min-width: clamp(78px, 7.3vmin, 238px);
-  height: clamp(22px, 1.9vmin, 62px);
-  font-size: clamp(9px, 0.76vmin, 25px);
-}
-
-.progress-track {
-  height: clamp(3px, 0.38vmin, 13px);
-}
-
 .scenario-title-block {
   display: flex;
   flex-direction: column;
@@ -196,10 +162,6 @@
 @media (max-width: 760px) {
   .header-status {
     gap: 8px;
-  }
-
-  .header-status #timer {
-    min-width: 64px;
   }
 }
 

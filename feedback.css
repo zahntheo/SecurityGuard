@@ -282,3 +282,241 @@
     max-height: 90dvh;
   }
 }
+
+
+.game-progress {
+  position: relative;
+  display: grid;
+  gap: clamp(14px, 1.4vmin, 50px);
+  overflow: hidden;
+  padding: clamp(20px, 2.1vmin, 78px) clamp(22px, 2.4vmin, 88px);
+  border: 1.5px solid var(--line);
+  border-radius: clamp(20px, 1.9vmin, 68px);
+  background: linear-gradient(135deg, #ffffff 0%, #f4f7f8 100%);
+  box-shadow: 0 16px 42px rgba(14, 23, 38, 0.07);
+}
+
+.progress-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 1.5vmin, 54px);
+}
+
+.progress-stat {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 1.2vmin, 44px);
+  padding: clamp(14px, 1.4vmin, 50px) clamp(16px, 1.7vmin, 62px);
+  border: 1px solid rgba(14, 23, 38, 0.09);
+  border-radius: clamp(15px, 1.4vmin, 50px);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.progress-stat span {
+  color: #687188;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(12px, 1.05vmin, 36px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.progress-stat strong {
+  color: var(--ink);
+  font-family: Unbounded, Manrope, sans-serif;
+  font-size: clamp(28px, 2.7vmin, 92px);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.game-progress .progress-track {
+  width: 100%;
+  height: clamp(8px, 0.75vmin, 26px);
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dfe5e8;
+}
+
+.game-progress .progress-fill {
+  position: relative;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #06c9a0, #5ee7cf);
+  box-shadow: 0 0 18px rgba(6, 201, 160, 0.32);
+  transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.game-progress .progress-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-110%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  animation: progressShine 1.4s ease-out;
+}
+
+.progress-message {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(14px, 1.5vmin, 54px);
+  padding: clamp(18px, 1.8vmin, 66px) clamp(20px, 2vmin, 74px);
+  border: 1.5px solid currentColor;
+  border-radius: clamp(17px, 1.6vmin, 58px);
+}
+
+.progress-message[hidden] {
+  display: none;
+}
+
+.progress-message.safe {
+  background: linear-gradient(135deg, #e7fbf4, #f5fffb);
+  color: #057a5b;
+}
+
+.progress-message.caution {
+  background: linear-gradient(135deg, #fff4dc, #fffaf0);
+  color: #9a6200;
+}
+
+.progress-message.risky {
+  background: linear-gradient(135deg, #fff0ef, #fff8f7);
+  color: #b33b32;
+}
+
+.reward-symbol {
+  width: clamp(46px, 4.4vmin, 152px);
+  height: clamp(46px, 4.4vmin, 152px);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: currentColor;
+  color: #ffffff;
+  font-size: clamp(21px, 2vmin, 70px);
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(14, 23, 38, 0.13);
+}
+
+.reward-copy {
+  min-width: 0;
+}
+
+.reward-kicker,
+.reward-level {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(11px, 0.95vmin, 34px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reward-copy strong {
+  display: block;
+  margin-top: clamp(3px, 0.3vmin, 10px);
+  color: var(--ink);
+  font-family: Unbounded, Manrope, sans-serif;
+  font-size: clamp(18px, 1.65vmin, 58px);
+  line-height: 1.3;
+}
+
+.reward-copy p {
+  margin: clamp(5px, 0.55vmin, 18px) 0 0;
+  color: #4c5670;
+  font-size: clamp(14px, 1.25vmin, 44px);
+  line-height: 1.5;
+}
+
+.reward-level {
+  align-self: start;
+  padding: clamp(7px, 0.7vmin, 24px) clamp(10px, 1vmin, 36px);
+  border-radius: 999px;
+  background: currentColor;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.reward-in {
+  animation: rewardMessageIn 520ms cubic-bezier(0.2, 0.9, 0.25, 1.2) both;
+}
+
+.reward-in .reward-symbol {
+  animation: rewardSymbolPop 680ms 80ms cubic-bezier(0.2, 0.9, 0.25, 1.35) both;
+}
+
+.score-bump {
+  animation: scoreBump 620ms cubic-bezier(0.2, 0.9, 0.25, 1.3);
+}
+
+.level-bump {
+  animation: levelBump 700ms ease;
+}
+
+@keyframes rewardMessageIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes rewardSymbolPop {
+  0% { opacity: 0; transform: scale(0.45) rotate(-18deg); }
+  65% { opacity: 1; transform: scale(1.14) rotate(5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes scoreBump {
+  0%, 100% { transform: scale(1); }
+  40% { color: #06a985; transform: scale(1.22); }
+}
+
+@keyframes levelBump {
+  0%, 100% { transform: translateY(0); }
+  42% { color: #06a985; transform: translateY(-5px); }
+}
+
+@keyframes progressShine {
+  to { transform: translateX(110%); }
+}
+
+@media (orientation: portrait) and (min-height: 1200px) {
+  .game-progress {
+    gap: clamp(20px, 1.8vmin, 58px);
+    padding: clamp(28px, 2.8vmin, 88px);
+  }
+
+  .progress-stat {
+    min-height: clamp(92px, 8vmin, 250px);
+    padding: clamp(20px, 2vmin, 64px);
+  }
+
+  .progress-stat span {
+    font-size: clamp(15px, 1.3vmin, 40px);
+  }
+
+  .progress-stat strong {
+    font-size: clamp(36px, 3.4vmin, 104px);
+  }
+
+  .progress-message {
+    padding: clamp(24px, 2.4vmin, 76px);
+  }
+
+  .reward-copy strong {
+    font-size: clamp(22px, 2vmin, 64px);
+  }
+
+  .reward-copy p {
+    font-size: clamp(17px, 1.55vmin, 48px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-progress *,
+  .game-progress *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
