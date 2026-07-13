@@ -1,7 +1,7 @@
 :root {
   /* Manual tuning for tall portrait displays. */
-  --portrait-header-padding-y: clamp(8px, 0.85vmin, 28px);
-  --portrait-header-gap: clamp(6px, 0.45vmin, 14px);
+  --portrait-header-padding-y: 5px;
+  --portrait-header-gap: 4px;
   --portrait-chat-height: clamp(320px, 24dvh, 760px);
   --portrait-chat-gap: clamp(40px, 5dvh, 150px);
   --portrait-option-height: clamp(300px, 26vmin, 400px);
