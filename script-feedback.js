@@ -1,6 +1,5 @@
 const DISPLAY_MODEL = "GPT-5.5";
 const DEFAULT_GAME_SETTINGS = {
-  scenarioSeconds: 22,
   optionPoints: {
     safe: 20,
     caution: 10,
@@ -22,19 +21,18 @@ const gameStageEl = document.getElementById("game-stage");
 const appShellEl = document.querySelector(".app-shell");
 const exposedCountEl = document.getElementById("exposed-count");
 const optionsEl = document.getElementById("options");
+const gameProgressEl = document.getElementById("game-progress");
+const progressMessageEl = document.getElementById("progress-message");
 const screenTitleEl = document.getElementById("screen-title");
 const modelNameEl = document.getElementById("model-name");
 const levelBadgeEl = document.getElementById("level-badge");
 const progressFillEl = document.getElementById("progress-fill");
 const scoreEl = document.getElementById("score");
-const timerEl = document.getElementById("timer");
 const userPromptEl = document.getElementById("user-prompt");
 const aiPromptEl = document.getElementById("ai-prompt");
 
 let levelIndex = 0;
 let score = 0;
-let seconds = DEFAULT_GAME_SETTINGS.scenarioSeconds;
-let timerId = null;
 let exposed = 0;
 let sceneResults = [];
 let currentLesson = null;
@@ -96,11 +94,7 @@ function selectedResponse(level, option) {
 }
 
 function normalizeSettings(config = {}) {
-  const scenarioSeconds = Number(config.scenarioSeconds);
   return {
-    scenarioSeconds: Number.isFinite(scenarioSeconds) && scenarioSeconds > 0
-      ? Math.round(scenarioSeconds)
-      : DEFAULT_GAME_SETTINGS.scenarioSeconds,
     optionPoints: {
       ...DEFAULT_GAME_SETTINGS.optionPoints,
       ...(config.optionPoints || {})
@@ -144,16 +138,82 @@ function removeFeedback() {
   currentLesson = null;
 }
 
+function updateProgress(levelNumber = levelIndex + 1) {
+  const visibleLevel = Math.min(levels.length, Math.max(1, levelNumber));
+  levelBadgeEl.textContent = `${visibleLevel} / ${levels.length}`;
+  progressFillEl.style.width = `${Math.round((visibleLevel / levels.length) * 100)}%`;
+}
+
+function resetProgressReward() {
+  progressMessageEl.hidden = true;
+  progressMessageEl.className = "progress-message";
+  progressMessageEl.innerHTML = "";
+  scoreEl.classList.remove("score-bump");
+  levelBadgeEl.classList.remove("level-bump");
+}
+
+function progressionCopy(points, status) {
+  if (status === "safe") {
+    return {
+      kicker: `+${points} points`,
+      title: "Nice work — keep going!",
+      text: "You shared only what was needed and protected the details that should stay private."
+    };
+  }
+  if (status === "caution") {
+    return {
+      kicker: `+${points} points`,
+      title: "Good step — you’re getting sharper!",
+      text: "You spotted part of the risk. Sharing a little less would make this answer even safer."
+    };
+  }
+  return {
+    kicker: "0 points",
+    title: "No worries — mistakes are human.",
+    text: "Pause and think about which personal details could be exposed before you share next time."
+  };
+}
+
+function restartProgressAnimation(element, className) {
+  element.classList.remove(className);
+  void element.offsetWidth;
+  element.classList.add(className);
+}
+
+function showProgressReward(points, status) {
+  const isLast = levelIndex === levels.length - 1;
+  const visibleLevel = isLast ? levels.length : levelIndex + 2;
+  const copy = progressionCopy(points, status);
+  const levelText = isLast ? "All levels complete" : `Level ${visibleLevel} unlocked`;
+
+  scoreEl.textContent = score;
+  updateProgress(visibleLevel);
+  progressMessageEl.className = `progress-message ${status}`;
+  progressMessageEl.innerHTML = `
+    <span class="reward-symbol" aria-hidden="true">${status === "safe" ? "★" : status === "caution" ? "↑" : "↻"}</span>
+    <div class="reward-copy">
+      <span class="reward-kicker">${escapeHtml(copy.kicker)}</span>
+      <strong>${escapeHtml(copy.title)}</strong>
+      <p>${escapeHtml(copy.text)}</p>
+    </div>
+    <span class="reward-level">${escapeHtml(levelText)}</span>
+  `;
+  progressMessageEl.hidden = false;
+  restartProgressAnimation(progressMessageEl, "reward-in");
+  restartProgressAnimation(scoreEl, "score-bump");
+  restartProgressAnimation(levelBadgeEl, "level-bump");
+}
+
 function render() {
   const level = levels[levelIndex];
   if (!level) return;
   removeFeedback();
+  resetProgressReward();
   syncAssistantChrome();
-  levelBadgeEl.textContent = `Level ${levelIndex + 1} / ${levels.length}`;
+  updateProgress();
   userPromptEl.textContent = level.user;
   aiPromptEl.textContent = level.prompt;
   scoreEl.textContent = score;
-  progressFillEl.style.width = `${Math.round(((levelIndex + 1) / levels.length) * 70)}%`;
   optionsEl.innerHTML = level.options.map((option, index) => `
     <button class="option-card" type="button" data-index="${index}">
       <span class="option-label">${escapeHtml(option.label)}</span>
@@ -161,18 +221,6 @@ function render() {
       <p>${escapeHtml(option.text)}</p>
     </button>
   `).join("");
-  resetTimer();
-}
-
-function resetTimer() {
-  clearInterval(timerId);
-  seconds = gameSettings.scenarioSeconds;
-  timerEl.textContent = `${seconds}s`;
-  timerId = setInterval(() => {
-    seconds = Math.max(0, seconds - 1);
-    timerEl.textContent = `${seconds}s`;
-    if (seconds === 0) clearInterval(timerId);
-  }, 1000);
 }
 
 function choose(index) {
@@ -182,8 +230,6 @@ function choose(index) {
   const optionStatus = getOptionStatus(option);
   const cards = [...document.querySelectorAll(".option-card")];
   const feedback = option.feedback;
-  clearInterval(timerId);
-
   cards.forEach((card, cardIndex) => {
     const cardStatus = getOptionStatus(level.options[cardIndex]);
     card.disabled = true;
@@ -204,6 +250,7 @@ function choose(index) {
     adviceTitle: level.adviceTitle,
     advice: level.advice
   });
+  showProgressReward(optionScore, optionStatus);
   currentLesson = { level, option, feedback };
   renderFeedback(level, option, feedback);
 }
@@ -234,7 +281,7 @@ function renderFeedback(level, option, feedback) {
       <button class="next-button" type="button" data-next-step>${isLast ? "view final score →" : "next scenario →"}</button>
     </div>
   `;
-  optionsEl.insertAdjacentElement("afterend", panel);
+  (gameProgressEl || optionsEl).insertAdjacentElement("afterend", panel);
   panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
@@ -298,7 +345,6 @@ function gradeForScore(total) {
 }
 
 function finish() {
-  clearInterval(timerId);
   const grade = gradeForScore(score);
   const totalMaxScore = maxScore();
   const scoreProgress = scorePercent(score);
@@ -377,8 +423,6 @@ function tickExposure() {
 
 function applyGameSettings(config) {
   gameSettings = normalizeSettings(config);
-  seconds = gameSettings.scenarioSeconds;
-  timerEl.textContent = `${seconds}s`;
 }
 
 function applyScenarioConfig(config) {
