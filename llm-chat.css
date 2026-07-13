@@ -43,8 +43,17 @@
 }
 
 .composer-shell.ready {
-  border-color: rgba(6, 201, 160, 0.55);
-  box-shadow: 0 12px 30px rgba(6, 201, 160, 0.12);
+  border-color: rgba(37, 99, 235, 0.58);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.14);
+}
+
+.composer-shell.ready .composer-attach {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.composer-shell.ready .composer-input {
+  color: #1d4ed8;
 }
 
 .composer-attach,
@@ -86,9 +95,10 @@
 }
 
 .composer-send:not(:disabled) {
-  background: linear-gradient(135deg, var(--primary), #8af0df);
-  color: #06121d;
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  color: #ffffff;
   cursor: pointer;
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.24);
 }
 
 .composer-send:not(:disabled):hover,
@@ -144,8 +154,8 @@
 }
 
 .option-card.draft-selected {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(6, 201, 160, 0.16), 0 18px 42px rgba(14, 23, 38, 0.08);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.17), 0 18px 42px rgba(14, 23, 38, 0.08);
   transform: translateY(-2px);
 }
 
