@@ -319,6 +319,11 @@ body {
 }
 
 @media (min-width: 1600px) and (min-height: 2400px) {
+  .game-header {
+    gap: clamp(12px, 1vmin, 34px);
+    padding-block: clamp(18px, 2.1vmin, 80px);
+  }
+
   .options {
     grid-template-columns: 1fr;
   }
