@@ -239,8 +239,8 @@ function render() {
             type="button"
             data-open-contract
             data-index="${index}"
-            aria-label="Open fictional phone contract"
-          >Open contract</button>
+            aria-label="Edit fictional phone contract"
+          >Edit contract</button>
         </article>
       `;
     }
