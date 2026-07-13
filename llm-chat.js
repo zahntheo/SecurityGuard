@@ -56,7 +56,7 @@ function showAssistantTyping() {
       </div>
     </div>
   `;
-  (document.getElementById("game-progress") || optionsEl).insertAdjacentElement("afterend", typing);
+  optionsEl.insertAdjacentElement("afterend", typing);
   typing.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
