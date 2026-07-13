@@ -1,3 +1,12 @@
+:root {
+  /* Manual tuning for tall portrait displays. */
+  --portrait-header-padding-y: clamp(8px, 0.85vmin, 28px);
+  --portrait-header-gap: clamp(6px, 0.45vmin, 14px);
+  --portrait-chat-height: clamp(320px, 24dvh, 760px);
+  --portrait-chat-gap: clamp(40px, 5dvh, 150px);
+  --portrait-option-height: clamp(300px, 26vmin, 400px);
+}
+
 html,
 body {
   width: 100%;
@@ -349,16 +358,14 @@ body {
 
 @media (orientation: portrait) and (min-height: 1200px) {
   .game-header {
-    gap: clamp(6px, 0.45vmin, 14px);
-    padding: clamp(8px, 0.85vmin, 28px) clamp(20px, 4.4vmin, 144px);
+    gap: var(--portrait-header-gap);
+    padding: var(--portrait-header-padding-y) clamp(20px, 4.4vmin, 144px);
   }
 
   .chat {
-    gap: clamp(18px, 1.8vmin, 42px);
-  }
-
-  .bubble {
-    width: min(72ch, 78%);
+    min-height: var(--portrait-chat-height);
+    justify-content: space-between;
+    gap: var(--portrait-chat-gap);
   }
 
   .options {
@@ -366,7 +373,8 @@ body {
   }
 
   .option-card {
-    min-height: clamp(240px, 22vmin, 380px);
+    height: var(--portrait-option-height);
+    min-height: var(--portrait-option-height);
   }
 }
 
