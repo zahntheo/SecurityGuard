@@ -43,7 +43,8 @@ body {
 
 .game-header {
   gap: clamp(14px, 1.25vmin, 42px);
-  padding: clamp(20px, 3vmin, 116px) clamp(20px, 4.4vmin, 144px);
+  padding: clamp(10px, 3vmin, 60px);
+  height: clamp(50px, 10dvh, 120px);
 }
 
 .brand {
