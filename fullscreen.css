@@ -42,7 +42,7 @@ body {
 }
 
 .app-shell {
-  grid-template-rows: max-content minmax(0, 1fr);
+  grid-template-rows: max-content minmax(0, 1fr) max-content;
 }
 
 .game-header {
@@ -342,7 +342,7 @@ body {
 
 @media (orientation: portrait) and (min-height: 1200px) {
   .app-shell {
-    grid-template-rows: var(--portrait-header-height) minmax(0, 1fr);
+    grid-template-rows: var(--portrait-header-height) minmax(0, 1fr) max-content;
   }
 
   .game-header {
