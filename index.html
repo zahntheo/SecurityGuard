@@ -41,7 +41,7 @@
           <article><strong>AI chat</strong><span>Read what the assistant asks for.</span></article>
           <article><strong>Options</strong><span>Pick the safest reply.</span></article>
           <article><strong>Your data</strong><span>Share only what is needed.</span></article>
-          <article><strong>Timer</strong><span>Decide before time runs out.</span></article>
+          <article><strong>Progress</strong><span>Build your score and unlock each level.</span></article>
           <article><strong>Score</strong><span>See your privacy result at the end.</span></article>
         </div>
         <button class="start-button" id="start-game" type="button" disabled>Loading...</button>
@@ -57,13 +57,8 @@
               <span>PrivacyGuard</span>
             </div>
             <div class="header-status">
-              <div class="level-badge" id="level-badge">Level 1 / 5</div>
-              <span id="timer">22s</span>
               <button class="game-cancel-button" type="button" data-game-cancel aria-label="Cancel game">Cancel</button>
             </div>
-          </div>
-          <div class="progress-track" aria-hidden="true">
-            <div class="progress-fill" id="progress-fill"></div>
           </div>
         </header>
 
@@ -93,12 +88,24 @@
 
           <div class="divider-label">CHOOSE HOW TO SHARE</div>
           <div class="options" id="options" aria-live="polite"></div>
-        </section>
 
-        <footer class="scorebar">
-          <span>Total score</span>
-          <strong id="score">0</strong>
-        </footer>
+          <section class="game-progress" id="game-progress" aria-label="Game progress">
+            <div class="progress-stats">
+              <div class="progress-stat level-stat">
+                <span>Level</span>
+                <strong id="level-badge">1 / 5</strong>
+              </div>
+              <div class="progress-stat score-stat">
+                <span>Total score</span>
+                <strong id="score">0</strong>
+              </div>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-message" id="progress-message" aria-live="polite" hidden></div>
+          </section>
+        </section>
       </section>
     </main>
 
