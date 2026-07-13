@@ -1,5 +1,6 @@
 :root {
   /* Manual tuning for tall portrait displays. */
+  --portrait-header-height: clamp(72px, 8vmin, 120px);
   --portrait-header-padding-y: 5px;
   --portrait-header-gap: 4px;
   --portrait-chat-gap: clamp(24px, 2.5vmin, 56px);
@@ -358,7 +359,13 @@ body {
 }
 
 @media (orientation: portrait) and (min-height: 1200px) {
+  .app-shell {
+    grid-template-rows: var(--portrait-header-height) minmax(0, 1fr) max-content;
+  }
+
   .game-header {
+    height: 100%;
+    justify-content: center;
     gap: var(--portrait-header-gap);
     padding: var(--portrait-header-padding-y) clamp(20px, 5vmin, 180px);
   }
