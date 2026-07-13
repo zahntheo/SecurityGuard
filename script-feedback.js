@@ -219,14 +219,37 @@ function render() {
   userPromptEl.textContent = level.user;
   aiPromptEl.textContent = level.prompt;
   scoreEl.textContent = score;
-  optionsEl.innerHTML = level.options.map((option, index) => `
-    <button class="option-card" type="button" data-index="${index}">
+  optionsEl.innerHTML = level.options.map((option, index) => {
+    const cardContent = `
       <span class="option-label">${escapeHtml(option.label)}</span>
-      ${option.interaction === "redact-contract" ? '<span class="option-interactive">Open & redact</span>' : ""}
       ${documentPreview(option.document)}
       <p>${escapeHtml(option.text)}</p>
-    </button>
-  `).join("");
+    `;
+    if (option.interaction === "redact-contract") {
+      return `
+        <article class="option-card option-card-interactive" data-index="${index}">
+          <button
+            class="option-card-choice"
+            type="button"
+            data-index="${index}"
+            aria-label="Select ${escapeHtml(option.label)}: ${escapeHtml(option.text)}"
+          >${cardContent}</button>
+          <button
+            class="option-open-contract"
+            type="button"
+            data-open-contract
+            data-index="${index}"
+            aria-label="Open fictional phone contract"
+          >Open contract</button>
+        </article>
+      `;
+    }
+    return `
+      <button class="option-card" type="button" data-index="${index}">
+        ${cardContent}
+      </button>
+    `;
+  }).join("");
 }
 
 function choose(index, optionOverride = null) {
@@ -240,6 +263,9 @@ function choose(index, optionOverride = null) {
     const cardOption = cardIndex === index ? option : level.options[cardIndex];
     const cardStatus = getOptionStatus(cardOption);
     card.disabled = true;
+    card.querySelectorAll("button").forEach((button) => {
+      button.disabled = true;
+    });
     if (cardIndex === index) card.classList.add("selected", optionStatus);
     if (cardStatus === "safe") card.classList.add("correct");
     if (cardStatus === "caution") card.classList.add("partial");
