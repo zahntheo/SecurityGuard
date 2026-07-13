@@ -38,7 +38,7 @@ body {
 }
 
 .app-shell {
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: max-content minmax(0, 1fr) max-content;
 }
 
 .game-header {
@@ -174,6 +174,7 @@ body {
 
 .scorebar {
   min-height: clamp(90px, 9dvh, 260px);
+  background: var(--body);
 }
 
 .scorebar strong {
@@ -359,7 +360,13 @@ body {
 @media (orientation: portrait) and (min-height: 1200px) {
   .game-header {
     gap: var(--portrait-header-gap);
-    padding: var(--portrait-header-padding-y) clamp(20px, 4.4vmin, 144px);
+    padding: var(--portrait-header-padding-y) clamp(20px, 5vmin, 180px);
+  }
+
+  .header-row,
+  .progress-track {
+    width: 100%;
+    margin-inline: auto;
   }
 
   .chat {
