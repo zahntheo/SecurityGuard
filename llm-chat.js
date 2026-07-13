@@ -90,9 +90,9 @@ document.addEventListener("click", (event) => {
   if (pendingOptionIndex === null) return;
   const indexToSend = pendingOptionIndex;
   const selectedOption = levels[levelIndex]?.options[indexToSend];
-  if (selectedOption?.interaction === "redact-contract" && typeof window.openContractRedaction === "function") {
+  if (selectedOption?.interaction === "redact-document" && typeof window.openContractRedaction === "function") {
     const selectedCard = document.querySelector(`.option-card[data-index="${indexToSend}"]`);
-    const openButton = selectedCard?.querySelector("[data-open-contract]");
+    const openButton = selectedCard?.querySelector("[data-open-document]");
     window.openContractRedaction(indexToSend, openButton || selectedCard);
     return;
   }
