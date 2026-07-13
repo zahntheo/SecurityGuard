@@ -99,7 +99,9 @@
             ],
             "remember": "Hide personal identifiers while keeping only the contract terms needed for the comparison."
           },
-          "interaction": "redact-contract"
+          "interaction": "redact-document",
+          "documentProfile": "phone-contract",
+          "documentTitle": "phone contract"
         }
       ]
     },
@@ -141,7 +143,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Here's my full rental application package. Can you check if everything looks convincing?",
+          "text": "Full rental application",
           "document": "zip",
           "score": 0,
           "feedback": {
@@ -175,8 +177,8 @@
         },
         {
           "label": "OPTION C",
-          "text": "I removed my ID number and bank account and uploaded cropped screenshots showing only my income and employment details.",
-          "document": "part",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
@@ -205,7 +207,10 @@
               }
             ],
             "remember": "Redaction helps, but summaries are safer."
-          }
+          },
+          "interaction": "redact-document",
+          "documentProfile": "rental-application",
+          "documentTitle": "rental application"
         }
       ]
     },
@@ -247,7 +252,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Here's the full loan offer, bank statement and credit check. Please review the offer.",
+          "text": "Full loan offer and bank documents",
           "document": "pdf",
           "score": 0,
           "feedback": {
@@ -281,8 +286,8 @@
         },
         {
           "label": "OPTION C",
-          "text": "I used OCR to extract the text from the loan offer and pasted only the loan terms and repayment details into the chat.",
-          "document": "part",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
@@ -311,7 +316,10 @@
               }
             ],
             "remember": "Filter and summarize the content what you want to share."
-          }
+          },
+          "interaction": "redact-document",
+          "documentProfile": "loan-offer",
+          "documentTitle": "loan offer"
         }
       ]
     },
@@ -353,7 +361,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "I exported my complete LinkedIn profile and uploaded it for you to rewrite.",
+          "text": "Full CV and LinkedIn export",
           "document": "zip",
           "score": 0,
           "feedback": {
@@ -387,8 +395,8 @@
         },
         {
           "label": "OPTION C",
-          "text": "Here's the experience section with personal details hidden. Can you improve the layout and wording?",
-          "document": "part",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
@@ -417,7 +425,10 @@
               }
             ],
             "remember": "Share anonymized examples, not a document section, when possible."
-          }
+          },
+          "interaction": "redact-document",
+          "documentProfile": "cv-profile",
+          "documentTitle": "CV"
         }
       ]
     },
@@ -459,7 +470,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Here is the full email thread with names, internal project details and the decision history. Can you rewrite my reply?",
+          "text": "Full email thread",
           "document": "mail",
           "score": 0,
           "feedback": {
@@ -493,8 +504,8 @@
         },
         {
           "label": "OPTION C",
-          "text": "I pasted the Slack conversation that led to the decision so you can help me draft a reply.",
-          "document": "part",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
@@ -523,7 +534,10 @@
               }
             ],
             "remember": "Summarize the workplace situation without pasting real conversations."
-          }
+          },
+          "interaction": "redact-document",
+          "documentProfile": "work-email",
+          "documentTitle": "work email"
         }
       ]
     }
