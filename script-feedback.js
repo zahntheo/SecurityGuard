@@ -145,11 +145,12 @@ function updateProgress(levelNumber = levelIndex + 1) {
 }
 
 function resetProgressReward() {
-  progressMessageEl.hidden = true;
-  progressMessageEl.className = "progress-message";
+  progressMessageEl.className = "progress-message is-empty";
+  progressMessageEl.setAttribute("aria-hidden", "true");
   progressMessageEl.innerHTML = "";
   scoreEl.classList.remove("score-bump");
   levelBadgeEl.classList.remove("level-bump");
+  progressFillEl.classList.remove("progress-advance");
 }
 
 function progressionCopy(points, status) {
@@ -198,10 +199,11 @@ function showProgressReward(points, status) {
     </div>
     <span class="reward-level">${escapeHtml(levelText)}</span>
   `;
-  progressMessageEl.hidden = false;
+  progressMessageEl.removeAttribute("aria-hidden");
   restartProgressAnimation(progressMessageEl, "reward-in");
   restartProgressAnimation(scoreEl, "score-bump");
   restartProgressAnimation(levelBadgeEl, "level-bump");
+  restartProgressAnimation(progressFillEl, "progress-advance");
 }
 
 function render() {
@@ -281,7 +283,7 @@ function renderFeedback(level, option, feedback) {
       <button class="next-button" type="button" data-next-step>${isLast ? "view final score →" : "next scenario →"}</button>
     </div>
   `;
-  (gameProgressEl || optionsEl).insertAdjacentElement("afterend", panel);
+  optionsEl.insertAdjacentElement("afterend", panel);
   panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
