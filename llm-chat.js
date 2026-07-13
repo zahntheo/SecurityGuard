@@ -89,6 +89,13 @@ document.addEventListener("click", (event) => {
   if (!event.target.closest(".composer-send")) return;
   if (pendingOptionIndex === null) return;
   const indexToSend = pendingOptionIndex;
+  const selectedOption = levels[levelIndex]?.options[indexToSend];
+  if (selectedOption?.interaction === "redact-contract" && typeof window.openContractRedaction === "function") {
+    const selectedCard = document.querySelector(`.option-card[data-index="${indexToSend}"]`);
+    const openButton = selectedCard?.querySelector("[data-open-contract]");
+    window.openContractRedaction(indexToSend, openButton || selectedCard);
+    return;
+  }
   hideReplyPicker();
   setComposerReady(false);
   window.choose(indexToSend);

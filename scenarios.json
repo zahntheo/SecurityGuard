@@ -40,13 +40,13 @@
         },
         {
           "label": "OPTION B",
-          "text": "Open the full phone contract, choose which information to redact, then share the reviewed copy.",
+          "text": "Full phone contract",
           "document": "pdf",
           "score": 0,
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "The full contract must be reviewed carefully before sharing. Personal identifiers should be hidden while useful plan terms remain visible.",
+            "summary": "The unedited full contract exposes personal identifiers and payment details that are not needed to compare the phone plan.",
             "modalTitle": "Full phone contracts reveal more than the AI needs.",
             "lessonLabel": "PRIVACY LESSON - OPTION B",
             "points": [
@@ -69,43 +69,37 @@
                 "text": "Scammers can use this information to create convincing messages, such as fake contract renewal offers or discount promotions that appear to come from your mobile provider."
               }
             ],
-            "remember": "Redact personal identifiers before sharing any document."
-          },
-          "interaction": "redact-contract"
+            "remember": "Never share an unedited full contract with an AI tool."
+          }
         },
         {
           "label": "OPTION C",
-          "text": "I’ll share screenshots of the pages about fees and contract term, but my name and customer number are still visible.",
-          "document": "part",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
-            "label": "ALMOST",
-            "summary": "Sharing only relevant pages reduces exposure, but the visible name and customer number still connect the document directly to you.",
-            "modalTitle": "Relevant pages can still reveal your identity.",
+            "label": "INTERACTIVE REVIEW",
+            "summary": "Editing a copy can protect your privacy, but only if every unnecessary identifier is hidden and the useful plan terms remain readable.",
+            "modalTitle": "A reviewed copy can be useful without exposing your identity.",
             "lessonLabel": "PRIVACY LESSON - OPTION C",
             "points": [
               {
                 "type": "good",
                 "mark": "+",
-                "title": "Relevant pages only",
-                "text": "You limited the upload to the pricing, fee and contract-term pages."
+                "title": "Review before sharing",
+                "text": "You can inspect the fictional contract and choose exactly which fields the AI should not see."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Identifiers remain visible",
-                "text": "Your name and customer number connect the screenshots to your provider account."
-              },
-              {
-                "type": "risk",
-                "mark": "!",
-                "title": "Targeted scam risk",
-                "text": "Account-linked details can make fake renewal messages or support calls more convincing."
+                "title": "Redaction must be complete",
+                "text": "Names, contact details, customer numbers, payment details and signatures must all be hidden."
               }
             ],
-            "remember": "Relevant pages still need every unnecessary identifier removed."
-          }
+            "remember": "Hide personal identifiers while keeping only the contract terms needed for the comparison."
+          },
+          "interaction": "redact-contract"
         }
       ]
     },

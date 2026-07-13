@@ -191,14 +191,16 @@ function shareRedactedContract() {
 }
 
 optionsEl.addEventListener("click", (event) => {
-  const button = event.target.closest(".option-card");
-  if (!button || button.disabled) return;
-  const index = Number(button.dataset.index);
+  const openButton = event.target.closest("[data-open-contract]");
+  if (!openButton || openButton.disabled) return;
+  const card = openButton.closest(".option-card");
+  const index = Number(openButton.dataset.index);
   const option = levels[levelIndex]?.options[index];
-  if (option?.interaction !== "redact-contract") return;
+  if (!card || option?.interaction !== "redact-contract") return;
   event.preventDefault();
   event.stopImmediatePropagation();
-  openContractRedaction(index, button);
+  if (typeof window.selectDraftReply === "function") window.selectDraftReply(card);
+  openContractRedaction(index, openButton);
 }, true);
 
 document.addEventListener("click", (event) => {
