@@ -225,23 +225,18 @@ function render() {
       ${documentPreview(option.document)}
       <p>${escapeHtml(option.text)}</p>
     `;
-    if (option.interaction === "redact-contract") {
+    if (option.interaction === "redact-document") {
       return `
-        <article class="option-card option-card-interactive" data-index="${index}">
-          <button
-            class="option-card-choice"
-            type="button"
-            data-index="${index}"
-            aria-label="Select ${escapeHtml(option.label)}: ${escapeHtml(option.text)}"
-          >${cardContent}</button>
-          <button
-            class="option-open-contract"
-            type="button"
-            data-open-contract
-            data-index="${index}"
-            aria-label="Edit fictional phone contract"
-          >Edit contract</button>
-        </article>
+        <button
+          class="option-card option-card-interactive"
+          type="button"
+          data-index="${index}"
+          data-open-document
+          aria-label="Edit ${escapeHtml(option.documentTitle || "document")}: ${escapeHtml(option.text)}"
+        >
+          ${cardContent}
+          <span class="option-interactive">Edit file</span>
+        </button>
       `;
     }
     return `
