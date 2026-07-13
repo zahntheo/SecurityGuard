@@ -287,6 +287,7 @@ function renderFeedback(level, option, feedback) {
   removeFeedback();
   currentLesson = { level, option, feedback };
   const isLast = levelIndex === levels.length - 1;
+  const consequenceTitle = feedback.key === "safe" ? "Why this protects you" : "What could happen with the data";
   const panel = document.createElement("section");
   panel.className = "feedback-panel";
   panel.setAttribute("aria-live", "polite");
@@ -301,8 +302,25 @@ function renderFeedback(level, option, feedback) {
     <article class="feedback-card ${feedback.key}">
       <p class="feedback-label">${escapeHtml(feedback.label)}</p>
       <div class="feedback-content">
-        <p>${escapeHtml(feedback.summary)}</p>
-        <button class="view-more-button" type="button" data-view-more>view more ›</button>
+        <p class="feedback-summary">${escapeHtml(feedback.summary)}</p>
+        <section class="feedback-consequences" aria-label="${escapeHtml(consequenceTitle)}">
+          <p class="feedback-consequences-title">${escapeHtml(consequenceTitle)}</p>
+          <div class="feedback-consequence-list">
+            ${(feedback.points || []).map((point) => `
+              <article class="feedback-consequence">
+                <span class="point-dot ${escapeHtml(point.type)}" aria-hidden="true">${escapeHtml(point.mark)}</span>
+                <div class="point-copy">
+                  <strong>${escapeHtml(point.title)}</strong>
+                  <p>${escapeHtml(point.text)}</p>
+                </div>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+        <button class="view-more-button" type="button" data-view-more>
+          <span>See more: privacy lesson</span>
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
     </article>
     <div class="next-wrap">
@@ -332,17 +350,7 @@ function renderLessonModal() {
         <h2 class="lesson-title" id="lesson-title">${escapeHtml(feedback.modalTitle)}</h2>
         <div class="lesson-content">
           ${documentPreview(option.document || "part")}
-          <div class="lesson-points">
-            ${feedback.points.map((point) => `
-              <div class="lesson-point">
-                <span class="point-dot ${point.type}">${escapeHtml(point.mark)}</span>
-                <div class="point-copy">
-                  <strong>${escapeHtml(point.title)}</strong>
-                  <p>${escapeHtml(point.text)}</p>
-                </div>
-              </div>
-            `).join("")}
-          </div>
+          <p class="lesson-explanation">${escapeHtml(feedback.summary)}</p>
         </div>
         <div class="remember-rule">
           <span>REMEMBER</span>

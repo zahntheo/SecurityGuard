@@ -75,30 +75,75 @@
 
 .feedback-content {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: clamp(18px, 2vmin, 74px);
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(18px, 1.8vmin, 66px);
 }
 
-.feedback-content p {
+.feedback-summary {
   margin: 0;
-  max-width: 70ch;
+  max-width: 74ch;
   font-size: clamp(17px, 1.55vmin, 56px);
   font-weight: 600;
   line-height: 1.45;
 }
 
+.feedback-consequences {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1vmin, 36px);
+}
+
+.feedback-consequences-title {
+  margin: 0;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(12px, 1.05vmin, 36px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.feedback-consequence-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(10px, 1.1vmin, 40px);
+}
+
+.feedback-consequence {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(10px, 1vmin, 36px);
+  padding: clamp(13px, 1.25vmin, 46px);
+  border: 1px solid rgba(14, 23, 38, 0.1);
+  border-radius: clamp(12px, 1.1vmin, 40px);
+  background: rgba(255, 255, 255, 0.72);
+}
+
 .view-more-button {
-  flex: 0 0 auto;
-  border: 0;
-  padding: 0;
-  background: transparent;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(8px, 0.8vmin, 28px);
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  padding: clamp(11px, 1vmin, 38px) clamp(17px, 1.6vmin, 58px);
+  background: #ffffff;
   color: currentColor;
   cursor: pointer;
-  font-size: clamp(15px, 1.25vmin, 44px);
-  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(14, 23, 38, 0.13);
+  font-size: clamp(15px, 1.3vmin, 46px);
+  font-weight: 900;
   line-height: 1.3;
-  white-space: nowrap;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.view-more-button:hover,
+.view-more-button:focus-visible {
+  outline: 0;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(14, 23, 38, 0.18);
+  background: rgba(255, 255, 255, 0.86);
 }
 
 .next-wrap {
@@ -193,10 +238,12 @@
   align-items: start;
 }
 
-.lesson-points {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 1.2vmin, 44px);
+.lesson-explanation {
+  margin: 0;
+  color: #4c5670;
+  font-size: clamp(15px, 1.35vmin, 48px);
+  font-weight: 600;
+  line-height: 1.55;
 }
 
 .lesson-point {
