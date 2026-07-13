@@ -40,13 +40,13 @@
         },
         {
           "label": "OPTION B",
-          "text": "I copied the entire contract text into the chat so you can review everything.",
-          "document": "txt",
+          "text": "Open the full phone contract, choose which information to redact, then share the reviewed copy.",
+          "document": "pdf",
           "score": 0,
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "A full phone contract can reveal account details, address data, signatures and provider metadata far beyond this request.",
+            "summary": "The full contract must be reviewed carefully before sharing. Personal identifiers should be hidden while useful plan terms remain visible.",
             "modalTitle": "Full phone contracts reveal more than the AI needs.",
             "lessonLabel": "PRIVACY LESSON - OPTION B",
             "points": [
@@ -69,41 +69,42 @@
                 "text": "Scammers can use this information to create convincing messages, such as fake contract renewal offers or discount promotions that appear to come from your mobile provider."
               }
             ],
-            "remember": "Only share the information needed for the task."
-          }
+            "remember": "Redact personal identifiers before sharing any document."
+          },
+          "interaction": "redact-contract"
         },
         {
           "label": "OPTION C",
-          "text": "I redacted my address and IBAN and attached the contract pages about fees and term.",
+          "text": "I’ll share screenshots of the pages about fees and contract term, but my name and customer number are still visible.",
           "document": "part",
           "score": 10,
           "feedback": {
             "key": "caution",
             "label": "ALMOST",
-            "summary": "Better - direct identifiers are hidden. But redacted contract pages can still expose metadata and sensitive context.",
-            "modalTitle": "Redacted contract pages can still expose context.",
+            "summary": "Sharing only relevant pages reduces exposure, but the visible name and customer number still connect the document directly to you.",
+            "modalTitle": "Relevant pages can still reveal your identity.",
             "lessonLabel": "PRIVACY LESSON - OPTION C",
             "points": [
               {
                 "type": "good",
                 "mark": "+",
-                "title": "Direct identifiers masked",
-                "text": "Removing your address and IBAN reduces the most obvious risk."
+                "title": "Relevant pages only",
+                "text": "You limited the upload to the pricing, fee and contract-term pages."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Metadata remains",
-                "text": "Document IDs, timestamps and file names may still identify the contract or customer account."
+                "title": "Identifiers remain visible",
+                "text": "Your name and customer number connect the screenshots to your provider account."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Identity theft",
-                "text": "Attackers may use these details to pretend to be you or verify your identity when contacting service providers."
+                "title": "Targeted scam risk",
+                "text": "Account-linked details can make fake renewal messages or support calls more convincing."
               }
             ],
-            "remember": "If you can type the relevant details, do that instead of uploading a file."
+            "remember": "Relevant pages still need every unnecessary identifier removed."
           }
         }
       ]
