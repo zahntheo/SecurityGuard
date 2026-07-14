@@ -258,9 +258,11 @@ body {
 }
 
 .log-card {
-  width: clamp(192px, 18vmin, 640px);
+  width: 100%;
+  min-width: clamp(120px, 10vmin, 170px);
+  max-width: 100%;
   min-height: clamp(142px, 14vmin, 500px);
-  flex-basis: clamp(192px, 18vmin, 640px);
+  flex-basis: auto;
   gap: clamp(12px, 1.25vmin, 48px);
   padding: clamp(12px, 1.4vmin, 54px);
   border-radius: clamp(12px, 1.2vmin, 44px);

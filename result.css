@@ -98,6 +98,8 @@
 
 .score-ring {
   --score: 0;
+  --ring-color: #10b981;
+  --ring-track: #c9f5e8;
   position: relative;
   width: 155px;
   height: 155px;
@@ -108,8 +110,23 @@
   justify-content: center;
   gap: 4px;
   border-radius: 50%;
-  background: conic-gradient(#10b981 calc(var(--score) * 1%), #c9f5e8 0);
+  background: conic-gradient(var(--ring-color) calc(var(--score) * 1%), var(--ring-track) 0);
   text-align: center;
+}
+
+.score-ring.green {
+  --ring-color: #10b981;
+  --ring-track: #c9f5e8;
+}
+
+.score-ring.yellow {
+  --ring-color: #f59e0b;
+  --ring-track: #fef3c7;
+}
+
+.score-ring.red {
+  --ring-color: #ef4444;
+  --ring-track: #fee2e2;
 }
 
 .score-ring::after {
@@ -196,26 +213,25 @@
 }
 
 .scenario-log {
-  margin-bottom: 36px;
+  margin-top: 24px;
 }
 
 .log-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 2px;
 }
 
 .log-card {
-  width: 192px;
-  min-height: 142px;
-  flex: 0 0 192px;
+  width: auto;
+  min-width: 0;
+  min-height: 116px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 12px;
-  padding: 12px 14px;
+  gap: 8px;
+  padding: 10px;
   border: 1px solid #e5e8eb;
   border-radius: 12px;
   background: #ffffff;
@@ -244,14 +260,14 @@
 .log-title {
   margin: 2px 0 0;
   color: #0a0e1a;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.28;
 }
 
 .status-pill {
-  padding: 5px 12px;
-  font-size: 12px;
+  padding: 4px 9px;
+  font-size: 10px;
 }
 
 .status-pill.safe {
@@ -365,5 +381,9 @@
 
   .score-ring strong {
     font-size: 32px;
+  }
+
+  .log-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
