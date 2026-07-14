@@ -246,7 +246,7 @@ function render() {
     `;
     if (option.interaction === "redact-document") {
       return `
-        <article class="option-card option-card-interactive" data-index="${index}">
+        <article class="option-card option-card-file option-card-interactive" data-index="${index}">
           <button
             class="option-card-select"
             type="button"
@@ -269,7 +269,7 @@ function render() {
       `;
     }
     return `
-      <button class="option-card" type="button" data-index="${index}" aria-pressed="false">
+      <button class="option-card${fileName ? " option-card-file" : ""}" type="button" data-index="${index}" aria-pressed="false">
         ${cardContent}
       </button>
     `;
