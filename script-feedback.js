@@ -238,10 +238,14 @@ function render() {
     const fileHeading = fileName
       ? `<strong class="option-file-name"><span aria-hidden="true">📄</span> ${escapeHtml(fileName)}</strong>`
       : "";
+    const editAction = option.interaction === "redact-document"
+      ? `<span class="option-interactive">Edit file</span>`
+      : "";
     const cardContent = `
       <span class="option-label">${escapeHtml(option.label)}</span>
       ${fileHeading}
       ${documentPreview(option.document)}
+      ${editAction}
       <p>${escapeHtml(option.text)}</p>
     `;
     if (option.interaction === "redact-document") {
@@ -255,7 +259,6 @@ function render() {
           aria-label="Edit ${escapeHtml(fileName || option.documentTitle || "document")}: ${escapeHtml(option.text)}"
         >
           ${cardContent}
-          <span class="option-interactive">Edit file</span>
         </button>
       `;
     }
