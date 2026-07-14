@@ -60,9 +60,12 @@
   height: 30px;
   display: grid;
   place-items: center;
-  border-radius: 9px;
-  background: linear-gradient(135deg, #00d4aa, #7b61ff);
-  color: #051018;
+}
+
+.attention-brand img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 #attention-cloud,
