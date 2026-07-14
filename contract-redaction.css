@@ -278,20 +278,23 @@ body.redaction-open {
   box-shadow: 0 12px 28px rgba(6, 201, 160, 0.22);
 }
 
+.option-card-file {
+  padding: clamp(12px, 1.05vmin, 38px);
+  gap: clamp(6px, 0.55vmin, 20px);
+}
+
 .option-card-interactive {
-  padding: clamp(14px, 1.2vmin, 42px);
-  gap: clamp(9px, 0.8vmin, 26px);
   cursor: default;
 }
 
 .option-card-select {
   width: 100%;
   min-height: 0;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(8px, 0.75vmin, 24px);
+  gap: clamp(6px, 0.55vmin, 20px);
   overflow: hidden;
   border: 0;
   padding: 0;
@@ -311,7 +314,7 @@ body.redaction-open {
   border-color: #2563eb;
 }
 
-.option-card-interactive .document-preview {
+.option-card-file .document-preview {
   width: clamp(66px, 5.8vmin, 190px);
   height: clamp(82px, 7.2vmin, 238px);
   padding: clamp(15px, 1.4vmin, 46px) clamp(8px, 0.7vmin, 24px) clamp(7px, 0.65vmin, 22px);
