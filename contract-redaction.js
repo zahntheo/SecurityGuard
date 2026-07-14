@@ -559,6 +559,55 @@ function openContractRedaction(index, trigger) {
   overlay.querySelector(".contract-editor-close")?.focus();
 }
 
+function consequenceForVisibleField(field) {
+  const descriptor = `${field.id} ${field.label}`.toLowerCase();
+
+  if (descriptor.includes("email")) return "Phishing emails";
+  if (descriptor.includes("iban") || descriptor.includes("bank account") || descriptor.includes("direct debit")) return "Financial fraud";
+  if (descriptor.includes("phone")) return "Smishing or scam calls";
+  if (descriptor.includes("address")) return "Identity theft and targeted scams";
+  if (
+    descriptor.includes("birth")
+    || descriptor.includes("id document")
+    || descriptor.includes("customer number")
+    || descriptor.includes("customer id")
+    || descriptor.includes("signature")
+  ) return "Identity theft";
+  if (descriptor.includes("credit score") || descriptor.includes("account balance")) return "Financial profiling";
+  if (
+    descriptor.includes("client")
+    || descriptor.includes("project")
+    || descriptor.includes("budget")
+    || descriptor.includes("workspace")
+  ) return "Corporate fraud or espionage";
+  if (
+    descriptor.includes("sender")
+    || descriptor.includes("recipient")
+    || descriptor.includes("participant")
+    || descriptor.includes("name")
+  ) return "Targeted social engineering";
+
+  return "Targeted scams";
+}
+
+function visibleDataConsequences(fields = []) {
+  const groupedConsequences = new Map();
+
+  fields.forEach((field) => {
+    const consequence = consequenceForVisibleField(field);
+    const exposedLabels = groupedConsequences.get(consequence) || [];
+    exposedLabels.push(field.label.toLowerCase());
+    groupedConsequences.set(consequence, exposedLabels);
+  });
+
+  return [...groupedConsequences.entries()].map(([consequence, exposedLabels]) => ({
+    type: "risk",
+    mark: "!",
+    title: `${consequence} (${exposedLabels.join(", ")})`,
+    text: `Still visible: ${exposedLabels.join(", ")}.`
+  }));
+}
+
 function gradeContractRedaction() {
   const sensitiveFields = activeRedactionProfile.fields.filter((field) => field.sensitive);
   const usefulFields = activeRedactionProfile.fields.filter((field) => !field.sensitive);
@@ -594,24 +643,16 @@ function gradeContractRedaction() {
       summary: summaries[key],
       modalTitle: key === "safe" ? "You created a useful, privacy-safe document copy." : "The document needs a more careful privacy review.",
       lessonLabel: "PRIVACY LESSON · INTERACTIVE REDACTION",
-      points: [
-        {
-          type: redactedSensitive.length >= 5 ? "good" : "risk",
-          mark: redactedSensitive.length >= 5 ? "+" : "!",
-          title: `${redactedSensitive.length} of ${sensitiveFields.length} sensitive fields hidden`,
-          text: missedSensitive.length
-            ? `Still visible: ${missedSensitive.map((field) => field.label.toLowerCase()).join(", ")}.`
-            : "All marked personal and confidential fields are hidden."
-        },
-        {
-          type: overRedacted.length === 0 ? "good" : "risk",
-          mark: overRedacted.length === 0 ? "+" : "!",
-          title: overRedacted.length === 0 ? "Useful terms preserved" : "Useful terms were hidden",
-          text: overRedacted.length === 0
-            ? activeRedactionProfile.usefulSummary
-            : `Restore: ${overRedacted.map((field) => field.label.toLowerCase()).join(", ")}.`
-        }
-      ],
+      points: missedSensitive.length
+        ? visibleDataConsequences(missedSensitive)
+        : [
+            {
+              type: "good",
+              mark: "+",
+              title: "No sensitive information remains visible",
+              text: "All marked personal and confidential fields are hidden."
+            }
+          ],
       remember: "Hide personal identifiers, but keep the minimum facts needed for the task."
     }
   };
