@@ -169,6 +169,38 @@ function showProgressReward() {
   restartProgressAnimation(progressFillEl, "progress-advance");
 }
 
+function optionLabel(index) {
+  return `OPTION ${String.fromCharCode(65 + index)}`;
+}
+
+function shuffledOptions(options = []) {
+  const shuffled = [...options];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+  }
+
+  return shuffled.map((option, index) => {
+    const label = optionLabel(index);
+    const feedback = option.feedback
+      ? {
+          ...option.feedback,
+          lessonLabel: option.feedback.lessonLabel?.replace(/OPTION\s+[A-Z]+$/i, label)
+        }
+      : option.feedback;
+
+    return { ...option, label, feedback };
+  });
+}
+
+function prepareLevelsForGame() {
+  levels = (gameConfig.levels || []).map((level) => ({
+    ...level,
+    options: shuffledOptions(level.options)
+  }));
+}
+
 function render() {
   const level = levels[levelIndex];
   if (!level) return;
@@ -404,6 +436,7 @@ function finish() {
 
 function startGame() {
   if (!levels.length) return;
+  prepareLevelsForGame();
   attentionEl.hidden = true;
   gameStageEl.hidden = false;
   levelIndex = 0;
