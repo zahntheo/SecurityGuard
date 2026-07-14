@@ -90,7 +90,7 @@
 
 .attention-hero {
   align-self: end;
-  padding: 0 6vw clamp(120px, 16vh, 190px);
+  padding: 0 6vw clamp(150px, 19vh, 220px);
 }
 
 .attention-kicker b { color: #00d4aa; }
@@ -175,12 +175,14 @@
   bottom: clamp(70px, 9vh, 94px);
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  padding: 13px 20px;
+  min-height: 58px;
+  gap: 16px;
+  padding: 16px 30px;
   border: 1px solid rgba(255,255,255,.22);
   border-radius: 999px;
   background: rgba(6,9,15,.64);
   color: #fff;
+  font-size: clamp(16px, 1.2vw, 20px);
   font-weight: 800;
   cursor: pointer;
   backdrop-filter: blur(12px);
@@ -201,7 +203,7 @@
   .attention .data-counter { display: flex; }
   .how-layout { flex-direction: column; justify-content: center; gap: 26px; padding: 90px 0; }
   .how-copy h2 { margin-bottom: 26px; }
-  .attention-hero { padding-bottom: 150px; }
+  .attention-hero { padding-bottom: 180px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
