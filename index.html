@@ -20,9 +20,8 @@
   </head>
   <body>
     <section class="attention" id="attention" aria-labelledby="attention-title">
-      <div class="attention-grid" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
-      </div>
+      <div class="attention-progress" aria-hidden="true"><span id="attention-progress-fill"></span></div>
+      <div class="attention-brand"><span aria-hidden="true"><img src="privacyGuard.svg" alt=""></span> PrivacyGuard</div>
       <div class="data-counter">
         <span>Data exposed</span>
         <strong id="exposed-count">0</strong>
@@ -54,11 +53,31 @@
           </div>
         </section>
       </div>
-      <div class="attention-copy attention-screen" id="attention-leak-screen">
-        <span class="attention-kicker">PrivacyGuard / AI privacy game</span>
-        <h1 id="attention-title">Your data is <span>leaking.</span></h1>
-        <p>Practice what to share with AI before the mistake happens for real.</p>
-        <button class="start-button" id="attention-next" type="button">Next</button>
+      <div class="attention-track" id="attention-track">
+        <article class="attention-panel is-active" data-attention-panel aria-labelledby="attention-title">
+          <canvas id="attention-cloud" aria-hidden="true"></canvas>
+          <div class="attention-veil" aria-hidden="true"></div>
+          <div class="attention-copy attention-hero">
+            <span class="attention-kicker"><b>PrivacyGuard</b> / AI privacy game</span>
+            <h1 id="attention-title">Your data is <span class="leak-word">leaking.<i></i><i></i><i></i></span></h1>
+          </div>
+        </article>
+
+        <article class="attention-panel" data-attention-panel aria-labelledby="how-title">
+          <div class="attention-orb orb-teal" aria-hidden="true"></div>
+          <div class="attention-orb orb-purple" aria-hidden="true"></div>
+          <div class="how-layout">
+            <div class="how-copy">
+              <span class="attention-kicker">How it works</span>
+              <h2 id="how-title">One choice. <span>A scored move.</span></h2>
+              <div class="how-list">
+                <div><b>01</b><p><strong>Choose one option</strong><span>Three ways to share — pick the safest.</span></p></div>
+                <div><b>02</b><p><strong>Score every choice</strong><span>Safe picks earn points; leaks cost them.</span></p></div>
+                <div><b>03</b><p><strong>Edit your message</strong><span>Write what you want to share — before sending it to AI.</span></p></div>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
 
       <div class="attention-copy attention-screen attention-guide" id="attention-guide-screen" hidden>
@@ -74,6 +93,8 @@
         </div>
         <button class="start-button" id="start-game" type="button" disabled>Loading...</button>
       </div>
+      <nav class="attention-dots" id="attention-dots" aria-label="Introduction pages"></nav>
+      <button class="attention-next" id="attention-next" type="button">Next <span aria-hidden="true">→</span></button>
     </section>
 
     <main class="stage" id="game-stage" hidden>
@@ -81,7 +102,7 @@
         <header class="game-header">
           <div class="header-row">
             <div class="brand">
-              <span class="brand-mark" aria-hidden="true">P</span>
+              <span class="brand-mark" aria-hidden="true"><img src="privacyGuard-game.svg" alt=""></span>
               <span>PrivacyGuard</span>
             </div>
             <div class="header-status">
@@ -143,6 +164,7 @@
     <script src="contract-redaction.js"></script>
     <script src="llm-chat.js"></script>
     <script src="app-utils.js"></script>
+    <script src="attention-cloud.js"></script>
     <script src="attention-flow.js"></script>
     <script src="game-cancel.js"></script>
     <script src="idle-warning.js"></script>

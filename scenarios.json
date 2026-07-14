@@ -4,7 +4,7 @@
   "levels": [
     {
       "title": "Verify Your Phone Contract",
-      "shortTitle": "Verify phone contract",
+      "shortTitle": "Phone contract",
       "icon": "mail",
       "user": "Can you check whether this phone plan is a good deal before I renew it?",
       "prompt": "Yes. I only need the costs, contract length and included data or minutes. How would you like to share it?",

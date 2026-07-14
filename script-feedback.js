@@ -410,10 +410,17 @@ function gradeForScore(total) {
   return { grade: "D - RISKY", copy: "Too many uploads exposed sensitive details. Before using AI, strip identifiers and summarize the request in your own words." };
 }
 
+function scoreRingTone(percent) {
+  if (percent >= 80) return "green";
+  if (percent >= 40) return "yellow";
+  return "red";
+}
+
 function finish() {
   const grade = gradeForScore(score);
   const totalMaxScore = maxScore();
   const scoreProgress = scorePercent(score);
+  const ringTone = scoreRingTone(scoreProgress);
   const riskyMoves = sceneResults.filter((result) => result.status === "risky").length;
   const logs = sceneResults.map((result) => {
     const status = resultStatus(result.status);
@@ -453,19 +460,19 @@ function finish() {
       <p class="complete-eyebrow">Scenario · Daily life</p>
       <h2 class="complete-heading">Your safety score</h2>
       <section class="result-score-card" aria-label="Privacy grade">
-        <div class="score-ring" style="--score: ${scoreProgress}"><strong>${score}</strong><span>/ ${totalMaxScore}</span></div>
+        <div class="score-ring ${ringTone}" style="--score: ${scoreProgress}"><strong>${score}</strong><span>/ ${totalMaxScore}</span></div>
         <div class="score-summary">
           <div class="score-grade-row"><span class="score-label">Privacy grade</span><span class="grade-pill">${grade.grade}</span></div>
           <p class="score-copy">${grade.copy}</p>
         </div>
       </section>
+      <section class="result-advice" aria-labelledby="advice-title">
+        <h3 class="result-section-title" id="advice-title">Advice for this scenario</h3>
+        <div class="advice-list">${advice}</div>
+      </section>
       <section class="scenario-log" aria-labelledby="scenario-log-title">
         <h3 class="result-section-title" id="scenario-log-title">Scenario log</h3>
         <div class="log-list">${logs}</div>
-      </section>
-      <section aria-labelledby="advice-title">
-        <h3 class="result-section-title" id="advice-title">Advice for this scenario</h3>
-        <div class="advice-list">${advice}</div>
       </section>
     </section>
     <footer class="complete-actions"><button class="exit-game-button" type="button" data-exit-game>Exit Game</button></footer>
