@@ -238,28 +238,34 @@ function render() {
     const fileHeading = fileName
       ? `<strong class="option-file-name"><span aria-hidden="true">📄</span> ${escapeHtml(fileName)}</strong>`
       : "";
-    const editAction = option.interaction === "redact-document"
-      ? `<span class="option-interactive">Edit file</span>`
-      : "";
     const cardContent = `
       <span class="option-label">${escapeHtml(option.label)}</span>
       ${fileHeading}
       ${documentPreview(option.document)}
-      ${editAction}
       <p>${escapeHtml(option.text)}</p>
     `;
     if (option.interaction === "redact-document") {
       return `
-        <button
-          class="option-card option-card-interactive"
-          type="button"
-          data-index="${index}"
-          data-open-document
-          aria-pressed="false"
-          aria-label="Edit ${escapeHtml(fileName || option.documentTitle || "document")}: ${escapeHtml(option.text)}"
-        >
-          ${cardContent}
-        </button>
+        <article class="option-card option-card-interactive" data-index="${index}">
+          <button
+            class="option-card-select"
+            type="button"
+            data-select-option
+            aria-pressed="false"
+            aria-label="Select ${escapeHtml(fileName || option.documentTitle || "editable document")}"
+          >
+            ${cardContent}
+          </button>
+          <button
+            class="option-interactive"
+            type="button"
+            data-open-document
+            data-index="${index}"
+            aria-label="Open and edit ${escapeHtml(fileName || option.documentTitle || "document")}"
+          >
+            Edit file
+          </button>
+        </article>
       `;
     }
     return `
