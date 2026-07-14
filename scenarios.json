@@ -4,11 +4,11 @@
   "levels": [
     {
       "title": "Verify Your Phone Contract",
-      "shortTitle": "Verify phone contract",
+      "shortTitle": "Phone contract",
       "icon": "mail",
       "user": "Can you check whether this phone plan is a good deal before I renew it?",
       "prompt": "Yes. I only need the costs, contract length and included data or minutes. How would you like to share it?",
-      "adviceTitle": "Never upload a full contract.",
+      "adviceTitle": "Never send the full contract.",
       "advice": "It contains your bank account, address, ID number and signature - everything an attacker needs.",
       "options": [
         {
@@ -40,13 +40,14 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full phone contract",
+          "text": "Open the full phone contract, choose which information to redact, then share the reviewed copy.",
           "document": "pdf",
+          "interaction": "redact-contract",
           "score": 0,
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "The unedited full contract exposes personal identifiers and payment details that are not needed to compare the phone plan.",
+            "summary": "The full contract must be reviewed carefully before sharing. Personal identifiers should be hidden while useful plan terms remain visible.",
             "modalTitle": "Full phone contracts reveal more than the AI needs.",
             "lessonLabel": "PRIVACY LESSON - OPTION B",
             "points": [
@@ -69,39 +70,42 @@
                 "text": "Scammers can use this information to create convincing messages, such as fake contract renewal offers or discount promotions that appear to come from your mobile provider."
               }
             ],
-            "remember": "Never share an unedited full contract with an AI tool."
+            "remember": "Redact personal identifiers before sharing any document."
           }
         },
         {
           "label": "OPTION C",
-          "text": "Review and redact a copy before sharing.",
-          "document": "edit",
+          "text": "I’ll share screenshots of the pages about fees and contract term, but my name and customer number are still visible.",
+          "document": "part",
           "score": 10,
           "feedback": {
             "key": "caution",
-            "label": "INTERACTIVE REVIEW",
-            "summary": "Editing a copy can protect your privacy, but only if every unnecessary identifier is hidden and the useful plan terms remain readable.",
-            "modalTitle": "A reviewed copy can be useful without exposing your identity.",
+            "label": "ALMOST",
+            "summary": "Sharing only relevant pages reduces exposure, but the visible name and customer number still connect the document directly to you.",
+            "modalTitle": "Relevant pages can still reveal your identity.",
             "lessonLabel": "PRIVACY LESSON - OPTION C",
             "points": [
               {
                 "type": "good",
                 "mark": "+",
-                "title": "Review before sharing",
-                "text": "You can inspect the fictional contract and choose exactly which fields the AI should not see."
+                "title": "Relevant pages only",
+                "text": "You limited the upload to the pricing, fee and contract-term pages."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Redaction must be complete",
-                "text": "Names, contact details, customer numbers, payment details and signatures must all be hidden."
+                "title": "Identifiers remain visible",
+                "text": "Your name and customer number connect the screenshots to your provider account."
+              },
+              {
+                "type": "risk",
+                "mark": "!",
+                "title": "Targeted scam risk",
+                "text": "Account-linked details can make fake renewal messages or support calls more convincing."
               }
             ],
-            "remember": "Hide personal identifiers while keeping only the contract terms needed for the comparison."
-          },
-          "interaction": "redact-document",
-          "documentProfile": "phone-contract",
-          "documentTitle": "phone contract"
+            "remember": "Relevant pages still need every unnecessary identifier removed."
+          }
         }
       ]
     },
@@ -136,7 +140,7 @@
                 "mark": "!",
                 "title": "Residual sensitive context",
                 "text": "Employer, jobtitle, address can still point back to you."
-              }
+              },
               {
                 "type": "risk",
                 "mark": "!",
@@ -149,7 +153,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full rental application",
+          "text": "Here's my full rental application package. Can you check if everything looks convincing?",
           "document": "zip",
           "score": 0,
           "feedback": {
@@ -183,8 +187,8 @@
         },
         {
           "label": "OPTION C",
-          "text": "Review and redact a copy before sharing.",
-          "document": "edit",
+          "text": "I removed my ID number and bank account and uploaded cropped screenshots showing only my income and employment details.",
+          "document": "screenshot",
           "score": 10,
           "feedback": {
             "key": "caution",
@@ -213,10 +217,7 @@
               }
             ],
             "remember": "Redaction helps, but summaries are safer."
-          },
-          "interaction": "redact-document",
-          "documentProfile": "rental-application",
-          "documentTitle": "rental application"
+          }
         }
       ]
     },
@@ -258,7 +259,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full loan offer and bank documents",
+          "text": "Here's the full loan offer, bank statement and credit check. Please review the offer.",
           "document": "pdf",
           "score": 0,
           "feedback": {
@@ -292,8 +293,8 @@
         },
         {
           "label": "OPTION C",
-          "text": "Review and redact a copy before sharing.",
-          "document": "edit",
+          "text": "I used OCR to extract the text from the loan offer and pasted only the loan terms and repayment details into the chat.",
+          "document": "txt",
           "score": 10,
           "feedback": {
             "key": "caution",
@@ -322,16 +323,13 @@
               }
             ],
             "remember": "Filter and summarize the content what you want to share."
-          },
-          "interaction": "redact-document",
-          "documentProfile": "loan-offer",
-          "documentTitle": "loan offer"
+          }
         }
       ]
     },
     {
       "title": "Optimize Your CV Content and Layout",
-      "shortTitle": "CV Optimization",
+      "shortTitle": "CV",
       "icon": "document",
       "user": "I'm applying to a tech company. Can you help me improve the content and layout of my CV?",
       "prompt": "Of course. I can help with structure, wording and prioritization. How would you like to share your CV details?",
@@ -358,9 +356,9 @@
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Personal profile",
+                "title": "personal profile",
                 "text": "Employers, education can create a detailed profile of you."
-              }
+              },
               {
                 "type": "risk",
                 "mark": "!",
@@ -373,7 +371,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full CV and LinkedIn export",
+          "text": "I exported my complete LinkedIn profile and uploaded it for you to rewrite.",
           "document": "zip",
           "score": 0,
           "feedback": {
@@ -407,8 +405,8 @@
         },
         {
           "label": "OPTION C",
-          "text": "Review and redact a copy before sharing.",
-          "document": "edit",
+          "text": "Here's the experience section with personal details hidden. Can you improve the layout and wording?",
+          "document": "part",
           "score": 10,
           "feedback": {
             "key": "caution",
@@ -437,10 +435,7 @@
               }
             ],
             "remember": "Share anonymized examples, not a document section, when possible."
-          },
-          "interaction": "redact-document",
-          "documentProfile": "cv-profile",
-          "documentTitle": "CV"
+          }
         }
       ]
     },
@@ -475,7 +470,7 @@
                 "mark": "!",
                 "title": "Confidential information exposure",
                 "text": "Internal project details, tasks and decisions could unintentionally expose sensitive business information."
-              }
+              },
               {
                 "type": "risk",
                 "mark": "!",
@@ -488,7 +483,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full email thread",
+          "text": "Here is the full email thread with names, internal project details and the decision history. Can you rewrite my reply?",
           "document": "mail",
           "score": 0,
           "feedback": {
@@ -517,13 +512,13 @@
                 "text": "Someone could use these details to create convincing emails that appear to come from your colleagues."
               }
             ],
-            "remember": "Never paste a full internal email thread into AI."
+            "remember": "Never share real workplace threads with AI."
           }
         },
         {
           "label": "OPTION C",
-          "text": "Review and redact a copy before sharing.",
-          "document": "edit",
+          "text": "I pasted the Slack conversation that led to the decision so you can help me draft a reply.",
+          "document": "chat",
           "score": 10,
           "feedback": {
             "key": "caution",
@@ -552,10 +547,7 @@
               }
             ],
             "remember": "Summarize the workplace situation without pasting real conversations."
-          },
-          "interaction": "redact-document",
-          "documentProfile": "work-email",
-          "documentTitle": "work email"
+          }
         }
       ]
     }
