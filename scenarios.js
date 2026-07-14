@@ -128,32 +128,38 @@ window.PRIVACYGUARD_SCENARIOS = {
       options: [
         {
           label: "OPTION A",
-          text: "The rent is EUR 980 cold / EUR 1,180 warm. My net income is about EUR 3,300, I have a permanent contract, can move in from September, and I want the message to sound reliable and concise.",
-          score: 20,
+          text: "The rent is EUR 980 cold / EUR 1,180 warm. This appartment is located at Guard Street 6, 10001 in Munich. I work at company ABC as frontend developer and my net income is about EUR 3,300, I have a permanent contract, can move in from September, and I want the message to sound reliable and concise.",
+          score: 10,
           feedback: {
-            key: "safe",
-            label: "SAFE",
+            key: "caution",
+            label: "ALMOST",
             summary:
-              "Nice - you only shared the key financial and timing details needed.",
+              "Better - some direct identifiers (like name) are removed. But this text still leak sensitive data, such as work place and address.",
             modalTitle:
-              "Rental application advice can work from summary facts.",
+              "Manual text can also contain personal information. It depends how you write it.",
             lessonLabel: "PRIVACY LESSON - OPTION A",
             points: [
               {
                 type: "good",
                 mark: "+",
-                title: "Minimal profile only",
-                text: "Rent, income range, contract type and move-in date are enough for useful feedback.",
+                title: "hidden direct identifiers",
+                text: "Hiding name ID and bank numbers is a useful first step.",
               },
               {
-                type: "good",
-                mark: "+",
-                title: "No document bundle",
-                text: "You avoided uploading IDs, payslips, address history or bank information.",
+                type: "risk",
+                mark: "!",
+                title: "Residual sensitive context",
+                text: "Employer, jobtitle, address can still point back to you.",
+              },
+              {
+                type: "risk",
+                mark: "!",
+                title: "Social engineering",
+                text: "Scammers use personal information to gain your trust and persuade you to take unsafe actions.",
               },
             ],
             remember:
-              "Summarize the application instead of uploading the package.",
+              "Summarize the application only with necessary information.",
           },
         },
         {
@@ -354,30 +360,36 @@ window.PRIVACYGUARD_SCENARIOS = {
       options: [
         {
           label: "OPTION A",
-          text: "I have software development experience from university projects and a working-student role. My strongest areas are Java, backend development and some frontend work. I want the CV to feel clearer, more scannable and more relevant for a junior developer role.",
-          score: 20,
+          text: "My name is Max Mustermann, and I am pursuing a Master's degree in Informatics at University XYZ. My phone number is 1234567890. E-mail address is max.mustermann@gmail.com. I have gained software development experience through university projects as well as my current position as a working student software engineer at Company ABC. My strongest skills include Java, backend development, and some frontend development. I would like my CV to be clearer, easier to scan, and more relevant for a junior software developer role.",
+          score: 0,
           feedback: {
-            key: "safe",
-            label: "SAFE",
+            key: "risky",
+            label: "NOT SAFE",
             summary:
-              "Nice - you shared only relevant skills and experience needed for improvement without uploading your full profile.",
-            modalTitle: "CV advice can work from a role-focused summary.",
+              "You provided sensitive personal information that can uniquely identify you.",
+            modalTitle: "Your description totally shared your identity.",
             lessonLabel: "PRIVACY LESSON - OPTION A",
             points: [
               {
-                type: "good",
-                mark: "+",
-                title: "Role-focused context",
-                text: "Skills, experience type and target role are enough to improve positioning.",
+                type: "risk",
+                mark: "!",
+                title: "Personal identifiers",
+                text: "You shared your name, phone number and e-mail. These information is not needed for a layout optimization.",
               },
               {
-                type: "good",
-                mark: "+",
-                title: "No full personal profile",
-                text: "You avoided sharing name, phone, address, employers and exact career timeline.",
+                type: "risk",
+                mark: "!",
+                title: "personal profile",
+                text: "Employers, education can create a detailed profile of you.",
+              },
+              {
+                type: "risk",
+                mark: "!",
+                title: "Phishing",
+                text: "Attackers may pretend to be recruiters or companies you trust to trick you into revealing more information or clicking malicious links.",
               },
             ],
-            remember: "Describe the CV goal instead of uploading the full CV.",
+            remember: "Describe the framework and the really needed data. Think before share",
           },
         },
         {
@@ -466,31 +478,37 @@ window.PRIVACYGUARD_SCENARIOS = {
       options: [
         {
           label: "OPTION A",
-          text: "Please draft a polite update that says we need one more review round before committing to the timeline. Keep it concise and collaborative.",
-          score: 20,
+          text: "I currently work at ABC Company as a software engineer. The project I'm currently working on focuses on optimizing the recommendation system for the company's existing e-commerce platform. During today's meeting, my manager, Anna Schmidt, asked me to have one more round of review from Max Muster before the project is officially released. Please draft a polite update that says we need one more review round before committing to the timeline. Keep it concise and collaborative.",
+          score: 0,
           feedback: {
-            key: "safe",
-            label: "SAFE",
+            key: "risky",
+            label: "NOT SAFE",
             summary:
-              "Nice - you asked for wording help without exposing names, internal project details or the full thread.",
-            modalTitle: "Work email help can use intent and tone.",
+              "You exposed your name, internal project details and even your colleagues' name, jobtitle and department.",
+            modalTitle: "Your text should also protect the information of other people.",
             lessonLabel: "PRIVACY LESSON - OPTION A",
             points: [
               {
-                type: "good",
-                mark: "+",
-                title: "Intent over transcript",
-                text: "You gave the communication goal instead of the private conversation.",
+                type: "risk",
+                mark: "!",
+                title: "People and roles",
+                text: "Names, titles and departments can reveal identity.",
               },
               {
-                type: "good",
-                mark: "+",
-                title: "No internal details",
-                text: "Names, project codes, timelines and decision history stayed out of the prompt.",
+                type: "risk",
+                mark: "!",
+                title: "Confidential information exposure",
+                text: "Internal project details, tasks and decisions could unintentionally expose sensitive business information.",
+              },
+              {
+                type: "risk",
+                mark: "!",
+                title: "Phishing",
+                text: "Someone could use these details to create convincing emails that appear to come from your managers.",
               },
             ],
             remember:
-              "Ask for a template or tone rewrite without sharing the full thread.",
+              "Your text should also respect the privacy of others.",
           },
         },
         {
