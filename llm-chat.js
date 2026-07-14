@@ -12,13 +12,21 @@ function composerInput() {
 
 function updateComposerSelection(option = null) {
   const input = composerInput();
+  const label = document.querySelector(".composer-label");
   if (!input) return;
 
   if (!option) {
+    if (label) label.textContent = "2 · Review your reply";
     input.classList.add("is-placeholder");
     input.textContent = "Choose one option below";
     input.setAttribute("aria-label", "No reply selected. Choose one option below.");
     return;
+  }
+
+  if (label) {
+    label.textContent = option.interaction === "redact-document"
+      ? "2 · Press Edit file to review"
+      : "2 · Review your reply";
   }
 
   const fileName = typeof window.optionFileName === "function" ? window.optionFileName(option) : "";
@@ -45,8 +53,9 @@ function resetPendingReply() {
   pendingOptionIndex = null;
   contentEl?.classList.remove("reply-sent");
   document.querySelectorAll(".option-card").forEach((card) => {
+    const selectionControl = card.matches("button") ? card : card.querySelector("[data-select-option]");
     card.classList.remove("draft-selected", "draft-muted");
-    card.setAttribute("aria-pressed", "false");
+    selectionControl?.setAttribute("aria-pressed", "false");
   });
   updateComposerSelection();
   setComposerReady(false);
@@ -83,8 +92,9 @@ function installChatCues() {
   }
 
   const pendingOption = pendingOptionIndex === null ? null : levels[levelIndex]?.options[pendingOptionIndex];
+  const canSendPendingOption = pendingOptionIndex !== null && pendingOption?.interaction !== "redact-document";
   updateComposerSelection(pendingOption);
-  setComposerReady(pendingOptionIndex !== null);
+  setComposerReady(canSendPendingOption);
 }
 
 function showAssistantTyping() {
@@ -104,16 +114,20 @@ function showAssistantTyping() {
   typing.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
-function selectDraftReply(button) {
-  pendingOptionIndex = Number(button.dataset.index);
-  document.querySelectorAll(".option-card").forEach((card) => {
-    const isSelected = card === button;
-    card.classList.toggle("draft-selected", isSelected);
-    card.classList.toggle("draft-muted", !isSelected);
-    card.setAttribute("aria-pressed", String(isSelected));
+function selectDraftReply(card) {
+  pendingOptionIndex = Number(card.dataset.index);
+  document.querySelectorAll(".option-card").forEach((optionCard) => {
+    const isSelected = optionCard === card;
+    const selectionControl = optionCard.matches("button")
+      ? optionCard
+      : optionCard.querySelector("[data-select-option]");
+    optionCard.classList.toggle("draft-selected", isSelected);
+    optionCard.classList.toggle("draft-muted", !isSelected);
+    selectionControl?.setAttribute("aria-pressed", String(isSelected));
   });
-  updateComposerSelection(levels[levelIndex]?.options[pendingOptionIndex]);
-  setComposerReady(true);
+  const selectedOption = levels[levelIndex]?.options[pendingOptionIndex];
+  updateComposerSelection(selectedOption);
+  setComposerReady(selectedOption?.interaction !== "redact-document");
   document.querySelector(".composer-shell")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
@@ -125,11 +139,12 @@ function hideReplyPicker() {
 }
 
 optionsEl.addEventListener("click", (event) => {
-  const button = event.target.closest(".option-card");
-  if (!button || button.disabled) return;
+  const card = event.target.closest(".option-card");
+  const selectionControl = card?.matches("button") ? card : card?.querySelector("[data-select-option]");
+  if (!card || selectionControl?.disabled) return;
   event.preventDefault();
   event.stopImmediatePropagation();
-  selectDraftReply(button);
+  selectDraftReply(card);
 }, true);
 
 document.addEventListener("click", (event) => {
@@ -137,12 +152,7 @@ document.addEventListener("click", (event) => {
   if (pendingOptionIndex === null) return;
   const indexToSend = pendingOptionIndex;
   const selectedOption = levels[levelIndex]?.options[indexToSend];
-  if (selectedOption?.interaction === "redact-document" && typeof window.openContractRedaction === "function") {
-    const selectedCard = document.querySelector(`.option-card[data-index="${indexToSend}"]`);
-    const openButton = selectedCard?.querySelector("[data-open-document]");
-    window.openContractRedaction(indexToSend, openButton || selectedCard);
-    return;
-  }
+  if (selectedOption?.interaction === "redact-document") return;
   hideReplyPicker();
   setComposerReady(false);
   window.choose(indexToSend);
