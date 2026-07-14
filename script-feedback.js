@@ -80,6 +80,28 @@ function attachmentName(kind, level) {
   return `${base}_full.pdf · full document`;
 }
 
+function optionFileName(option = {}) {
+  if (!option.document) return "";
+
+  const extensions = {
+    edit: "pdf",
+    mail: "eml",
+    part: "pdf",
+    pdf: "pdf",
+    redacted: "pdf",
+    zip: "zip"
+  };
+  const source = option.documentProfile || option.text || "document";
+  const baseName = source
+    .toLowerCase()
+    .replace(/^full\s+/, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_|_$/g, "");
+  const editSuffix = option.interaction === "redact-document" ? "_editable" : "";
+
+  return `${baseName || "document"}${editSuffix}.${extensions[option.document] || "pdf"}`;
+}
+
 function selectedResponse(level, option) {
   if (!option.document) return `<p>${escapeHtml(option.text)}</p>`;
   return `
@@ -212,8 +234,13 @@ function render() {
   aiPromptEl.textContent = level.prompt;
   scoreEl.textContent = score;
   optionsEl.innerHTML = level.options.map((option, index) => {
+    const fileName = optionFileName(option);
+    const fileHeading = fileName
+      ? `<strong class="option-file-name"><span aria-hidden="true">📄</span> ${escapeHtml(fileName)}</strong>`
+      : "";
     const cardContent = `
       <span class="option-label">${escapeHtml(option.label)}</span>
+      ${fileHeading}
       ${documentPreview(option.document)}
       <p>${escapeHtml(option.text)}</p>
     `;
@@ -224,7 +251,8 @@ function render() {
           type="button"
           data-index="${index}"
           data-open-document
-          aria-label="Edit ${escapeHtml(option.documentTitle || "document")}: ${escapeHtml(option.text)}"
+          aria-pressed="false"
+          aria-label="Edit ${escapeHtml(fileName || option.documentTitle || "document")}: ${escapeHtml(option.text)}"
         >
           ${cardContent}
           <span class="option-interactive">Edit file</span>
@@ -232,7 +260,7 @@ function render() {
       `;
     }
     return `
-      <button class="option-card" type="button" data-index="${index}">
+      <button class="option-card" type="button" data-index="${index}" aria-pressed="false">
         ${cardContent}
       </button>
     `;
