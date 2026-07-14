@@ -3,6 +3,7 @@
 PrivacyGuard is a static browser game for the USEC Project SS26. It teaches safer AI prompting by asking players how they would share sensitive real-world information with an LLM, then gives immediate feedback on the privacy risk of each choice.
 
 The current implementation is based on the Figma `ss2026` prototype and is designed as a full-screen, responsive chat-like experience that can run without a build step.
+Tets
 
 ## What The Game Teaches
 
