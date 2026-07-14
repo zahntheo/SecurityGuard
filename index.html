@@ -79,16 +79,18 @@
           </div>
         </article>
 
-        <article class="attention-panel" data-attention-panel aria-labelledby="play-title">
-          <div class="attention-orb orb-teal" aria-hidden="true"></div>
-          <div class="attention-orb orb-purple" aria-hidden="true"></div>
-          <div class="play-copy">
-            <span class="play-badge">5 scenarios · 1 score</span>
-            <h2 id="play-title">Test your <span>privacy instinct.</span></h2>
-            <button class="start-button" id="start-game" type="button" disabled>Loading...</button>
-            <p>Public Security UI · AI educational game</p>
-          </div>
-        </article>
+      <div class="attention-copy attention-screen attention-guide" id="attention-guide-screen" hidden>
+        <span class="attention-kicker">Before you start</span>
+        <h1 id="guide-title">Think before you share.</h1>
+        <p>Chat with the AI, choose one of three replies, and keep private data out of your prompt.</p>
+        <div class="guide-list">
+          <article><strong>AI chat</strong><span>Read what the assistant asks for.</span></article>
+          <article><strong>Options</strong><span>Choose one reply, review it in the message field, then press Send.</span></article>
+          <article><strong>Your data</strong><span>Share only what is needed.</span></article>
+          <article><strong>Progress</strong><span>Build your score and unlock each level.</span></article>
+          <article><strong>Score</strong><span>See your privacy result at the end.</span></article>
+        </div>
+        <button class="start-button" id="start-game" type="button" disabled>Loading...</button>
       </div>
       <nav class="attention-dots" id="attention-dots" aria-label="Introduction pages"></nav>
       <button class="attention-next" id="attention-next" type="button">Next <span aria-hidden="true">→</span></button>
