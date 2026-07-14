@@ -64,7 +64,7 @@ function installChatCues() {
     `;
   }
 
-  if (optionsEl && !document.querySelector(".composer-shell")) {
+  if (dividerLabelEl && !document.querySelector(".composer-shell")) {
     const composer = document.createElement("div");
     composer.className = "composer-shell";
     composer.setAttribute("aria-label", "Your selected reply");
@@ -79,7 +79,7 @@ function installChatCues() {
         <span aria-hidden="true">↑</span>
       </button>
     `;
-    optionsEl.insertAdjacentElement("afterend", composer);
+    dividerLabelEl.insertAdjacentElement("afterend", composer);
   }
 
   const pendingOption = pendingOptionIndex === null ? null : levels[levelIndex]?.options[pendingOptionIndex];
