@@ -328,7 +328,7 @@ body.redaction-open {
 .option-interactive {
   position: absolute;
   right: clamp(10px, 0.9vmin, 32px);
-  bottom: clamp(10px, 0.9vmin, 32px);
+  bottom: clamp(8px, 0.7vmin, 24px);
   left: clamp(10px, 0.9vmin, 32px);
   width: auto;
   min-height: clamp(42px, 3.8vmin, 126px);
