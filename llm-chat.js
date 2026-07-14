@@ -16,7 +16,7 @@ function updateComposerSelection(option = null) {
   if (!input) return;
 
   if (!option) {
-    if (label) label.textContent = "2 · Review your reply";
+    if (label) label.textContent = "Review your reply";
     input.classList.add("is-placeholder");
     input.textContent = "Choose one option below";
     input.setAttribute("aria-label", "No reply selected. Choose one option below.");
@@ -25,8 +25,8 @@ function updateComposerSelection(option = null) {
 
   if (label) {
     label.textContent = option.interaction === "redact-document"
-      ? "2 · Press Edit file to review"
-      : "2 · Review your reply";
+      ? "Press Edit file to review"
+      : "Review your reply";
   }
 
   const fileName = typeof window.optionFileName === "function" ? window.optionFileName(option) : "";
@@ -65,7 +65,6 @@ function installChatCues() {
   if (dividerLabelEl) {
     dividerLabelEl.classList.add("choice-instruction");
     dividerLabelEl.innerHTML = `
-      <span class="choice-step" aria-hidden="true">1</span>
       <span class="choice-copy">
         <strong>Choose one option</strong>
         <span>Click a reply to place it in your message field.</span>
@@ -80,11 +79,11 @@ function installChatCues() {
     composer.innerHTML = `
       <button class="composer-attach" type="button" tabindex="-1" aria-label="File reply indicator">📎</button>
       <div class="composer-main">
-        <span class="composer-label">2 · Review your reply</span>
+        <span class="composer-label">Review your reply</span>
         <div class="composer-input is-placeholder" aria-live="polite">Choose one option below</div>
       </div>
       <button class="composer-send" type="button" disabled aria-label="Send selected reply">
-        <span>3 · Send</span>
+        <span>Send</span>
         <span aria-hidden="true">↑</span>
       </button>
     `;

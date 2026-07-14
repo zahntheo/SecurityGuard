@@ -284,6 +284,7 @@ body.redaction-open {
 }
 
 .option-card-interactive {
+  position: relative;
   cursor: default;
 }
 
@@ -320,11 +321,17 @@ body.redaction-open {
   padding: clamp(15px, 1.4vmin, 46px) clamp(8px, 0.7vmin, 24px) clamp(7px, 0.65vmin, 22px);
 }
 
+.option-card-file p {
+  margin-top: clamp(4px, 0.4vmin, 14px);
+}
+
 .option-interactive {
-  position: static;
-  width: 100%;
+  position: absolute;
+  right: clamp(10px, 0.9vmin, 32px);
+  bottom: clamp(8px, 0.7vmin, 24px);
+  left: clamp(10px, 0.9vmin, 32px);
+  width: auto;
   min-height: clamp(42px, 3.8vmin, 126px);
-  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
