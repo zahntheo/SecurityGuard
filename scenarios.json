@@ -53,13 +53,19 @@
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Identity data",
+                "title": "Identity theft",
                 "text": "Full contracts often include names, addresses, customer IDs, IBANs, signatures or contact details."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Usage pattern",
+                "title": "Financial fraud",
+                "text": "An exposed IBAN and identity details can be used for unauthorized payment attempts or convincing banking scams."
+              },
+              {
+                "type": "risk",
+                "mark": "!",
+                "title": "Personal profiling",
                 "text": "Mobile plan, contract duration and usage preferences can provide insights into your daily habits and relationship with your mobile provider."
               },
               {

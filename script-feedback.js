@@ -279,7 +279,11 @@ function renderFeedback(level, option, feedback) {
   removeFeedback();
   currentLesson = { level, option, feedback };
   const isLast = levelIndex === levels.length - 1;
-  const consequenceTitle = feedback.key === "safe" ? "Why this protects you" : "What could happen with the data";
+  const consequenceTitle = feedback.key === "safe" ? "Why this protects you" : "What could happen with your data";
+  const consequencePoints = feedback.points || [];
+  const consequenceType = feedback.key === "safe" ? "good" : "risk";
+  const consequenceMark = feedback.key === "safe" ? "+" : "!";
+  const consequenceNames = consequencePoints.map((point) => escapeHtml(point.title)).join(" · ");
   const panel = document.createElement("section");
   panel.className = "feedback-panel";
   panel.setAttribute("aria-live", "polite");
@@ -298,15 +302,12 @@ function renderFeedback(level, option, feedback) {
         <section class="feedback-consequences" aria-label="${escapeHtml(consequenceTitle)}">
           <p class="feedback-consequences-title">${escapeHtml(consequenceTitle)}</p>
           <div class="feedback-consequence-list">
-            ${(feedback.points || []).map((point) => `
-              <article class="feedback-consequence">
-                <span class="point-dot ${escapeHtml(point.type)}" aria-hidden="true">${escapeHtml(point.mark)}</span>
-                <div class="point-copy">
-                  <strong>${escapeHtml(point.title)}</strong>
-                  <p>${escapeHtml(point.text)}</p>
-                </div>
-              </article>
-            `).join("")}
+            <article class="feedback-consequence">
+              <span class="point-dot ${consequenceType}" aria-hidden="true">${consequenceMark}</span>
+              <div class="point-copy">
+                <strong>${consequenceNames || "No additional data consequences"}</strong>
+              </div>
+            </article>
           </div>
         </section>
         <button class="view-more-button" type="button" data-view-more>
