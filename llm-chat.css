@@ -208,19 +208,6 @@
   display: none;
 }
 
-.choice-step {
-  width: clamp(26px, 2.4vmin, 76px);
-  height: clamp(26px, 2.4vmin, 76px);
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  border-radius: 999px;
-  background: #2563eb;
-  color: #ffffff;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-weight: 800;
-}
-
 .choice-copy {
   display: flex;
   flex-direction: column;
