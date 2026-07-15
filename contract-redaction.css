@@ -431,3 +431,23 @@ body.redaction-open {
     transition: none;
   }
 }
+
+
+/* Reserve a stable text area above the interactive file action */
+.option-card-interactive .option-card-select {
+  box-sizing: border-box;
+  padding-bottom: clamp(58px, 5.2vmin, 172px);
+}
+
+.option-card-file .option-file-name,
+.option-card-file .document-preview,
+.option-card-file p {
+  flex: 0 0 auto;
+}
+
+.option-card-file p {
+  width: 100%;
+  align-self: stretch;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
