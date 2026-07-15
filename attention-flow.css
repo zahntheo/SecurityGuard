@@ -89,8 +89,13 @@
 .attention-copy { z-index: 3; }
 
 .attention-hero {
-  align-self: end;
-  padding: 0 6vw clamp(150px, 19vh, 220px);
+  align-self: center;
+  padding: clamp(180px, 28vh, 300px) 6vw 0;
+}
+
+.attention-hero .attention-kicker {
+  display: block;
+  margin-top: clamp(18px, 2.5vh, 28px);
 }
 
 .attention-kicker b { color: #00d4aa; }
@@ -141,20 +146,22 @@
 .how-layout {
   position: relative;
   z-index: 2;
-  width: min(760px, calc(100% - 12vw));
+  width: min(820px, calc(100% - 12vw));
   display: grid;
   align-items: center;
 }
 
 .how-copy { width: 100%; }
-.how-copy h2, .play-copy h2 { margin: 18px 0 34px; font-family: Unbounded, Manrope, sans-serif; font-size: clamp(34px, 5vw, 66px); line-height: 1.05; }
+.how-copy h2, .play-copy h2 { margin: 18px 0 28px; font-family: Unbounded, Manrope, sans-serif; font-size: clamp(34px, 5vw, 66px); line-height: 1.05; }
 .how-copy h2 span, .play-copy h2 span { background: linear-gradient(110deg, #00d4aa, #7b61ff); background-clip: text; -webkit-background-clip: text; color: transparent; }
-.how-list { display: grid; gap: 18px; }
-.how-list > div { display: grid; grid-template-columns: 54px 1fr; gap: 18px; align-items: center; opacity: 0; transform: translateX(-70px); transition: opacity .7s ease, transform .9s cubic-bezier(.34,1.4,.5,1); }
-.how-list > div:nth-child(2) { transition-delay: .14s; }
-.how-list > div:nth-child(3) { transition-delay: .28s; }
+.how-list { display: grid; gap: 13px; }
+.how-list > div { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: center; opacity: 0; transform: translateX(-70px); transition: opacity .7s ease, transform .9s cubic-bezier(.34,1.4,.5,1); }
+.how-list > div:nth-child(2) { transition-delay: .10s; }
+.how-list > div:nth-child(3) { transition-delay: .20s; }
+.how-list > div:nth-child(4) { transition-delay: .30s; }
+.how-list > div:nth-child(5) { transition-delay: .40s; }
 .is-active .how-list > div { opacity: 1; transform: none; }
-.how-list b { width: 54px; height: 54px; display: grid; place-items: center; border-radius: 15px; background: linear-gradient(135deg, #00d4aa, #7b61ff); color: #061018; font-family: "JetBrains Mono", monospace; }
+.how-list b { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 15px; background: linear-gradient(135deg, #00d4aa, #7b61ff); color: #061018; font-family: "JetBrains Mono", monospace; }
 .how-list p, .how-list span { margin: 0; }
 .how-list strong, .how-list span { display: block; }
 .how-list strong { color: #fff; font-size: 18px; }
@@ -175,20 +182,22 @@
   bottom: clamp(70px, 9vh, 94px);
   display: inline-flex;
   align-items: center;
-  min-height: 58px;
-  gap: 16px;
-  padding: 16px 30px;
-  border: 1px solid rgba(255,255,255,.22);
+  min-width: clamp(190px, 18vw, 260px);
+  min-height: 76px;
+  justify-content: center;
+  gap: 18px;
+  padding: 21px 42px;
+  border: 2px solid #7cf3dc;
   border-radius: 999px;
-  background: rgba(6,9,15,.64);
-  color: #fff;
-  font-size: clamp(16px, 1.2vw, 20px);
+  background: linear-gradient(120deg, #00d4aa, #54e6c9);
+  color: #04110e;
+  font-size: clamp(20px, 1.6vw, 25px);
   font-weight: 800;
   cursor: pointer;
-  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 48px rgba(0,212,170,.34);
   transform: translateX(-50%);
 }
-.attention-next:hover, .attention-next:focus-visible { border-color: #00d4aa; outline: none; transform: translateX(-50%) translateY(-2px); }
+.attention-next:hover, .attention-next:focus-visible { border-color: #b8fff1; outline: none; transform: translateX(-50%) translateY(-3px) scale(1.02); box-shadow: 0 22px 56px rgba(0,212,170,.46); }
 .attention-next[hidden] { display: none; }
 .attention-dots { position: fixed; z-index: 14; left: 50%; bottom: clamp(22px, 3.5vh, 38px); display: flex; gap: 8px; transform: translateX(-50%); }
 .attention-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.28); cursor: pointer; transition: width .25s ease, background .25s ease; }
@@ -203,7 +212,8 @@
   .attention .data-counter { display: flex; }
   .how-layout { flex-direction: column; justify-content: center; gap: 26px; padding: 90px 0; }
   .how-copy h2 { margin-bottom: 26px; }
-  .attention-hero { padding-bottom: 180px; }
+  .attention-hero { padding: clamp(150px, 24vh, 220px) 24px 0; }
+  .attention-next { min-width: 180px; min-height: 68px; padding: 18px 34px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
