@@ -488,3 +488,55 @@
     transition-duration: 1ms !important;
   }
 }
+
+
+.sent-file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(9px, 0.85vmin, 30px);
+  max-width: 100%;
+  padding: clamp(10px, 1vmin, 34px) clamp(13px, 1.2vmin, 42px);
+  border: 1px solid rgba(123, 97, 255, 0.2);
+  border-radius: clamp(12px, 1.1vmin, 38px);
+  background: rgba(123, 97, 255, 0.08);
+}
+
+.sent-file-icon {
+  flex: 0 0 auto;
+  font-size: clamp(20px, 1.8vmin, 62px);
+}
+
+.sent-file-chip strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--ink-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(12px, 1.1vmin, 38px);
+}
+
+.feedback-learning-list {
+  display: grid;
+  gap: clamp(10px, 1vmin, 36px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feedback-learning-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(10px, 1vmin, 36px);
+  padding: clamp(13px, 1.25vmin, 46px);
+  border: 1px solid rgba(14, 23, 38, 0.1);
+  border-radius: clamp(12px, 1.1vmin, 40px);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.feedback-learning-item p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: clamp(14px, 1.25vmin, 44px);
+  font-weight: 650;
+  line-height: 1.5;
+}
