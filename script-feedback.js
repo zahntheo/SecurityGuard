@@ -106,8 +106,8 @@ function selectedResponse(level, option) {
   if (!option.document) return `<p>${escapeHtml(option.text)}</p>`;
   const fileName = optionFileName(option) || attachmentName(option.document, level);
   return `
-    <div class="sent-file-chip" aria-label="Sent file: ${escapeHtml(fileName)}">
-      <span class="sent-file-icon" aria-hidden="true">📄</span>
+    <div class="sent-file-preview" aria-label="Sent file: ${escapeHtml(fileName)}">
+      ${documentPreview(option.document)}
       <strong>${escapeHtml(fileName)}</strong>
     </div>
   `;
