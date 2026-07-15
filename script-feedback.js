@@ -104,13 +104,11 @@ function optionFileName(option = {}) {
 
 function selectedResponse(level, option) {
   if (!option.document) return `<p>${escapeHtml(option.text)}</p>`;
+  const fileName = optionFileName(option) || attachmentName(option.document, level);
   return `
-    <div class="upload-row">
-      ${documentPreview(option.document)}
-      <div class="upload-copy">
-        <p>${escapeHtml(option.text)}</p>
-        <p class="attachment-line">📎 ${escapeHtml(attachmentName(option.document, level))}</p>
-      </div>
+    <div class="sent-file-chip" aria-label="Sent file: ${escapeHtml(fileName)}">
+      <span class="sent-file-icon" aria-hidden="true">📄</span>
+      <strong>${escapeHtml(fileName)}</strong>
     </div>
   `;
 }
@@ -317,17 +315,16 @@ function renderFeedback(level, option, feedback) {
   currentLesson = { level, option, feedback };
   const isLast = levelIndex === levels.length - 1;
   const learningTitle = feedback.key === "safe" ? "Why this was a good choice" : "What to learn from this choice";
-  const learningPoints = feedback.points || [];
+  const learningPoints = feedback.learning?.length
+    ? feedback.learning.map((text) => ({ text }))
+    : (feedback.points || []);
   const learningType = feedback.key === "safe" ? "good" : "risk";
   const learningMark = feedback.key === "safe" ? "+" : "!";
   const learningCards = learningPoints.map((point) => `
-    <article class="feedback-consequence">
+    <li class="feedback-learning-item">
       <span class="point-dot ${escapeHtml(point.type || learningType)}" aria-hidden="true">${escapeHtml(point.mark || learningMark)}</span>
-      <div class="point-copy">
-        <strong>${escapeHtml(point.title)}</strong>
-        <p>${escapeHtml(point.text)}</p>
-      </div>
-    </article>
+      <p>${escapeHtml(point.text)}</p>
+    </li>
   `).join("");
   const panel = document.createElement("section");
   panel.className = "feedback-panel";
@@ -346,15 +343,10 @@ function renderFeedback(level, option, feedback) {
         <p class="feedback-summary">${escapeHtml(feedback.summary)}</p>
         <section class="feedback-consequences" aria-label="${escapeHtml(learningTitle)}">
           <p class="feedback-consequences-title">${escapeHtml(learningTitle)}</p>
-          <p class="feedback-learning-rule">${escapeHtml(feedback.remember)}</p>
-          <div class="feedback-consequence-list">
-            ${learningCards || '<p class="feedback-learning-empty">Keep private information out of AI prompts unless it is essential.</p>'}
-          </div>
+          <ul class="feedback-learning-list">
+            ${learningCards || '<li class="feedback-learning-empty">Keep private information out of AI prompts unless it is essential.</li>'}
+          </ul>
         </section>
-        <button class="view-more-button" type="button" data-view-more>
-          <span>See more: privacy lesson</span>
-          <span aria-hidden="true">→</span>
-        </button>
       </div>
     </article>
     <div class="next-wrap">
