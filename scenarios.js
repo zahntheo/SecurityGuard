@@ -8,7 +8,7 @@ window.PRIVACYGUARD_SCENARIOS = {
       icon: "mail",
       user: "Can you check whether this phone plan is a good deal before I renew it?",
       prompt:
-        "Yes. I only need the costs, contract length and included data or minutes. How would you like to share it?",
+        "Yes. What information would you like to share so I can review the plan?",
       adviceTitle: "Never send the full contract.",
       advice:
         "It contains your bank account, address, ID number and signature - everything an attacker needs.",
@@ -121,7 +121,7 @@ window.PRIVACYGUARD_SCENARIOS = {
       icon: "link",
       user: "I want to apply for an apartment. Can you tell me if my application looks strong enough?",
       prompt:
-        "I can help you assess the application. What details would you like to share?",
+        "I can help assess it. What information would you like to share?",
       adviceTitle: "Your rental application is a full identity package.",
       advice:
         "Documents often include your income, employer, address, credit score... Summarize only the details relevant to your question.",
@@ -241,7 +241,7 @@ window.PRIVACYGUARD_SCENARIOS = {
       icon: "document",
       user: "I got a personal loan offer. Can you help me understand whether the terms are reasonable?",
       prompt:
-        "Sure. I can compare the key terms if you share the amount, APR, fees, term and monthly payment.",
+        "Sure. What information would you like to share so I can review the offer?",
       adviceTitle: "Loan documents reveal your financial fingerprint.",
       advice:
         "Credit tier, debt level, and income can all be inferred from a single offer. Summarize - never upload.",
@@ -353,7 +353,7 @@ window.PRIVACYGUARD_SCENARIOS = {
       icon: "document",
       user: "I'm applying to a tech company. Can you help me improve the content and layout of my CV?",
       prompt:
-        "Of course. I can help with structure, wording and prioritization. How would you like to share your CV details?",
+        "Of course. What would you like to share so I can help improve it?",
       adviceTitle: "Your CV contains more than work experience.",
       advice:
         "Name, phone, location, employer, and life history are all on one page. Describe it, do not upload it.",
@@ -471,7 +471,7 @@ window.PRIVACYGUARD_SCENARIOS = {
       icon: "mail",
       user: "Can you help me write a clearer response to a coworker about this project decision?",
       prompt:
-        "Yes. Share the goal, audience and tone. Avoid names or internal details unless they are necessary.",
+        "Yes. What would you like to share so I can help draft the response?",
       adviceTitle: "Summarize the situation, not the conversation.",
       advice:
         "Project names, internal decisions, and real people's roles can leak professional data. Ask for templates instead.",
