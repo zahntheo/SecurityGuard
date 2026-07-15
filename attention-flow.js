@@ -12,6 +12,20 @@
   let panelIndex = 0;
   let wheelLocked = false;
 
+  function positionNextButton() {
+    if (!nextButton || nextButton.hidden) return;
+    const activePanel = panels[panelIndex];
+    const textBlock = activePanel?.querySelector(".attention-copy, .how-copy");
+    if (!textBlock) return;
+
+    const gap = window.innerWidth <= 760 ? 18 : 24;
+    const dotsClearance = window.innerWidth <= 760 ? 78 : 86;
+    const buttonHeight = nextButton.offsetHeight || 76;
+    const idealTop = textBlock.getBoundingClientRect().bottom + gap;
+    const maximumTop = window.innerHeight - buttonHeight - dotsClearance;
+    nextButton.style.setProperty("--attention-next-top", `${Math.min(idealTop, maximumTop)}px`);
+  }
+
   panels.forEach((_, index) => {
     const dot = document.createElement("button");
     dot.type = "button";
@@ -33,6 +47,7 @@
     if (nextButton) {
       nextButton.hidden = panelIndex === panels.length - 1;
       nextButton.setAttribute("aria-label", `Go to introduction page ${panelIndex + 2}`);
+      window.requestAnimationFrame(positionNextButton);
     }
   }
 
@@ -79,6 +94,8 @@
     goToPanel(panelIndex + (event.deltaY > 0 ? 1 : -1));
     window.setTimeout(() => { wheelLocked = false; }, 650);
   }, { passive: false });
+
+  window.addEventListener("resize", positionNextButton);
 
   window.PSUICloud?.init(byId("attention-cloud"), {
     loopMs: 30000,
