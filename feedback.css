@@ -538,3 +538,28 @@
   font-weight: 650;
   line-height: 1.5;
 }
+
+
+/* Compact ChatGPT-style attachment message */
+.selected-response:has(.sent-file-preview) .bubble,
+.pending-sent-response:has(.sent-file-preview) .bubble {
+  width: fit-content;
+  min-width: 0;
+  max-width: min(240px, calc(100% - 54px));
+  min-height: 0;
+  padding: clamp(12px, 1.1vmin, 38px);
+}
+
+.selected-response:has(.sent-file-preview),
+.pending-sent-response:has(.sent-file-preview) {
+  align-items: flex-end;
+}
+
+.sent-file-preview {
+  max-width: 150px;
+}
+
+.sent-file-preview .document-preview {
+  width: clamp(58px, 5.2vmin, 88px);
+  height: clamp(74px, 6.6vmin, 112px);
+}
