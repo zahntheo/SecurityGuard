@@ -103,6 +103,24 @@
   text-transform: uppercase;
 }
 
+.feedback-learning-rule {
+  margin: 0;
+  padding: clamp(13px, 1.25vmin, 46px) clamp(15px, 1.5vmin, 54px);
+  border-left: 4px solid currentColor;
+  border-radius: clamp(10px, 0.9vmin, 32px);
+  background: rgba(255, 255, 255, 0.78);
+  color: currentColor;
+  font-size: clamp(15px, 1.35vmin, 48px);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.feedback-learning-empty {
+  margin: 0;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
 .feedback-consequence-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
