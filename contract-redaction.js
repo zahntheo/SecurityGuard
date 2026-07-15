@@ -516,12 +516,15 @@ function openContractRedaction(index, trigger) {
   overlay.innerHTML = `
     <article class="contract-redaction-editor">
       <header class="contract-editor-header">
-        <div>
+        <div class="contract-editor-heading">
           <p class="contract-editor-kicker">${escapeHtml(activeRedactionProfile.kicker)}</p>
           <h2 id="contract-redaction-title">What should the AI not see?</h2>
-          <p>${escapeHtml(activeRedactionProfile.instruction)} Tap a blacked-out field again to restore it.</p>
         </div>
-        <button class="contract-editor-close" type="button" data-close-contract aria-label="Close document">×</button>
+        <div class="contract-header-actions">
+          <button class="contract-back-button" type="button" data-close-contract>Back</button>
+          <button class="contract-share-button" type="button" data-share-redacted>Save</button>
+          <button class="contract-editor-close" type="button" data-close-contract aria-label="Close document">×</button>
+        </div>
       </header>
 
       <div class="contract-editor-body">
@@ -545,10 +548,6 @@ function openContractRedaction(index, trigger) {
             <strong data-redaction-count>0 fields redacted</strong>
             <span>Keep useful task information readable.</span>
           </div>
-        </div>
-        <div class="contract-action-buttons">
-          <button class="contract-back-button" type="button" data-close-contract>Back</button>
-          <button class="contract-share-button" type="button" data-share-redacted>Save</button>
         </div>
       </footer>
     </article>
