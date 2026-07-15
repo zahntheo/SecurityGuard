@@ -281,6 +281,16 @@ function choose(index, optionOverride = null) {
   const optionStatus = getOptionStatus(option);
   const cards = [...document.querySelectorAll(".option-card")];
   const feedback = option.feedback;
+  const feedbackLearningTitle = feedback.key === "safe" ? "Why this was a good choice" : "What to learn from this choice";
+  const feedbackLearningType = feedback.key === "safe" ? "good" : "risk";
+  const feedbackLearningMark = feedback.key === "safe" ? "+" : "!";
+  const feedbackLearning = (feedback.learning?.length
+    ? feedback.learning.map((text) => ({ text }))
+    : (feedback.points || [])).map((point) => ({
+      text: point.text,
+      type: point.type || feedbackLearningType,
+      mark: point.mark || feedbackLearningMark
+    }));
   cards.forEach((card, cardIndex) => {
     const cardOption = cardIndex === index ? option : level.options[cardIndex];
     const cardStatus = getOptionStatus(cardOption);
@@ -302,6 +312,13 @@ function choose(index, optionOverride = null) {
     icon: iconFor(level.icon),
     score: optionScore,
     status: optionStatus,
+    userMessage: level.user,
+    aiMessage: level.prompt,
+    selectedOption: selectedResponse(level, option),
+    feedbackLabel: feedback.label,
+    feedbackSummary: feedback.summary,
+    feedbackLearningTitle,
+    feedbackLearning,
     adviceTitle: level.adviceTitle,
     advice: level.advice
   });
@@ -412,6 +429,59 @@ function scoreRingTone(percent) {
   return "red";
 }
 
+function openScenarioHistory(resultIndex) {
+  const result = sceneResults.find((item) => item.index === resultIndex);
+  if (!result) return;
+  const status = resultStatus(result.status);
+  const learningCards = (result.feedbackLearning || []).map((point) => `
+    <li class="feedback-learning-item">
+      <span class="point-dot ${escapeHtml(point.type)}" aria-hidden="true">${escapeHtml(point.mark)}</span>
+      <p>${escapeHtml(point.text)}</p>
+    </li>
+  `).join("");
+  const modal = document.createElement("div");
+  modal.className = "history-modal-backdrop";
+  modal.innerHTML = `
+    <section class="history-modal" role="dialog" aria-modal="true" aria-labelledby="history-modal-title">
+      <header class="history-modal-header">
+        <div>
+          <p class="history-modal-kicker">Scenario ${result.index} · ${status.label}</p>
+          <h2 id="history-modal-title">${escapeHtml(result.title)}</h2>
+        </div>
+        <button class="history-modal-close" type="button" data-close-history aria-label="Close scenario history">×</button>
+      </header>
+      <div class="history-conversation">
+        <article class="history-message user">
+          <span>You</span>
+          <p>${escapeHtml(result.userMessage)}</p>
+        </article>
+        <article class="history-message ai">
+          <span>AI</span>
+          <p>${escapeHtml(result.aiMessage)}</p>
+        </article>
+        <article class="history-choice ${status.key}">
+          <span>Your choice</span>
+          <div>${result.selectedOption}</div>
+        </article>
+        <article class="history-feedback feedback-card ${status.key}">
+          <p class="feedback-label">${escapeHtml(result.feedbackLabel || status.label)}</p>
+          <div class="feedback-content">
+            <p class="feedback-summary">${escapeHtml(result.feedbackSummary)}</p>
+            <section class="feedback-consequences" aria-label="${escapeHtml(result.feedbackLearningTitle)}">
+              <p class="feedback-consequences-title">${escapeHtml(result.feedbackLearningTitle)}</p>
+              <ul class="feedback-learning-list">
+                ${learningCards || '<li class="feedback-learning-empty">Keep private information out of AI prompts unless it is essential.</li>'}
+              </ul>
+            </section>
+          </div>
+        </article>
+      </div>
+    </section>
+  `;
+  document.body.appendChild(modal);
+  modal.querySelector("[data-close-history]")?.focus();
+}
+
 function finish() {
   const grade = gradeForScore(score);
   const totalMaxScore = maxScore();
@@ -421,14 +491,14 @@ function finish() {
   const logs = sceneResults.map((result) => {
     const status = resultStatus(result.status);
     return `
-      <article class="log-card ${status.key}">
+      <button class="log-card ${status.key}" type="button" data-scenario-history data-result-index="${result.index}" aria-haspopup="dialog" aria-label="View choices and history for scenario ${result.index}: ${escapeHtml(result.title)}">
         <span class="log-icon" aria-hidden="true">${result.icon}</span>
         <div>
           <p class="log-kicker">Scenario ${result.index}</p>
           <p class="log-title">${escapeHtml(result.title)}</p>
         </div>
         <span class="status-pill ${status.key}">${status.label}</span>
-      </article>
+      </button>
     `;
   }).join("");
   const advice = sceneResults.map((result) => `
@@ -458,12 +528,12 @@ function finish() {
       <section class="result-score-card" aria-label="Privacy grade">
         <div class="score-ring ${ringTone}" style="--score: ${scoreProgress}"><strong>${score}</strong><span>/ ${totalMaxScore}</span></div>
         <div class="score-summary">
-          <div class="score-grade-row"><span class="score-label">Privacy grade</span><span class="grade-pill">${grade.grade}</span></div>
+          <div class="score-grade-row"><span class="score-label">Privacy grade</span><span class="grade-pill ${ringTone}">${grade.grade}</span></div>
           <p class="score-copy">${grade.copy}</p>
         </div>
       </section>
       <section class="result-advice" aria-labelledby="advice-title">
-        <h3 class="result-section-title" id="advice-title">Advice for this scenario</h3>
+        <h3 class="result-section-title" id="advice-title">Advice for this game</h3>
         <div class="advice-list">${advice}</div>
       </section>
       <section class="scenario-log" aria-labelledby="scenario-log-title">
@@ -540,6 +610,11 @@ gameStageEl.addEventListener("click", (event) => {
     renderLessonModal();
     return;
   }
+  const historyTrigger = event.target.closest("[data-scenario-history]");
+  if (historyTrigger) {
+    openScenarioHistory(Number(historyTrigger.dataset.resultIndex));
+    return;
+  }
   if (event.target.closest("[data-next-step]")) {
     goNext();
   }
@@ -549,6 +624,13 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("[data-close-lesson]") || event.target.classList.contains("lesson-overlay")) {
     document.querySelector(".lesson-overlay")?.remove();
   }
+  if (event.target.closest("[data-close-history]") || event.target.classList.contains("history-modal-backdrop")) {
+    document.querySelector(".history-modal-backdrop")?.remove();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") document.querySelector(".history-modal-backdrop")?.remove();
 });
 
 optionsEl.addEventListener("click", (event) => {
