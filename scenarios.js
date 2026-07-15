@@ -360,7 +360,7 @@ window.PRIVACYGUARD_SCENARIOS = {
       options: [
         {
           label: "OPTION A",
-          text: "My name is Max Mustermann, and I am pursuing a Master's degree in Informatics at University XYZ. My phone number is 1234567890. E-mail address is max.mustermann@gmail.com. I have gained software development experience through university projects as well as my current position as a working student software engineer at Company ABC. My strongest skills include Java, backend development, and some frontend development. I would like my CV to be clearer, easier to scan, and more relevant for a junior software developer role.",
+          text: "My name is Max Mustermann. My phone number is 0151 23456789 and my email is max.mustermann@example.com. I study Informatics at University XYZ and work as a student software engineer at Company ABC. Please improve my CV for a junior developer role.",
           score: 0,
           feedback: {
             key: "risky",
@@ -478,7 +478,7 @@ window.PRIVACYGUARD_SCENARIOS = {
       options: [
         {
           label: "OPTION A",
-          text: "I currently work at ABC Company as a software engineer. The project I'm currently working on focuses on optimizing the recommendation system for the company's existing e-commerce platform. During today's meeting, my manager, Anna Schmidt, asked me to have one more round of review from Max Muster before the project is officially released. Please draft a polite update that says we need one more review round before committing to the timeline. Keep it concise and collaborative.",
+          text: "I work at ABC Company on the confidential Aurora recommendation project. My manager Anna Schmidt asked Max Muster to review it before Friday's release. Please draft a polite update explaining the delay.",
           score: 0,
           feedback: {
             key: "risky",
