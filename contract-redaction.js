@@ -707,6 +707,11 @@ function gradeContractRedaction() {
     caution: `I redacted ${redactedSensitive.length} sensitive fields, but the document still needs another privacy check.`,
     risky: `I shared the document after redacting only ${redactedSensitive.length} sensitive ${redactedSensitive.length === 1 ? "field" : "fields"}.`
   };
+  const visibleFieldNames = missedSensitive.map((field) => field.label.toLowerCase());
+  const hiddenFieldNames = redactedSensitive.map((field) => field.label.toLowerCase());
+  const detailedSummary = missedSensitive.length
+    ? `Still visible: ${visibleFieldNames.join(", ")}.`
+    : `Hidden successfully: ${hiddenFieldNames.join(", ")}.`;
 
   return {
     key,
@@ -717,7 +722,7 @@ function gradeContractRedaction() {
     feedback: {
       key,
       label: labels[key],
-      summary: summaries[key],
+      summary: detailedSummary,
       modalTitle: key === "safe" ? "You created a useful, privacy-safe document copy." : "The document needs a more careful privacy review.",
       lessonLabel: "PRIVACY LESSON · INTERACTIVE REDACTION",
       points: missedSensitive.length
