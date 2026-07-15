@@ -37,7 +37,6 @@ function updateComposerSelection(option = null) {
 
   input.classList.remove("is-placeholder");
   input.innerHTML = `
-    <span class="composer-type">${escapeHtml(typeLabel)}</span>
     <span class="composer-selection">${escapeHtml(selectedValue)}</span>
   `;
   input.setAttribute("aria-label", `Selected ${typeLabel.toLowerCase()}: ${selectedValue}`);
