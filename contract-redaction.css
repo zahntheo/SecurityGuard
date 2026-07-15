@@ -508,3 +508,69 @@ body.redaction-open {
     margin-left: auto;
   }
 }
+
+
+/* One-time redaction tutorial for the first editable document */
+.contract-field {
+  position: relative;
+}
+
+.redaction-tutorial-note {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: calc(100% + clamp(10px, 1vmin, 34px));
+  width: max-content;
+  max-width: min(290px, 80vw);
+  padding: clamp(10px, 1vmin, 34px) clamp(13px, 1.25vmin, 42px);
+  border-radius: clamp(11px, 1vmin, 34px);
+  background: #172554;
+  color: #ffffff;
+  box-shadow: 0 14px 34px rgba(14, 23, 38, 0.26);
+  font-size: clamp(12px, 1.05vmin, 36px);
+  font-weight: 800;
+  line-height: 1.4;
+  transform: translateX(-50%);
+  animation: redactionTutorialIn 360ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.redaction-tutorial-note::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 8px solid transparent;
+  border-top-color: #172554;
+  transform: translateX(-50%);
+}
+
+.redaction-tutorial-note.is-leaving {
+  animation: redactionTutorialOut 320ms ease-in both;
+}
+
+.contract-value.is-tutorial-target {
+  pointer-events: none;
+  outline: 3px solid rgba(37, 99, 235, 0.4);
+  outline-offset: 3px;
+  animation: redactionTutorialPulse 900ms ease-in-out infinite;
+}
+
+@keyframes redactionTutorialIn {
+  from { opacity: 0; transform: translate(-50%, 10px) scale(.96); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+@keyframes redactionTutorialOut {
+  to { opacity: 0; transform: translate(-50%, -8px) scale(.97); }
+}
+
+@keyframes redactionTutorialPulse {
+  50% { outline-color: rgba(6, 201, 160, 0.82); transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .redaction-tutorial-note,
+  .contract-value.is-tutorial-target {
+    animation: none;
+  }
+}
