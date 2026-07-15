@@ -548,7 +548,7 @@ function openContractRedaction(index, trigger) {
         </div>
         <div class="contract-action-buttons">
           <button class="contract-back-button" type="button" data-close-contract>Back</button>
-          <button class="contract-share-button" type="button" data-share-redacted>Share reviewed document →</button>
+          <button class="contract-share-button" type="button" data-share-redacted>Save</button>
         </div>
       </footer>
     </article>
