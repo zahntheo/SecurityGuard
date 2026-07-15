@@ -650,7 +650,7 @@ function learningForVisibleField(field) {
   }
   if (descriptor.includes("phone")) return `Never provide your ${label} because it can be used for scam calls or messages.`;
   if (descriptor.includes("address")) return `Never provide your ${label} when it is not needed because it can identify and locate you.`;
-  if (descriptor.includes("birth")) return `Never provide your ${label} unless it is essential because it is a strong identity detail.`;
+  if (descriptor.includes("birth")) return `Never provide your ${label} because it can lead to identity theft.`;
   if (descriptor.includes("signature")) return `Never provide your ${label} because it can be copied and used for impersonation.`;
   if (descriptor.includes("customer number") || descriptor.includes("customer id") || descriptor.includes("id document")) {
     return `Never provide your ${label} because it can identify your account or identity document.`;
@@ -664,7 +664,7 @@ function learningForVisibleField(field) {
   if (descriptor.includes("sender") || descriptor.includes("recipient") || descriptor.includes("participant") || descriptor.includes("name")) {
     return `Never provide ${label} when it is unnecessary because it exposes a person's identity.`;
   }
-  return `Do not provide ${label} when the AI does not need it for the task.`;
+  return `Do not provide ${label} because unnecessary sensitive fields can lead to targeted scams.`;
 }
 
 function visibleDataConsequences(fields = []) {
