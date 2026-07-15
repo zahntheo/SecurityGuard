@@ -344,3 +344,49 @@
     width: 100%;
   }
 }
+
+
+/* Scenario entrance: user typing, user message, AI typing, then choices */
+.scenario-intro-hidden {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.scenario-intro-reveal {
+  animation: scenarioMessageIn 480ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.scenario-typing-message.message-user {
+  justify-content: flex-end;
+}
+
+.scenario-typing-message {
+  animation: scenarioMessageIn 320ms ease-out both;
+}
+
+.scenario-intro-running .chat {
+  min-height: clamp(126px, 13vmin, 250px);
+}
+
+@keyframes scenarioMessageIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scenario-intro-hidden {
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .scenario-intro-reveal,
+  .scenario-typing-message {
+    animation: none;
+  }
+}
