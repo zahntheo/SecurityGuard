@@ -103,6 +103,7 @@
   position: relative;
   width: 155px;
   height: 155px;
+  aspect-ratio: 1 / 1;
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
@@ -314,40 +315,40 @@
 .advice-card {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 14px 16px 14px 14px;
+  gap: 27px;
+  padding: 32px 36px 32px 32px;
   border: 1px solid #e5e8eb;
-  border-radius: 12px;
+  border-radius: 27px;
   background: #ffffff;
 }
 
 .advice-number {
-  width: 42px;
-  height: 42px;
+  width: 95px;
+  height: 95px;
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  border-radius: 8px;
+  border-radius: 18px;
   background: #eeeaff;
   color: #7b61ff;
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 16px;
+  font-size: 36px;
   font-weight: 700;
 }
 
 .advice-card strong {
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 8px;
   color: #0a0e1a;
-  font-size: 20px;
+  font-size: 45px;
   line-height: 1.35;
 }
 
 .advice-card p {
   margin: 0;
   color: #8b95b7;
-  font-size: 18px;
-  line-height: 27px;
+  font-size: 40px;
+  line-height: 56px;
 }
 
 .history-modal-backdrop {
@@ -355,20 +356,24 @@
   z-index: 1000;
   inset: 0;
   display: grid;
-  place-items: center;
-  padding: 24px;
+  place-items: start center;
+  padding: 4vh 24px 24px;
   background: rgba(6, 9, 15, 0.72);
   backdrop-filter: blur(8px);
 }
 
 .history-modal {
-  width: min(720px, 100%);
-  max-height: min(820px, calc(100dvh - 48px));
-  overflow: auto;
+  width: min(1100px, 100%);
+  height: fit-content;
+  max-height: calc(100dvh - 8vh);
+  overflow-y: auto;
+  scrollbar-width: none;
   border-radius: 20px;
   background: #f4f6f8;
   box-shadow: 0 30px 90px rgba(6, 9, 15, 0.36);
 }
+
+.history-modal::-webkit-scrollbar { display: none; }
 
 .history-modal-header {
   position: sticky;
@@ -410,14 +415,14 @@
 
 .history-conversation {
   display: grid;
-  gap: 16px;
-  padding: 28px;
+  gap: 12px;
+  padding: 22px 28px 26px;
 }
 
 .history-message,
 .history-choice,
 .history-feedback {
-  padding: 18px 20px;
+  padding: 14px 18px;
   border: 1px solid #e1e5ea;
   border-radius: 16px;
   background: #fff;
@@ -521,7 +526,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .history-modal-backdrop { padding: 0; }
-  .history-modal { width: 100%; max-height: 100dvh; min-height: 100dvh; border-radius: 0; }
+  .history-modal-backdrop { padding: 2vh 0 0; }
+  .history-modal { width: 100%; max-height: 98dvh; border-radius: 18px 18px 0 0; }
   .history-message.user, .history-message.ai { margin: 0; }
 }
