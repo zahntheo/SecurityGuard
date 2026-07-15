@@ -315,6 +315,8 @@ function choose(index, optionOverride = null) {
     userMessage: level.user,
     aiMessage: level.prompt,
     selectedOption: selectedResponse(level, option),
+    selectedOptionText: option.text || "",
+    selectedFileName: optionFileName(option) || "",
     feedbackLabel: feedback.label,
     feedbackSummary: feedback.summary,
     feedbackLearningTitle,
@@ -427,6 +429,53 @@ function scoreRingTone(percent) {
   if (percent >= 80) return "green";
   if (percent >= 40) return "yellow";
   return "red";
+}
+
+function downloadResultLog(grade, totalMaxScore, scoreProgress) {
+  const resultLog = {
+    exportedAt: new Date().toISOString(),
+    game: gameConfig.assistantTitle,
+    model: DISPLAY_MODEL,
+    summary: {
+      score,
+      maximumScore: totalMaxScore,
+      percentage: scoreProgress,
+      grade: grade.grade,
+      feedback: grade.copy
+    },
+    scenarios: sceneResults.map((result) => ({
+      scenario: result.index,
+      title: result.title,
+      status: result.status,
+      score: result.score,
+      conversation: {
+        user: result.userMessage,
+        assistant: result.aiMessage,
+        selectedChoice: result.selectedOptionText,
+        selectedFile: result.selectedFileName || null
+      },
+      feedback: {
+        label: result.feedbackLabel,
+        summary: result.feedbackSummary,
+        learningTitle: result.feedbackLearningTitle,
+        points: result.feedbackLearning
+      },
+      advice: {
+        title: result.adviceTitle,
+        text: result.advice
+      }
+    }))
+  };
+  const blob = new Blob([JSON.stringify(resultLog, null, 2)], { type: "application/json" });
+  const downloadUrl = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  const timestamp = resultLog.exportedAt.replace(/[:.]/g, "-");
+  link.href = downloadUrl;
+  link.download = `privacyguard-result-${timestamp}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
 }
 
 function openScenarioHistory(resultIndex) {
@@ -543,6 +592,7 @@ function finish() {
     </section>
     <footer class="complete-actions"><button class="exit-game-button" type="button" data-exit-game>Exit Game</button></footer>
   `;
+  downloadResultLog(grade, totalMaxScore, scoreProgress);
 }
 
 function startGame() {
