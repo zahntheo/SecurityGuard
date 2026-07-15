@@ -590,6 +590,33 @@ function consequenceForVisibleField(field) {
   return "Targeted scams";
 }
 
+function learningForVisibleField(field) {
+  const descriptor = `${field.id} ${field.label}`.toLowerCase();
+  const label = field.label.toLowerCase();
+
+  if (descriptor.includes("email")) return `Never provide your ${label} because it can be used for targeted phishing.`;
+  if (descriptor.includes("iban") || descriptor.includes("bank account") || descriptor.includes("direct debit")) {
+    return `Never provide your ${label} because bank details can enable financial fraud.`;
+  }
+  if (descriptor.includes("phone")) return `Never provide your ${label} because it can be used for scam calls or messages.`;
+  if (descriptor.includes("address")) return `Never provide your ${label} when it is not needed because it can identify and locate you.`;
+  if (descriptor.includes("birth")) return `Never provide your ${label} unless it is essential because it is a strong identity detail.`;
+  if (descriptor.includes("signature")) return `Never provide your ${label} because it can be copied and used for impersonation.`;
+  if (descriptor.includes("customer number") || descriptor.includes("customer id") || descriptor.includes("id document")) {
+    return `Never provide your ${label} because it can identify your account or identity document.`;
+  }
+  if (descriptor.includes("credit score") || descriptor.includes("account balance")) {
+    return `Never provide your ${label} because it reveals your private financial profile.`;
+  }
+  if (descriptor.includes("client") || descriptor.includes("project") || descriptor.includes("budget") || descriptor.includes("workspace")) {
+    return `Never provide ${label} because it can expose confidential company information.`;
+  }
+  if (descriptor.includes("sender") || descriptor.includes("recipient") || descriptor.includes("participant") || descriptor.includes("name")) {
+    return `Never provide ${label} when it is unnecessary because it exposes a person's identity.`;
+  }
+  return `Do not provide ${label} when the AI does not need it for the task.`;
+}
+
 function visibleDataConsequences(fields = []) {
   const groupedConsequences = new Map();
 
@@ -653,6 +680,9 @@ function gradeContractRedaction() {
               text: "All marked personal and confidential fields are hidden."
             }
           ],
+      learning: missedSensitive.length
+        ? missedSensitive.map(learningForVisibleField)
+        : ["You removed every sensitive field while keeping the useful information visible."],
       remember: "Hide personal identifiers, but keep the minimum facts needed for the task."
     }
   };
