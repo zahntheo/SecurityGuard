@@ -534,8 +534,8 @@
 .feedback-learning-item p {
   margin: 0;
   color: var(--ink-2);
-  font-size: clamp(14px, 1.25vmin, 44px);
-  font-weight: 650;
+  font-size: clamp(16px, 1.55vmin, 54px);
+  font-weight: 600;
   line-height: 1.5;
 }
 
