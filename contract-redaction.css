@@ -451,3 +451,60 @@ body.redaction-open {
   text-align: left;
   overflow-wrap: anywhere;
 }
+
+
+/* Simplified editor header with primary actions beside the title */
+.contract-editor-header {
+  align-items: center;
+}
+
+.contract-editor-heading {
+  min-width: 0;
+  flex: 1;
+}
+
+.contract-editor-header h2 {
+  font-size: clamp(30px, 3.2vmin, 108px);
+  line-height: 1.12;
+}
+
+.contract-header-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(9px, 0.9vmin, 30px);
+}
+
+.contract-header-actions .contract-back-button {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.contract-header-actions .contract-share-button {
+  min-width: clamp(84px, 7vmin, 230px);
+}
+
+.contract-editor-actions {
+  justify-content: flex-start;
+}
+
+@media (max-width: 760px) {
+  .contract-editor-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .contract-header-actions {
+    width: 100%;
+  }
+
+  .contract-header-actions .contract-back-button,
+  .contract-header-actions .contract-share-button {
+    flex: 1;
+  }
+
+  .contract-editor-close {
+    margin-left: auto;
+  }
+}
