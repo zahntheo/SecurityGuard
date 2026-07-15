@@ -309,11 +309,12 @@
 
 .composer-selection {
   min-width: 0;
-  display: -webkit-box;
-  overflow: hidden;
+  display: block;
+  overflow: visible;
   color: #1e293b;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.45;
 }
 
 .composer-send {
@@ -406,4 +407,13 @@
 
 .option-card-select {
   align-self: stretch;
+}
+
+
+.composer-shell:has(.composer-selection) {
+  align-items: stretch;
+}
+
+.composer-shell:has(.composer-selection) .composer-main {
+  padding-block: clamp(4px, 0.45vmin, 16px);
 }
