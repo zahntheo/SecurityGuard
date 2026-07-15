@@ -3,6 +3,7 @@
   const track = byId("attention-track");
   const panels = Array.from(document.querySelectorAll("[data-attention-panel]"));
   const nextButton = byId("attention-next");
+  const startButton = byId("start-game");
   const dots = byId("attention-dots");
   const progress = byId("attention-progress-fill");
   const infoOpenButton = byId("exposure-info-open");
@@ -13,17 +14,18 @@
   let wheelLocked = false;
 
   function positionNextButton() {
-    if (!nextButton || nextButton.hidden) return;
+    const activeButton = panelIndex === panels.length - 1 ? startButton : nextButton;
+    if (!activeButton || activeButton.hidden) return;
     const activePanel = panels[panelIndex];
     const textBlock = activePanel?.querySelector(".attention-copy, .how-copy");
     if (!textBlock) return;
 
     const gap = window.innerWidth <= 760 ? 18 : 24;
     const dotsClearance = window.innerWidth <= 760 ? 78 : 86;
-    const buttonHeight = nextButton.offsetHeight || 76;
+    const buttonHeight = activeButton.offsetHeight || 76;
     const idealTop = textBlock.getBoundingClientRect().bottom + gap;
     const maximumTop = window.innerHeight - buttonHeight - dotsClearance;
-    nextButton.style.setProperty("--attention-next-top", `${Math.min(idealTop, maximumTop)}px`);
+    activeButton.style.setProperty("--attention-next-top", `${Math.min(idealTop, maximumTop)}px`);
   }
 
   panels.forEach((_, index) => {
@@ -47,8 +49,9 @@
     if (nextButton) {
       nextButton.hidden = panelIndex === panels.length - 1;
       nextButton.setAttribute("aria-label", `Go to introduction page ${panelIndex + 2}`);
-      window.requestAnimationFrame(positionNextButton);
     }
+    if (startButton) startButton.hidden = panelIndex !== panels.length - 1;
+    window.requestAnimationFrame(positionNextButton);
   }
 
   function openExposureInfo() {
