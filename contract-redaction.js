@@ -503,11 +503,13 @@ function clearRedactionTutorial() {
 }
 
 function playRedactionTutorial() {
-  if (hasShownRedactionTutorial || levelIndex !== 0 || levels[levelIndex]?.options[redactionOptionIndex]?.documentProfile !== "phone-contract") return;
+  if (hasShownRedactionTutorial) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const firstSensitiveField = activeRedactionProfile?.fields.find((field) => field.sensitive);
+  if (!firstSensitiveField) return;
   hasShownRedactionTutorial = true;
 
-  const target = document.querySelector('[data-redaction-id="customer-name"]');
+  const target = document.querySelector(`[data-redaction-id="${firstSensitiveField.id}"]`);
   const field = target?.closest(".contract-field");
   if (!target || !field) return;
 
