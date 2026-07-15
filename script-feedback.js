@@ -357,6 +357,7 @@ function renderFeedback(level, option, feedback) {
     <article class="feedback-card ${feedback.key}">
       <p class="feedback-label">${escapeHtml(feedback.label)}</p>
       <div class="feedback-content">
+        <p class="feedback-summary">${escapeHtml(feedback.summary)}</p>
         <section class="feedback-consequences" aria-label="${escapeHtml(learningTitle)}">
           <p class="feedback-consequences-title">${escapeHtml(learningTitle)}</p>
           <ul class="feedback-learning-list">
