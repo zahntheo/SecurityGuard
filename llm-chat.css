@@ -417,3 +417,9 @@
 .composer-shell:has(.composer-selection) .composer-main {
   padding-block: clamp(4px, 0.45vmin, 16px);
 }
+
+
+/* Ensure the option instruction actually disappears after a selection */
+.divider-label.choice-instruction[hidden] {
+  display: none !important;
+}
