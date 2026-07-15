@@ -77,10 +77,10 @@
             ],
             "remember": "Never share an unedited full contract with an AI tool.",
             "learning": [
-              "Never provide your full name or home address when the AI only needs contract terms.",
-              "Never provide customer or account numbers because they can identify your provider account.",
-              "Never provide an IBAN or other payment details because they can support financial fraud.",
-              "Never provide a signature or personal contact details because they can be reused for impersonation."
+              "Never provide your full name or home address because these fields can lead to identity theft and targeted scams.",
+              "Never provide your customer number because it can lead to account impersonation.",
+              "Never provide your IBAN because bank details can lead to financial fraud.",
+              "Never provide your signature, phone number or email address because these fields can lead to impersonation and phishing."
             ]
           }
         },
@@ -111,9 +111,9 @@
             ],
             "remember": "Hide personal identifiers while keeping only the contract terms needed for the comparison.",
             "learning": [
-              "Remove your name and address before sharing any contract copy.",
-              "Remove customer numbers and account references because they link the document to you.",
-              "Remove bank details and signatures because they are not needed to compare a phone plan."
+              "Remove your full name and home address because visible identity fields can lead to identity theft.",
+              "Remove your customer number because it can lead to account impersonation.",
+              "Remove your IBAN and signature because these fields can lead to financial fraud and identity misuse."
             ]
           },
           "interaction": "redact-document",
@@ -191,9 +191,9 @@
             ],
             "remember": "Never upload a full application package to AI tools.",
             "learning": [
-              "Never provide identity documents or your full address when asking for general application advice.",
-              "Never provide payslips, bank details or credit records because they reveal your financial profile.",
-              "Avoid providing your exact employer and employment documents when a general income summary is enough."
+              "Never provide your full name, home address, date of birth or ID number because these fields can lead to identity theft.",
+              "Never provide your IBAN, payslips or credit records because these fields can lead to financial fraud.",
+              "Do not provide your exact employer with identifying documents because this combination can lead to targeted social engineering."
             ]
           }
         },
@@ -230,9 +230,9 @@
             ],
             "remember": "Redaction helps, but summaries are safer.",
             "learning": [
-              "Hide your address and identity details from every screenshot or edited document.",
-              "Do not provide exact employer details when the AI only needs your employment type.",
-              "Do not provide bank details, payslip identifiers or credit information in a rental question."
+              "Remove your full name, home address, date of birth and ID number because these fields can lead to identity theft.",
+              "Remove your exact employer details because they can lead to targeted social engineering.",
+              "Remove your IBAN, payslip identifiers and credit information because these fields can lead to financial fraud."
             ]
           },
           "interaction": "redact-document",
@@ -310,9 +310,9 @@
             ],
             "remember": "Never share full financial documents directly to AI.",
             "learning": [
-              "Never provide bank account details or an IBAN because they can enable financial fraud.",
-              "Never provide bank statements because they reveal your income, savings, debts and spending habits.",
-              "Never provide credit-check identifiers, your address or your signature when comparing loan terms."
+              "Never provide your IBAN or bank account number because these fields can lead to financial fraud.",
+              "Never provide bank statements, account balances or credit scores because these fields can lead to financial profiling and targeted scams.",
+              "Never provide your full name, home address, customer ID or signature because these fields can lead to identity theft."
             ]
           }
         },
@@ -349,9 +349,9 @@
             ],
             "remember": "Filter and summarize the content what you want to share.",
             "learning": [
-              "Remove your name, address, account numbers and reference numbers from extracted loan text.",
-              "Share only the amount, APR, fees, term and payment—not your income, debts or credit history.",
-              "Check copied text carefully because OCR can preserve sensitive details that are easy to overlook."
+              "Remove your full name, home address, bank customer ID and reference numbers because these fields can lead to identity theft.",
+              "Remove your IBAN, account balance and credit score because these fields can lead to financial fraud and profiling.",
+              "Check extracted OCR text for hidden account identifiers because overlooked fields can lead to targeted financial scams."
             ]
           },
           "interaction": "redact-document",
@@ -401,9 +401,9 @@
             ],
             "remember": "Share anonymized skills and goals—not your name or contact details.",
             "learning": [
-              "Never provide your personal phone number when asking an AI to improve CV wording.",
-              "Never provide your personal email address because it can be used for targeted phishing.",
-              "Avoid providing your full name, exact university and employer together because they can identify you."
+              "Never provide your personal phone number because it can lead to scam calls and targeted messages.",
+              "Never provide your personal email address because it can lead to targeted phishing.",
+              "Do not combine your full name, exact university and employer because this combination can lead to identity profiling."
             ]
           }
         },
@@ -440,9 +440,9 @@
             ],
             "remember": "Do not upload a full CV when a summary will work.",
             "learning": [
-              "Never provide a full CV containing your name, phone number, email address or home location.",
-              "Avoid providing exact employers, education dates and project histories when anonymized examples are enough.",
-              "Do not upload profile exports because they may include connections, links and hidden metadata."
+              "Never provide your full name, phone number, email address or home location because these fields can lead to identity theft and phishing.",
+              "Do not provide exact employers, education dates and unique projects together because this combination can lead to identity profiling.",
+              "Do not upload profile exports containing links, connections or metadata because these fields can lead to tracking and targeted scams."
             ]
           }
         },
@@ -479,9 +479,9 @@
             ],
             "remember": "Share anonymized examples, not a document section, when possible.",
             "learning": [
-              "Remove names, phone numbers, email addresses and links from every CV section.",
-              "Generalize employer names, dates and unique projects because their combination can identify you.",
-              "Share an anonymized text example instead of an original CV page whenever possible."
+              "Remove your full name, phone number, email address and profile links because these fields can lead to phishing and identity theft.",
+              "Generalize employer names, dates and unique projects because this combination can lead to identity profiling.",
+              "Remove hidden document metadata because it can lead to tracking and unintended identification."
             ]
           },
           "interaction": "redact-document",
@@ -531,9 +531,9 @@
             ],
             "remember": "Describe the communication goal without real names, project names or internal deadlines.",
             "learning": [
-              "Never provide colleagues' real names when the AI only needs roles such as manager or reviewer.",
-              "Never provide confidential project names or product details in a writing prompt.",
-              "Do not provide internal release dates or review schedules because they expose business plans."
+              "Never provide colleagues' real names because they can lead to impersonation and targeted social engineering.",
+              "Never provide confidential project names or product details because they can lead to corporate fraud or espionage.",
+              "Do not provide internal release dates or review schedules because they can lead to targeted business scams."
             ]
           }
         },
@@ -570,9 +570,9 @@
             ],
             "remember": "Never paste a full internal email thread into AI.",
             "learning": [
-              "Never provide colleagues' names, email addresses or signatures from a work email thread.",
-              "Never provide confidential project details, decisions or deadlines to an external AI tool.",
-              "Summarize the communication goal instead of sharing the full conversation and its metadata."
+              "Never provide colleagues' names, email addresses or signatures because these fields can lead to impersonation and phishing.",
+              "Never provide confidential project details, decisions or deadlines because they can lead to corporate fraud or espionage.",
+              "Never provide email-thread metadata because it can reveal workplace relationships and lead to targeted social engineering."
             ]
           }
         },
@@ -609,9 +609,9 @@
             ],
             "remember": "Summarize the workplace situation without pasting real conversations.",
             "learning": [
-              "Remove colleagues' names and account details from copied workplace chats.",
-              "Do not provide internal decisions, conflicts, project names or timelines when requesting writing help.",
-              "Describe the desired tone and outcome instead of pasting the original conversation."
+              "Remove colleagues' names and account details because these fields can lead to impersonation and phishing.",
+              "Remove internal decisions, project names and timelines because they can lead to corporate fraud or espionage.",
+              "Remove copied chat metadata because it can reveal workplace relationships and lead to targeted social engineering."
             ]
           },
           "interaction": "redact-document",
