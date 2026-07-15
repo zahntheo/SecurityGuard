@@ -40,7 +40,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full phone contract",
+          "text": "Full phone contract.",
           "document": "pdf",
           "score": 0,
           "feedback": {
@@ -160,7 +160,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full rental application",
+          "text": "Full rental application.",
           "document": "zip",
           "score": 0,
           "feedback": {
@@ -279,7 +279,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full loan offer and bank documents",
+          "text": "Full loan offer and bank documents.",
           "document": "pdf",
           "score": 0,
           "feedback": {
@@ -409,7 +409,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full CV and LinkedIn export",
+          "text": "Full CV and LinkedIn export.",
           "document": "zip",
           "score": 0,
           "feedback": {
@@ -539,7 +539,7 @@
         },
         {
           "label": "OPTION B",
-          "text": "Full email thread",
+          "text": "Full email thread.",
           "document": "mail",
           "score": 0,
           "feedback": {
