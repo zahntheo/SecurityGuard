@@ -390,3 +390,20 @@
     animation: none;
   }
 }
+
+
+/* Keep wrapped option copy aligned across every card type */
+.option-card > p,
+.option-card-select > p {
+  width: 100%;
+  align-self: stretch;
+  margin-inline: 0;
+  text-align: left;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
+}
+
+.option-card-select {
+  align-self: stretch;
+}
