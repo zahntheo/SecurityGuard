@@ -456,6 +456,8 @@ let redactionTrigger = null;
 let redactionOptionIndex = null;
 let activeRedactionProfile = null;
 let redactedFieldIds = new Set();
+let hasShownRedactionTutorial = false;
+let redactionTutorialTimers = [];
 
 function contractFieldMarkup(field) {
   return `
@@ -490,7 +492,56 @@ function updateRedactionCounter() {
   counter.textContent = `${count} ${count === 1 ? "field" : "fields"} redacted`;
 }
 
+function clearRedactionTutorial() {
+  redactionTutorialTimers.forEach(window.clearTimeout);
+  redactionTutorialTimers = [];
+  document.querySelector(".redaction-tutorial-note")?.remove();
+  document.querySelectorAll(".is-tutorial-target").forEach((field) => {
+    field.classList.remove("is-tutorial-target", "is-tutorial-redacted", "is-redacted");
+    field.removeAttribute("aria-disabled");
+  });
+}
+
+function playRedactionTutorial() {
+  if (hasShownRedactionTutorial || levelIndex !== 0 || levels[levelIndex]?.options[redactionOptionIndex]?.documentProfile !== "phone-contract") return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  hasShownRedactionTutorial = true;
+
+  const target = document.querySelector('[data-redaction-id="customer-name"]');
+  const field = target?.closest(".contract-field");
+  if (!target || !field) return;
+
+  target.classList.add("is-tutorial-target");
+  target.setAttribute("aria-disabled", "true");
+
+  const note = document.createElement("div");
+  note.className = "redaction-tutorial-note";
+  note.setAttribute("role", "status");
+  note.textContent = "Click a field to redact sensitive information.";
+  field.appendChild(note);
+
+  redactionTutorialTimers.push(window.setTimeout(() => {
+    target.classList.add("is-tutorial-redacted", "is-redacted");
+  }, 900));
+
+  redactionTutorialTimers.push(window.setTimeout(() => {
+    target.classList.remove("is-tutorial-redacted", "is-redacted");
+  }, 2600));
+
+  redactionTutorialTimers.push(window.setTimeout(() => {
+    note.classList.add("is-leaving");
+    target.classList.remove("is-tutorial-target");
+    target.removeAttribute("aria-disabled");
+  }, 3300));
+
+  redactionTutorialTimers.push(window.setTimeout(() => {
+    note.remove();
+    redactionTutorialTimers = [];
+  }, 3800));
+}
+
 function closeContractRedaction({ restoreFocus = true } = {}) {
+  clearRedactionTutorial();
   document.querySelector(".contract-redaction-overlay")?.remove();
   document.body.classList.remove("redaction-open");
   if (restoreFocus) redactionTrigger?.focus();
@@ -554,7 +605,8 @@ function openContractRedaction(index, trigger) {
 
   document.body.appendChild(overlay);
   document.body.classList.add("redaction-open");
-  overlay.querySelector(".contract-editor-close")?.focus();
+  overlay.querySelector(".contract-back-button")?.focus();
+  window.requestAnimationFrame(playRedactionTutorial);
 }
 
 function consequenceForVisibleField(field) {
