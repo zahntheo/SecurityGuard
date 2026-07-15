@@ -545,9 +545,9 @@
 .pending-sent-response:has(.sent-file-preview) .bubble {
   width: fit-content;
   min-width: 0;
-  max-width: min(240px, calc(100% - 54px));
+  max-width: min(340px, calc(100% - 54px));
   min-height: 0;
-  padding: clamp(12px, 1.1vmin, 38px);
+  padding: clamp(16px, 1.45vmin, 50px);
 }
 
 .selected-response:has(.sent-file-preview),
@@ -556,10 +556,10 @@
 }
 
 .sent-file-preview {
-  max-width: 150px;
+  max-width: 210px;
 }
 
 .sent-file-preview .document-preview {
-  width: clamp(58px, 5.2vmin, 88px);
-  height: clamp(74px, 6.6vmin, 112px);
+  width: clamp(82px, 7.2vmin, 122px);
+  height: clamp(104px, 9.1vmin, 156px);
 }
