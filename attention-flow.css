@@ -179,7 +179,8 @@
   position: fixed;
   z-index: 14;
   left: 50%;
-  bottom: clamp(70px, 9vh, 94px);
+  top: var(--attention-next-top, calc(100dvh - 170px));
+  bottom: auto;
   display: inline-flex;
   align-items: center;
   min-width: clamp(190px, 18vw, 260px);
@@ -196,6 +197,7 @@
   cursor: pointer;
   box-shadow: 0 18px 48px rgba(0,212,170,.34);
   transform: translateX(-50%);
+  transition: top 360ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 .attention-next:hover, .attention-next:focus-visible { border-color: #b8fff1; outline: none; transform: translateX(-50%) translateY(-3px) scale(1.02); box-shadow: 0 22px 56px rgba(0,212,170,.46); }
 .attention-next[hidden] { display: none; }
