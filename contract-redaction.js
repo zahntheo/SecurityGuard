@@ -521,9 +521,8 @@ function openContractRedaction(index, trigger) {
           <h2 id="contract-redaction-title">What should the AI not see?</h2>
         </div>
         <div class="contract-header-actions">
-          <button class="contract-back-button" type="button" data-close-contract>Back</button>
+          <button class="contract-back-button" type="button" data-close-contract>Close</button>
           <button class="contract-share-button" type="button" data-share-redacted>Save</button>
-          <button class="contract-editor-close" type="button" data-close-contract aria-label="Close document">×</button>
         </div>
       </header>
 
