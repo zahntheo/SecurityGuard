@@ -340,29 +340,35 @@
       "options": [
         {
           "label": "OPTION A",
-          "text": "I have software development experience from university projects and a working-student role. My strongest areas are Java, backend development and some frontend work. I want the CV to feel clearer, more scannable and more relevant for a junior developer role.",
-          "score": 20,
+          "text": "My name is Max Mustermann. My phone number is 0151 23456789 and my email is max.mustermann@example.com. I study Informatics at University XYZ and work as a student software engineer at Company ABC. Please improve my CV for a junior developer role.",
+          "score": 0,
           "feedback": {
-            "key": "safe",
-            "label": "SAFE",
-            "summary": "Nice - you shared only relevant skills and experience needed for improvement without uploading your full profile.",
-            "modalTitle": "CV advice can work from a role-focused summary.",
+            "key": "risky",
+            "label": "NOT SAFE",
+            "summary": "This text reveals direct contact details, education and employment information that are not needed for CV-writing advice.",
+            "modalTitle": "A typed message can expose your identity too.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
               {
-                "type": "good",
-                "mark": "+",
-                "title": "Role-focused context",
-                "text": "Skills, experience type and target role are enough to improve positioning."
+                "type": "risk",
+                "mark": "!",
+                "title": "Direct identifiers",
+                "text": "Your full name, phone number and email address can identify and contact you directly."
               },
               {
-                "type": "good",
-                "mark": "+",
-                "title": "No full personal profile",
-                "text": "You avoided sharing name, phone, address, employers and exact career timeline."
+                "type": "risk",
+                "mark": "!",
+                "title": "Personal profile",
+                "text": "Your university and employer connect those identifiers to your education and work history."
+              },
+              {
+                "type": "risk",
+                "mark": "!",
+                "title": "Phishing risk",
+                "text": "Attackers could use this context to create convincing recruiter or university messages."
               }
             ],
-            "remember": "Describe the CV goal instead of uploading the full CV."
+            "remember": "Share anonymized skills and goals—not your name or contact details."
           }
         },
         {
@@ -449,29 +455,35 @@
       "options": [
         {
           "label": "OPTION A",
-          "text": "Please draft a polite update that says we need one more review round before committing to the timeline. Keep it concise and collaborative.",
-          "score": 20,
+          "text": "I work at ABC Company on the confidential Aurora recommendation project. My manager Anna Schmidt asked Max Muster to review it before Friday's release. Please draft a polite update explaining the delay.",
+          "score": 0,
           "feedback": {
-            "key": "safe",
-            "label": "SAFE",
-            "summary": "Nice - you asked for wording help without exposing names, internal project details or the full thread.",
-            "modalTitle": "Work email help can use intent and tone.",
+            "key": "risky",
+            "label": "NOT SAFE",
+            "summary": "This text exposes colleagues, a confidential project and an internal release timeline.",
+            "modalTitle": "Typed prompts must protect workplace information too.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
               {
-                "type": "good",
-                "mark": "+",
-                "title": "Intent over transcript",
-                "text": "You gave the communication goal instead of the private conversation."
+                "type": "risk",
+                "mark": "!",
+                "title": "People and roles",
+                "text": "Real names and reporting relationships expose information about your colleagues."
               },
               {
-                "type": "good",
-                "mark": "+",
-                "title": "No internal details",
-                "text": "Names, project codes, timelines and decision history stayed out of the prompt."
+                "type": "risk",
+                "mark": "!",
+                "title": "Confidential project data",
+                "text": "The project name, purpose and release timing may be private business information."
+              },
+              {
+                "type": "risk",
+                "mark": "!",
+                "title": "Social engineering",
+                "text": "These details could help someone impersonate a manager or send a convincing project-related phishing message."
               }
             ],
-            "remember": "Ask for a template or tone rewrite without sharing the full thread."
+            "remember": "Describe the communication goal without real names, project names or internal deadlines."
           }
         },
         {
