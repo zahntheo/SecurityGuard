@@ -522,22 +522,22 @@ function playRedactionTutorial() {
 
   redactionTutorialTimers.push(window.setTimeout(() => {
     target.classList.add("is-tutorial-redacted", "is-redacted");
-  }, 900));
+  }, 1200));
 
   redactionTutorialTimers.push(window.setTimeout(() => {
     target.classList.remove("is-tutorial-redacted", "is-redacted");
-  }, 2600));
+  }, 4000));
 
   redactionTutorialTimers.push(window.setTimeout(() => {
     note.classList.add("is-leaving");
     target.classList.remove("is-tutorial-target");
     target.removeAttribute("aria-disabled");
-  }, 3300));
+  }, 5000));
 
   redactionTutorialTimers.push(window.setTimeout(() => {
     note.remove();
     redactionTutorialTimers = [];
-  }, 3800));
+  }, 5600));
 }
 
 function closeContractRedaction({ restoreFocus = true } = {}) {
