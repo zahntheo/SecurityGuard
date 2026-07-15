@@ -1,6 +1,8 @@
 const contentEl = document.querySelector(".content");
 const dividerLabelEl = document.querySelector(".divider-label");
 let pendingOptionIndex = null;
+let scenarioIntroTimers = [];
+let scenarioIntroRun = 0;
 
 function sendButton() {
   return document.querySelector(".composer-send");
@@ -96,6 +98,87 @@ function installChatCues() {
   setComposerReady(canSendPendingOption);
 }
 
+function clearScenarioIntro() {
+  scenarioIntroRun += 1;
+  scenarioIntroTimers.forEach(window.clearTimeout);
+  scenarioIntroTimers = [];
+  document.querySelectorAll(".scenario-typing-message").forEach((element) => element.remove());
+  document.querySelectorAll(".scenario-intro-hidden").forEach((element) => {
+    element.classList.remove("scenario-intro-hidden");
+  });
+  contentEl?.classList.remove("scenario-intro-running");
+  gameProgressEl?.classList.remove("scenario-intro-hidden");
+}
+
+function scheduleScenarioIntro(callback, delay, runId) {
+  const timer = window.setTimeout(() => {
+    if (runId === scenarioIntroRun) callback();
+  }, delay);
+  scenarioIntroTimers.push(timer);
+}
+
+function createScenarioTyping(role) {
+  document.querySelector(".scenario-typing-message")?.remove();
+  const isUser = role === "user";
+  const typing = document.createElement("article");
+  typing.className = `scenario-typing-message typing-message message-${isUser ? "user" : "ai"}`;
+  typing.setAttribute("aria-label", `${isUser ? "You are" : "PrivacyGuard AI is"} typing`);
+  typing.innerHTML = `
+    ${isUser ? "" : '<span class="avatar ai-avatar">AI</span>'}
+    <div class="bubble ${isUser ? "user-bubble" : "ai-bubble"} typing-bubble">
+      <span class="stamp">${isUser ? "YOU" : "PrivacyGuard AI"} · typing</span>
+      <div class="typing-copy">
+        <span class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+      </div>
+    </div>
+    ${isUser ? '<span class="avatar user-avatar">U</span>' : ""}
+  `;
+  document.querySelector(".chat")?.appendChild(typing);
+}
+
+function revealScenarioElement(element) {
+  element?.classList.remove("scenario-intro-hidden");
+  element?.classList.add("scenario-intro-reveal");
+  window.setTimeout(() => element?.classList.remove("scenario-intro-reveal"), 500);
+}
+
+function playScenarioIntro() {
+  clearScenarioIntro();
+  const runId = scenarioIntroRun;
+  const chat = document.querySelector(".chat");
+  const userMessage = chat?.querySelector(".message-user:not(.scenario-typing-message)");
+  const aiMessage = chat?.querySelector(".message-ai:not(.scenario-typing-message)");
+  const stagedElements = [
+    dividerLabelEl,
+    document.querySelector(".composer-shell"),
+    optionsEl,
+    gameProgressEl
+  ].filter(Boolean);
+
+  if (!chat || !userMessage || !aiMessage) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  contentEl?.classList.add("scenario-intro-running");
+  userMessage.classList.add("scenario-intro-hidden");
+  aiMessage.classList.add("scenario-intro-hidden");
+  stagedElements.forEach((element) => element.classList.add("scenario-intro-hidden"));
+
+  scheduleScenarioIntro(() => createScenarioTyping("user"), 250, runId);
+  scheduleScenarioIntro(() => {
+    document.querySelector(".scenario-typing-message")?.remove();
+    revealScenarioElement(userMessage);
+  }, 950, runId);
+  scheduleScenarioIntro(() => createScenarioTyping("ai"), 1250, runId);
+  scheduleScenarioIntro(() => {
+    document.querySelector(".scenario-typing-message")?.remove();
+    revealScenarioElement(aiMessage);
+  }, 2150, runId);
+  scheduleScenarioIntro(() => {
+    stagedElements.forEach(revealScenarioElement);
+    contentEl?.classList.remove("scenario-intro-running");
+  }, 2500, runId);
+}
+
 function showAssistantTyping() {
   document.querySelector(".typing-message")?.remove();
   const typing = document.createElement("article");
@@ -165,10 +248,12 @@ window.render = function renderWithChatCues() {
   document.querySelector(".composer-shell")?.removeAttribute("hidden");
   resetPendingReply();
   installChatCues();
+  playScenarioIntro();
 };
 
 const originalRemoveFeedback = window.removeFeedback;
 window.removeFeedback = function removeFeedbackWithTyping() {
+  clearScenarioIntro();
   document.querySelector(".typing-message")?.remove();
   originalRemoveFeedback();
 };
