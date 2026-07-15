@@ -163,24 +163,34 @@ function playScenarioIntro() {
   aiMessage.classList.add("scenario-intro-hidden");
   stagedElements.forEach((element) => element.classList.add("scenario-intro-hidden"));
 
-  scheduleScenarioIntro(() => createScenarioTyping("user"), 250, runId);
-  scheduleScenarioIntro(() => {
-    document.querySelector(".scenario-typing-message")?.remove();
-    revealScenarioElement(userMessage);
-  }, 950, runId);
-  scheduleScenarioIntro(() => createScenarioTyping("ai"), 1250, runId);
+  scheduleScenarioIntro(() => revealScenarioElement(userMessage), 300, runId);
+  scheduleScenarioIntro(() => createScenarioTyping("ai"), 750, runId);
   scheduleScenarioIntro(() => {
     document.querySelector(".scenario-typing-message")?.remove();
     revealScenarioElement(aiMessage);
-  }, 2150, runId);
+  }, 1650, runId);
   scheduleScenarioIntro(() => {
     stagedElements.forEach(revealScenarioElement);
     contentEl?.classList.remove("scenario-intro-running");
-  }, 2500, runId);
+  }, 2000, runId);
 }
 
-function showAssistantTyping() {
+function showAssistantTyping(level, option) {
   document.querySelector(".typing-message")?.remove();
+  document.querySelector(".pending-sent-response")?.remove();
+
+  const sentResponse = document.createElement("article");
+  sentResponse.className = "pending-sent-response selected-response message-user scenario-intro-reveal";
+  sentResponse.setAttribute("aria-label", "Your sent reply");
+  sentResponse.innerHTML = `
+    <div class="bubble user-bubble">
+      <span class="stamp">YOU · 09:43</span>
+      ${selectedResponse(level, option)}
+    </div>
+    <span class="avatar user-avatar">U</span>
+  `;
+  optionsEl.insertAdjacentElement("afterend", sentResponse);
+
   const typing = document.createElement("article");
   typing.className = "typing-message message-ai";
   typing.innerHTML = `
@@ -192,8 +202,8 @@ function showAssistantTyping() {
       </div>
     </div>
   `;
-  optionsEl.insertAdjacentElement("afterend", typing);
-  typing.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  sentResponse.insertAdjacentElement("afterend", typing);
+  sentResponse.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function selectDraftReply(card) {
@@ -255,14 +265,16 @@ const originalRemoveFeedback = window.removeFeedback;
 window.removeFeedback = function removeFeedbackWithTyping() {
   clearScenarioIntro();
   document.querySelector(".typing-message")?.remove();
+  document.querySelector(".pending-sent-response")?.remove();
   originalRemoveFeedback();
 };
 
 const originalRenderFeedback = window.renderFeedback;
 window.renderFeedback = function renderFeedbackWithTyping(level, option, feedback) {
-  showAssistantTyping();
+  showAssistantTyping(level, option);
   window.setTimeout(() => {
     document.querySelector(".typing-message")?.remove();
+    document.querySelector(".pending-sent-response")?.remove();
     originalRenderFeedback(level, option, feedback);
     installChatCues();
   }, 650);
