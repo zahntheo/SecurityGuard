@@ -54,6 +54,7 @@ function setComposerReady(isReady) {
 function resetPendingReply() {
   pendingOptionIndex = null;
   contentEl?.classList.remove("reply-sent");
+  dividerLabelEl?.removeAttribute("hidden");
   document.querySelectorAll(".option-card").forEach((card) => {
     const selectionControl = card.matches("button") ? card : card.querySelector("[data-select-option]");
     card.classList.remove("draft-selected", "draft-muted");
@@ -90,6 +91,10 @@ function installChatCues() {
       </button>
     `;
     dividerLabelEl.insertAdjacentElement("afterend", composer);
+  }
+
+  if (dividerLabelEl && optionsEl) {
+    optionsEl.insertAdjacentElement("beforebegin", dividerLabelEl);
   }
 
   const pendingOption = pendingOptionIndex === null ? null : levels[levelIndex]?.options[pendingOptionIndex];
@@ -208,6 +213,7 @@ function showAssistantTyping(level, option) {
 
 function selectDraftReply(card) {
   pendingOptionIndex = Number(card.dataset.index);
+  dividerLabelEl?.setAttribute("hidden", "");
   document.querySelectorAll(".option-card").forEach((optionCard) => {
     const isSelected = optionCard === card;
     const selectionControl = optionCard.matches("button")
