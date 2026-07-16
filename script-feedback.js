@@ -537,7 +537,7 @@ function startScenarioLogTutorial() {
 
   let hasStarted = false;
   const showTutorial = () => {
-    if (hasStarted) return;
+    if (hasStarted || !scenarioLog.isConnected) return;
     hasStarted = true;
     scenarioLog.classList.add("is-log-tutorial-active");
 
@@ -551,18 +551,7 @@ function startScenarioLogTutorial() {
     }, 6300);
   };
 
-  if (!("IntersectionObserver" in window)) {
-    showTutorial();
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    if (!entries.some((entry) => entry.isIntersecting)) return;
-    observer.disconnect();
-    window.setTimeout(showTutorial, 350);
-  }, { threshold: 0.5 });
-
-  observer.observe(scenarioLog);
+  window.setTimeout(showTutorial, 3000);
 }
 
 function finish() {
