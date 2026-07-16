@@ -8,7 +8,7 @@ window.PRIVACYGUARD_SCENARIOS = {
       "icon": "mail",
       "user": "Can you check whether this phone plan is a good deal before I renew it?",
       "prompt": "Yes. What information would you like to share so I can review the plan?",
-      "adviceTitle": "Never send the full contract.",
+      "adviceTitle": "Never upload a full contract.",
       "advice": "It contains your bank account, address, ID number and signature - everything an attacker needs.",
       "options": [
         {
@@ -40,27 +40,32 @@ window.PRIVACYGUARD_SCENARIOS = {
         },
         {
           "label": "OPTION B",
-          "text": "Open the full phone contract, choose which information to redact, then share the reviewed copy.",
+          "text": "Full phone contract.",
           "document": "pdf",
-          "interaction": "redact-contract",
           "score": 0,
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "The full contract must be reviewed carefully before sharing. Personal identifiers should be hidden while useful plan terms remain visible.",
+            "summary": "The full contract exposes your name, home address, customer number, phone number, email address, IBAN and signature.",
             "modalTitle": "Full phone contracts reveal more than the AI needs.",
             "lessonLabel": "PRIVACY LESSON - OPTION B",
             "points": [
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Identity data",
+                "title": "Identity theft",
                 "text": "Full contracts often include names, addresses, customer IDs, IBANs, signatures or contact details."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Usage pattern",
+                "title": "Financial fraud",
+                "text": "An exposed IBAN and identity details can be used for unauthorized payment attempts or convincing banking scams."
+              },
+              {
+                "type": "risk",
+                "mark": "!",
+                "title": "Personal profiling",
                 "text": "Mobile plan, contract duration and usage preferences can provide insights into your daily habits and relationship with your mobile provider."
               },
               {
@@ -70,42 +75,50 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "Scammers can use this information to create convincing messages, such as fake contract renewal offers or discount promotions that appear to come from your mobile provider."
               }
             ],
-            "remember": "Redact personal identifiers before sharing any document."
+            "remember": "Never share an unedited full contract with an AI tool.",
+            "learning": [
+              "Never provide your full name or home address because these fields can lead to identity theft and targeted scams.",
+              "Never provide your customer number because it can lead to account impersonation.",
+              "Never provide your IBAN because bank details can lead to financial fraud.",
+              "Never provide your signature, phone number or email address because these fields can lead to impersonation and phishing."
+            ]
           }
         },
         {
           "label": "OPTION C",
-          "text": "I’ll share screenshots of the pages about fees and contract term, but my name and customer number are still visible.",
-          "document": "part",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
-            "label": "ALMOST",
-            "summary": "Sharing only relevant pages reduces exposure, but the visible name and customer number still connect the document directly to you.",
-            "modalTitle": "Relevant pages can still reveal your identity.",
+            "label": "INTERACTIVE REVIEW",
+            "summary": "The reviewed contract must hide your name, home address, customer number, phone number, email address, IBAN and signature.",
+            "modalTitle": "A reviewed copy can be useful without exposing your identity.",
             "lessonLabel": "PRIVACY LESSON - OPTION C",
             "points": [
               {
                 "type": "good",
                 "mark": "+",
-                "title": "Relevant pages only",
-                "text": "You limited the upload to the pricing, fee and contract-term pages."
+                "title": "Review before sharing",
+                "text": "You can inspect the fictional contract and choose exactly which fields the AI should not see."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Identifiers remain visible",
-                "text": "Your name and customer number connect the screenshots to your provider account."
-              },
-              {
-                "type": "risk",
-                "mark": "!",
-                "title": "Targeted scam risk",
-                "text": "Account-linked details can make fake renewal messages or support calls more convincing."
+                "title": "Redaction must be complete",
+                "text": "Names, contact details, customer numbers, payment details and signatures must all be hidden."
               }
             ],
-            "remember": "Relevant pages still need every unnecessary identifier removed."
-          }
+            "remember": "Hide personal identifiers while keeping only the contract terms needed for the comparison.",
+            "learning": [
+              "Remove your full name and home address because visible identity fields can lead to identity theft.",
+              "Remove your customer number because it can lead to account impersonation.",
+              "Remove your IBAN and signature because these fields can lead to financial fraud and identity misuse."
+            ]
+          },
+          "interaction": "redact-document",
+          "documentProfile": "phone-contract",
+          "documentTitle": "phone contract"
         }
       ]
     },
@@ -120,46 +133,40 @@ window.PRIVACYGUARD_SCENARIOS = {
       "options": [
         {
           "label": "OPTION A",
-          "text": "The rent is EUR 980 cold / EUR 1,180 warm. This appartment is located at Guard Street 6, 10001 in Munich. I work at company ABC as frontend developer and my net income is about EUR 3,300, I have a permanent contract, can move in from September, and I want the message to sound reliable and concise.",
-          "score": 10,
+          "text": "The rent is EUR 980 cold / EUR 1,180 warm. My net income is about EUR 3,300, I have a permanent contract, can move in from September, and I want the message to sound reliable and concise.",
+          "score": 20,
           "feedback": {
-            "key": "caution",
-            "label": "ALMOST",
-            "summary": "Better - some direct identifiers (like name) are removed. But this text still leak sensitive data, such as work place and address.",
-            "modalTitle": "Manual text can also contain personal information. It depends how you write it.",
+            "key": "safe",
+            "label": "SAFE",
+            "summary": "You shared only information relevant to the rental application without sensitive information such as your home address, ID number or IBAN. Well done, keep going!",
+            "modalTitle": "Rental application advice can work from summary facts.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
               {
                 "type": "good",
                 "mark": "+",
-                "title": "hidden direct identifiers",
-                "text": "Hiding name ID and bank numbers is a useful first step."
+                "title": "Minimal profile only",
+                "text": "Rent, income range, contract type and move-in date are enough for useful feedback."
               },
               {
-                "type": "risk",
-                "mark": "!",
-                "title": "Residual sensitive context",
-                "text": "Employer, jobtitle, address can still point back to you."
-              },
-              {
-                "type": "risk",
-                "mark": "!",
-                "title": "Social engineering",
-                "text": "Scammers use personal information to gain your trust and persuade you to take unsafe actions."
+                "type": "good",
+                "mark": "+",
+                "title": "No document bundle",
+                "text": "You avoided uploading IDs, payslips, address history or bank information."
               }
             ],
-            "remember": "Summarize the application only with necessary information."
+            "remember": "Summarize the application instead of uploading the package."
           }
         },
         {
           "label": "OPTION B",
-          "text": "Here's my full rental application package. Can you check if everything looks convincing.",
+          "text": "Full rental application.",
           "document": "zip",
           "score": 0,
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "A full rental package can expose income, employer, address, identity documents and financial history at once.",
+            "summary": "The full application exposes your name, home address, date of birth, email address, phone number, ID number and IBAN.",
             "modalTitle": "Full rental applications contain all identity profiles.",
             "lessonLabel": "PRIVACY LESSON - OPTION B",
             "points": [
@@ -182,18 +189,23 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "Attackers may attempt unauthorized transactions or create convincing financial scams."
               }
             ],
-            "remember": "Never upload a full application package to AI tools."
+            "remember": "Never upload a full application package to AI tools.",
+            "learning": [
+              "Never provide your full name, home address, date of birth or ID number because these fields can lead to identity theft.",
+              "Never provide your IBAN, payslips or credit records because these fields can lead to financial fraud.",
+              "Do not provide your exact employer with identifying documents because this combination can lead to targeted social engineering."
+            ]
           }
         },
         {
           "label": "OPTION C",
-          "text": "I removed my ID number and bank account and uploaded cropped screenshots showing only my income and employment details.",
-          "document": "screenshot",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
             "label": "ALMOST",
-            "summary": "Better - some direct identifiers are removed. But cropped screenshots can still leak sensitive housing and income context.",
+            "summary": "The reviewed application must hide your name, home address, date of birth, email address, phone number, ID number and IBAN.",
             "modalTitle": "Screenshots still carry hidden personal context.",
             "lessonLabel": "PRIVACY LESSON - OPTION C",
             "points": [
@@ -216,8 +228,16 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "Scammers use personal information to gain your trust and persuade you to take unsafe actions."
               }
             ],
-            "remember": "Redaction helps, but summaries are safer."
-          }
+            "remember": "Redaction helps, but summaries are safer.",
+            "learning": [
+              "Remove your full name, home address, date of birth and ID number because these fields can lead to identity theft.",
+              "Remove your exact employer details because they can lead to targeted social engineering.",
+              "Remove your IBAN, payslip identifiers and credit information because these fields can lead to financial fraud."
+            ]
+          },
+          "interaction": "redact-document",
+          "documentProfile": "rental-application",
+          "documentTitle": "rental application"
         }
       ]
     },
@@ -259,13 +279,13 @@ window.PRIVACYGUARD_SCENARIOS = {
         },
         {
           "label": "OPTION B",
-          "text": "Here's the full loan offer, bank statement and credit check. Please review the offer.",
+          "text": "Full loan offer and bank documents.",
           "document": "pdf",
           "score": 0,
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "Full loan and banking files can expose account history, income signals, credit data and identity details.",
+            "summary": "The loan files expose your name, home address, bank customer ID, IBAN, credit score, account balance and signature.",
             "modalTitle": "Full loan packages reveal your financial profile.",
             "lessonLabel": "PRIVACY LESSON - OPTION B",
             "points": [
@@ -288,18 +308,23 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "Scammers may send fake loan refinancing or debt relief offers that appear relevant to your financial situation."
               }
             ],
-            "remember": "Never share full financial documents directly to AI."
+            "remember": "Never share full financial documents directly to AI.",
+            "learning": [
+              "Never provide your IBAN or bank account number because these fields can lead to financial fraud.",
+              "Never provide bank statements, account balances or credit scores because these fields can lead to financial profiling and targeted scams.",
+              "Never provide your full name, home address, customer ID or signature because these fields can lead to identity theft."
+            ]
           }
         },
         {
           "label": "OPTION C",
-          "text": "I used OCR to extract the text from the loan offer and pasted only the loan terms and repayment details into the chat.",
-          "document": "txt",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
             "label": "ALMOST",
-            "summary": "Better - OCR extraction helps readability, but pasting extracted text still exposes financial context.",
+            "summary": "The reviewed loan document must hide your name, home address, bank customer ID, IBAN, credit score, account balance and reference numbers.",
             "modalTitle": "Redacted text still carry financial context.",
             "lessonLabel": "PRIVACY LESSON - OPTION C",
             "points": [
@@ -322,14 +347,22 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "Your loan information can reveal your financial situation and spending patterns when combined with other personal data."
               }
             ],
-            "remember": "Filter and summarize the content what you want to share."
-          }
+            "remember": "Filter and summarize the content what you want to share.",
+            "learning": [
+              "Remove your full name, home address, bank customer ID and reference numbers because these fields can lead to identity theft.",
+              "Remove your IBAN, account balance and credit score because these fields can lead to financial fraud and profiling.",
+              "Check extracted OCR text for hidden account identifiers because overlooked fields can lead to targeted financial scams."
+            ]
+          },
+          "interaction": "redact-document",
+          "documentProfile": "loan-offer",
+          "documentTitle": "loan offer"
         }
       ]
     },
     {
       "title": "Optimize Your CV Content and Layout",
-      "shortTitle": "CV",
+      "shortTitle": "CV Optimization",
       "icon": "document",
       "user": "I'm applying to a tech company. Can you help me improve the content and layout of my CV?",
       "prompt": "Of course. What would you like to share so I can help improve it?",
@@ -343,41 +376,46 @@ window.PRIVACYGUARD_SCENARIOS = {
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "You provided sensitive personal information that can uniquely identify you.",
-            "modalTitle": "Your description totally shared your identity.",
+            "summary": "This text exposes your full name, phone number, personal email address, university and employer.",
+            "modalTitle": "A typed message can expose your identity too.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Personal identifiers",
-                "text": "You shared your name, phone number and e-mail. These information is not needed for a layout optimization."
+                "title": "Direct identifiers",
+                "text": "Your full name, phone number and email address can identify and contact you directly."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "personal profile",
-                "text": "Employers, education can create a detailed profile of you."
+                "title": "Personal profile",
+                "text": "Your university and employer connect those identifiers to your education and work history."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Phishing",
-                "text": "Attackers may pretend to be recruiters or companies you trust to trick you into revealing more information or clicking malicious links."
+                "title": "Phishing risk",
+                "text": "Attackers could use this context to create convincing recruiter or university messages."
               }
             ],
-            "remember": "Describe the framework and the really needed data. Think before share"
+            "remember": "Share anonymized skills and goals—not your name or contact details.",
+            "learning": [
+              "Never provide your personal phone number because it can lead to scam calls and targeted messages.",
+              "Never provide your personal email address because it can lead to targeted phishing.",
+              "Do not combine your full name, exact university and employer because this combination can lead to identity profiling."
+            ]
           }
         },
         {
           "label": "OPTION B",
-          "text": "I exported my complete LinkedIn profile and uploaded it for you to rewrite.",
+          "text": "Full CV and LinkedIn export.",
           "document": "zip",
           "score": 0,
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "A full profile package gives the AI your identity, contact details, education history, connections and metadata.",
+            "summary": "The full CV exposes your name, home address, phone number, email address, date of birth, profile links and employment history.",
             "modalTitle": "Your CV is a complete identity timeline.",
             "lessonLabel": "PRIVACY LESSON - OPTION B",
             "points": [
@@ -400,18 +438,23 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "Attackers may pretend to be recruiters or companies you trust to trick you into revealing more information or clicking malicious links."
               }
             ],
-            "remember": "Do not upload a full CV when a summary will work."
+            "remember": "Do not upload a full CV when a summary will work.",
+            "learning": [
+              "Never provide your full name, phone number, email address or home location because these fields can lead to identity theft and phishing.",
+              "Do not provide exact employers, education dates and unique projects together because this combination can lead to identity profiling.",
+              "Do not upload profile exports containing links, connections or metadata because these fields can lead to tracking and targeted scams."
+            ]
           }
         },
         {
           "label": "OPTION C",
-          "text": "Here's the experience section with personal details hidden. Can you improve the layout and wording.",
-          "document": "part",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
             "label": "ALMOST",
-            "summary": "Better - personal details are hidden. But experience text can still identify you through employers, dates and unique projects.",
+            "summary": "The reviewed CV must hide your name, home address, phone number, email address, date of birth and profile links.",
             "modalTitle": "Redacted CV sections can still be identifying.",
             "lessonLabel": "PRIVACY LESSON - OPTION C",
             "points": [
@@ -434,8 +477,16 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "Combining your information to creates a detailed profile that can be used to identify or track you across different websites."
               }
             ],
-            "remember": "Share anonymized examples, not a document section, when possible."
-          }
+            "remember": "Share anonymized examples, not a document section, when possible.",
+            "learning": [
+              "Remove your full name, phone number, email address and profile links because these fields can lead to phishing and identity theft.",
+              "Generalize employer names, dates and unique projects because this combination can lead to identity profiling.",
+              "Remove hidden document metadata because it can lead to tracking and unintended identification."
+            ]
+          },
+          "interaction": "redact-document",
+          "documentProfile": "cv-profile",
+          "documentTitle": "CV"
         }
       ]
     },
@@ -455,41 +506,46 @@ window.PRIVACYGUARD_SCENARIOS = {
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "You exposed your name, internal project details and even your colleagues' name, jobtitle and department.",
-            "modalTitle": "Your text should also protect the information of other people.",
+            "summary": "This text exposes colleagues' names, the confidential Aurora project and its internal release deadline.",
+            "modalTitle": "Typed prompts must protect workplace information too.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
               {
                 "type": "risk",
                 "mark": "!",
                 "title": "People and roles",
-                "text": "Names, titles and departments can reveal identity."
+                "text": "Real names and reporting relationships expose information about your colleagues."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Confidential information exposure",
-                "text": "Internal project details, tasks and decisions could unintentionally expose sensitive business information."
+                "title": "Confidential project data",
+                "text": "The project name, purpose and release timing may be private business information."
               },
               {
                 "type": "risk",
                 "mark": "!",
-                "title": "Phishing",
-                "text": "Someone could use these details to create convincing emails that appear to come from your managers."
+                "title": "Social engineering",
+                "text": "These details could help someone impersonate a manager or send a convincing project-related phishing message."
               }
             ],
-            "remember": "Your text should also respect the privacy of others."
+            "remember": "Describe the communication goal without real names, project names or internal deadlines.",
+            "learning": [
+              "Never provide colleagues' real names because they can lead to impersonation and targeted social engineering.",
+              "Never provide confidential project names or product details because they can lead to corporate fraud or espionage.",
+              "Do not provide internal release dates or review schedules because they can lead to targeted business scams."
+            ]
           }
         },
         {
           "label": "OPTION B",
-          "text": "Here is the full email thread with names, internal project details and the decision history. Can you rewrite my reply.",
+          "text": "Full email thread.",
           "document": "mail",
           "score": 0,
           "feedback": {
             "key": "risky",
             "label": "NOT SAFE",
-            "summary": "A full work thread can expose colleagues, internal decisions, project timelines and confidential business context.",
+            "summary": "The full email thread exposes sender and recipient names, email addresses, client name, project code, budget, internal links and deadlines.",
             "modalTitle": "Full email threads leak workplace context.",
             "lessonLabel": "PRIVACY LESSON - OPTION B",
             "points": [
@@ -512,18 +568,23 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "Someone could use these details to create convincing emails that appear to come from your colleagues."
               }
             ],
-            "remember": "Never share real workplace threads with AI."
+            "remember": "Never paste a full internal email thread into AI.",
+            "learning": [
+              "Never provide colleagues' names, email addresses or signatures because these fields can lead to impersonation and phishing.",
+              "Never provide confidential project details, decisions or deadlines because they can lead to corporate fraud or espionage.",
+              "Never provide email-thread metadata because it can reveal workplace relationships and lead to targeted social engineering."
+            ]
           }
         },
         {
           "label": "OPTION C",
-          "text": "I pasted the Slack conversation that led to the decision so you can help me draft a reply.",
-          "document": "chat",
+          "text": "Review and redact a copy before sharing.",
+          "document": "edit",
           "score": 10,
           "feedback": {
             "key": "caution",
             "label": "ALMOST",
-            "summary": "Better - Sharing partial chat helps context, but still exposes internal decisions and relationship context.",
+            "summary": "The reviewed work email must hide participant names, email addresses, client name, project code, budget and internal workspace links.",
             "modalTitle": "Even partial chat logs can still expose workplace context.",
             "lessonLabel": "PRIVACY LESSON - OPTION C",
             "points": [
@@ -546,8 +607,16 @@ window.PRIVACYGUARD_SCENARIOS = {
                 "text": "If confidential information is leaked, it could damage your reputation and trust, or lead to financial or legal consequences."
               }
             ],
-            "remember": "Summarize the workplace situation without pasting real conversations."
-          }
+            "remember": "Summarize the workplace situation without pasting real conversations.",
+            "learning": [
+              "Remove colleagues' names and account details because these fields can lead to impersonation and phishing.",
+              "Remove internal decisions, project names and timelines because they can lead to corporate fraud or espionage.",
+              "Remove copied chat metadata because it can reveal workplace relationships and lead to targeted social engineering."
+            ]
+          },
+          "interaction": "redact-document",
+          "documentProfile": "work-email",
+          "documentTitle": "work email"
         }
       ]
     }
