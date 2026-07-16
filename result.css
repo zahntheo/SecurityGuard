@@ -224,6 +224,43 @@
   margin-top: 32px;
 }
 
+.scenario-log-tutorial-note {
+  width: fit-content;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -6px 0 14px;
+  padding: 8px 12px;
+  border: 1px solid #dcd5ff;
+  border-radius: 999px;
+  background: #f1eeff;
+  color: #5f48ce;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.scenario-log-tutorial-note span {
+  font-size: 15px;
+}
+
+.scenario-log.is-log-tutorial-active .scenario-log-tutorial-note {
+  animation: scenario-log-note-in 500ms ease forwards;
+}
+
+.scenario-log.is-log-tutorial-leaving .scenario-log-tutorial-note {
+  animation: scenario-log-note-out 500ms ease forwards;
+}
+
+.scenario-log.is-log-tutorial-active .log-card:first-child {
+  z-index: 2;
+  animation: scenario-log-card-pulse 1200ms ease-in-out 650ms 3;
+}
+
 .log-list {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -261,6 +298,43 @@
 .log-card.safe { border-color: #d6fbf0; }
 .log-card.caution { border-color: #fef3c7; }
 .log-card.risky { border-color: #fee2e2; }
+
+@keyframes scenario-log-note-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scenario-log-note-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes scenario-log-card-pulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: none;
+  }
+
+  50% {
+    transform: translateY(-4px) scale(1.035);
+    box-shadow: 0 0 0 4px rgba(123, 97, 255, 0.18), 0 14px 30px rgba(14, 23, 38, 0.14);
+  }
+}
 
 .log-icon {
   width: 34px;
@@ -529,4 +603,25 @@
   .history-modal-backdrop { padding: 2vh 0 0; }
   .history-modal { width: 100%; max-height: 98dvh; border-radius: 18px 18px 0 0; }
   .history-message.user, .history-message.ai { margin: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scenario-log.is-log-tutorial-active .scenario-log-tutorial-note,
+  .scenario-log.is-log-tutorial-leaving .scenario-log-tutorial-note {
+    animation: none;
+  }
+
+  .scenario-log.is-log-tutorial-active .scenario-log-tutorial-note {
+    opacity: 1;
+    transform: none;
+  }
+
+  .scenario-log.is-log-tutorial-leaving .scenario-log-tutorial-note {
+    opacity: 0;
+  }
+
+  .scenario-log.is-log-tutorial-active .log-card:first-child {
+    animation: none;
+    box-shadow: 0 0 0 3px rgba(123, 97, 255, 0.22);
+  }
 }

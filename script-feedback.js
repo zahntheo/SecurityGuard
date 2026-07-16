@@ -531,6 +531,40 @@ function openScenarioHistory(resultIndex) {
   modal.querySelector("[data-close-history]")?.focus();
 }
 
+function startScenarioLogTutorial() {
+  const scenarioLog = document.querySelector("[data-scenario-log-tutorial]");
+  if (!scenarioLog) return;
+
+  let hasStarted = false;
+  const showTutorial = () => {
+    if (hasStarted) return;
+    hasStarted = true;
+    scenarioLog.classList.add("is-log-tutorial-active");
+
+    window.setTimeout(() => {
+      scenarioLog.classList.add("is-log-tutorial-leaving");
+    }, 5600);
+
+    window.setTimeout(() => {
+      scenarioLog.classList.remove("is-log-tutorial-active", "is-log-tutorial-leaving");
+      scenarioLog.querySelector(".scenario-log-tutorial-note")?.remove();
+    }, 6300);
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    showTutorial();
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    observer.disconnect();
+    window.setTimeout(showTutorial, 350);
+  }, { threshold: 0.5 });
+
+  observer.observe(scenarioLog);
+}
+
 function finish() {
   const grade = gradeForScore(score);
   const totalMaxScore = maxScore();
@@ -582,16 +616,21 @@ function finish() {
         </div>
       </section>
       <section class="result-advice" aria-labelledby="advice-title">
-        <h3 class="result-section-title" id="advice-title">Advice for this game</h3>
+        <h3 class="result-section-title" id="advice-title">Advices</h3>
         <div class="advice-list">${advice}</div>
       </section>
-      <section class="scenario-log" aria-labelledby="scenario-log-title">
+      <section class="scenario-log" data-scenario-log-tutorial aria-labelledby="scenario-log-title">
         <h3 class="result-section-title" id="scenario-log-title">Scenario log</h3>
+        <p class="scenario-log-tutorial-note">
+          <span aria-hidden="true">↘</span>
+          Click a scenario to review your choices and feedback.
+        </p>
         <div class="log-list">${logs}</div>
       </section>
     </section>
     <footer class="complete-actions"><button class="exit-game-button" type="button" data-exit-game>Exit Game</button></footer>
   `;
+  startScenarioLogTutorial();
   downloadResultLog(grade, totalMaxScore, scoreProgress);
 }
 
