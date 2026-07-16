@@ -280,21 +280,20 @@ body {
 }
 
 .advice-list {
-  gap: clamp(16px, 1.5vmin, 56px);
+  gap: clamp(10px, 1vmin, 38px);
 }
 
 .advice-card {
-  min-height: clamp(170px, 14vmin, 520px);
-  gap: clamp(20px, 1.8vmin, 68px);
-  padding: clamp(24px, 2.3vmin, 88px) clamp(26px, 2.5vmin, 96px);
-  border-radius: clamp(18px, 1.6vmin, 58px);
+  gap: clamp(12px, 1.2vmin, 44px);
+  padding: clamp(14px, 1.5vmin, 56px) clamp(16px, 1.7vmin, 64px);
+  border-radius: clamp(12px, 1.2vmin, 44px);
 }
 
 .advice-number {
-  width: clamp(58px, 5vmin, 180px);
-  height: clamp(58px, 5vmin, 180px);
-  border-radius: clamp(14px, 1.3vmin, 48px);
-  font-size: clamp(22px, 2vmin, 72px);
+  width: clamp(30px, 3vmin, 108px);
+  height: clamp(30px, 3vmin, 108px);
+  border-radius: clamp(8px, 0.8vmin, 30px);
+  font-size: clamp(12px, 1.1vmin, 40px);
 }
 
 .result-advice .result-section-title {
