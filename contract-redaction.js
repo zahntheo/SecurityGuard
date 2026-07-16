@@ -711,9 +711,10 @@ function gradeContractRedaction() {
   };
   const visibleFieldNames = missedSensitive.map((field) => field.label.toLowerCase());
   const hiddenFieldNames = redactedSensitive.map((field) => field.label.toLowerCase());
+  const documentName = activeRedactionProfile.title.toLowerCase();
   const detailedSummary = missedSensitive.length
-    ? `Still visible: ${visibleFieldNames.join(", ")}.`
-    : `Hidden successfully: ${hiddenFieldNames.join(", ")}.`;
+    ? `The edited ${documentName} still exposes ${visibleFieldNames.join(", ")}.`
+    : `You kept only information relevant to the ${documentName} and removed sensitive information such as ${hiddenFieldNames.join(", ")}. Well done, keep going!`;
 
   return {
     key,

@@ -18,7 +18,7 @@
           "feedback": {
             "key": "safe",
             "label": "SAFE",
-            "summary": "You shared the monthly price, contract term, data allowance, roaming and fees without sharing your name, address, customer number, IBAN or signature.",
+            "summary": "You shared only information relevant to the phone contract without sensitive information such as your IBAN, customer number or signature. Well done, keep going!",
             "modalTitle": "Phone contract help only needs key terms.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
@@ -138,7 +138,7 @@
           "feedback": {
             "key": "safe",
             "label": "SAFE",
-            "summary": "You shared the rent, income range, employment type and move-in date without sharing your name, address, ID number or IBAN.",
+            "summary": "You shared only information relevant to the rental application without sensitive information such as your home address, ID number or IBAN. Well done, keep going!",
             "modalTitle": "Rental application advice can work from summary facts.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
@@ -257,7 +257,7 @@
           "feedback": {
             "key": "safe",
             "label": "SAFE",
-            "summary": "You shared the loan amount, APR, term, monthly payment and fees without sharing your name, address, customer ID, IBAN, credit score or account balance.",
+            "summary": "You shared only information relevant to the loan offer without sensitive information such as your IBAN, customer ID, credit score or account balance. Well done, keep going!",
             "modalTitle": "Loan review can work from key terms.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [

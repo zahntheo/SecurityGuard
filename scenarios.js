@@ -18,7 +18,7 @@ window.PRIVACYGUARD_SCENARIOS = {
           "feedback": {
             "key": "safe",
             "label": "SAFE",
-            "summary": "Nice - you shared the details needed to compare the contract without exposing your full identity package.",
+            "summary": "You shared only information relevant to the phone contract without sensitive information such as your IBAN, customer number or signature. Well done, keep going!",
             "modalTitle": "Phone contract help only needs key terms.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
@@ -237,7 +237,7 @@ window.PRIVACYGUARD_SCENARIOS = {
           "feedback": {
             "key": "safe",
             "label": "SAFE",
-            "summary": "Nice - the AI can compare the loan terms from the numbers without seeing the full financial document.",
+            "summary": "You shared only information relevant to the loan offer without sensitive information such as your IBAN, customer ID, credit score or account balance. Well done, keep going!",
             "modalTitle": "Loan review can work from key terms.",
             "lessonLabel": "PRIVACY LESSON - OPTION A",
             "points": [
